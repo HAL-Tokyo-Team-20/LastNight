@@ -8,6 +8,8 @@ public class SimplePlayerController : MonoBehaviour
     [Range(0.1f,10.0f)]
     public float MoveSpeed = 1.0f;
 
+    public bool LockMove = false;
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -23,8 +25,6 @@ public class SimplePlayerController : MonoBehaviour
     {
         Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,0);
 
-        SetFlip(moveDirection.x);
-
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
             animator.SetBool("Running", true);
@@ -34,7 +34,11 @@ public class SimplePlayerController : MonoBehaviour
             animator.SetBool("Running", false);
         }
 
-        transform.position += moveDirection * MoveSpeed *  Time.deltaTime;
+        if (!LockMove)
+        {
+            SetFlip(moveDirection.x);
+            transform.position += moveDirection * MoveSpeed * Time.deltaTime;
+        }
 
     }
 
