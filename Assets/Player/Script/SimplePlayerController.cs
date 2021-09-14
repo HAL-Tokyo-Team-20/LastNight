@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SimplePlayerController : MonoBehaviour
+{
+
+    [Range(0.1f,10.0f)]
+    public float MoveSpeed = 1.0f;
+
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,0);
+
+        SetFlip(moveDirection.x);
+
+        if (!(moveDirection.x == 0 && moveDirection.y == 0))
+        {
+            animator.SetBool("Running", true);
+        }
+        else
+        {
+            animator.SetBool("Running", false);
+        }
+
+        transform.position += moveDirection * MoveSpeed *  Time.deltaTime;
+
+    }
+
+    void SetFlip(float x)
+    {
+        if (x > 0) spriteRenderer.flipX = false;
+        else if (x < 0) spriteRenderer.flipX = true;
+        else return;
+    }
+}
