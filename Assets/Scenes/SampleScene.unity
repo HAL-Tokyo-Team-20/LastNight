@@ -662,6 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 653260038}
   - component: {fileID: 653260036}
+  - component: {fileID: 653260039}
   m_Layer: 0
   m_Name: GL_Volume
   m_TagString: Untagged
@@ -701,6 +702,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653260039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653260035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0925e7cee7b48d642aad7e68166017e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &891786151
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,9 +887,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982542155}
-  m_LocalRotation: {x: 0, y: -0.013089582, z: -0, w: 0.99991435}
+  m_LocalRotation: {x: -0, y: -0.013089582, z: -0, w: 0.99991435}
   m_LocalPosition: {x: -0.66, y: 1, z: -0.77333325}
-  m_LocalScale: {x: 15, y: 2, z: 2.6636245}
+  m_LocalScale: {x: 15, y: 2, z: 2.6636248}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007205161}

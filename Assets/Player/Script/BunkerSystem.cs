@@ -52,7 +52,7 @@ public class BunkerSystem : MonoBehaviour
                 in_bunker = true;
                 EnterPosition = transform.position;
                 transform.DOMove(bunkerPoint.transform.position, EnterTime).OnComplete(() => spriteRenderer.flipX = true);
-                cm_player.GetCinemachineComponent<CinemachineTransposer>().FollowOffset_DOVector3(new Vector3(1.2f,0.9f,-5f),0.75f).SetEase(Ease.Linear);
+                cm_player.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f,0.9f,-5f),0.75f).SetEase(Ease.Linear);
                 animator.SetBool("Hiding", true);
             }
             else if (in_bunker)
@@ -60,7 +60,7 @@ public class BunkerSystem : MonoBehaviour
                 in_bunker = false;
                 spriteRenderer.flipX = false;
                 transform.DOMove(EnterPosition, EnterTime).OnComplete(ExitBunker);
-                cm_player.GetCinemachineComponent<CinemachineTransposer>().FollowOffset_DOVector3(new Vector3(0.5f, 0.9f, -5f), 0.75f).SetEase(Ease.Linear);
+                cm_player.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(0.5f, 0.9f, -5f), 0.75f).SetEase(Ease.Linear);
                 animator.SetBool("Hiding", false);
             }
 
