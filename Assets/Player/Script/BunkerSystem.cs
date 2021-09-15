@@ -9,11 +9,13 @@ public class BunkerSystem : MonoBehaviour
 {
 
     public KeyCode ActiveKey = KeyCode.E;
-    
-    [Range(0.1f,1.0f)]
+
+    [Range(0.1f, 1.0f)]
     public float EnterTime = 0.5f;
     [HideInInspector]
-    public bool in_bunker = false;
+    public bool in_bunker { get; set; }
+    [HideInInspector]
+    public bool headout { get; set; }
 
     private HashSet<GameObject> bunkerSet;
 
@@ -37,6 +39,7 @@ public class BunkerSystem : MonoBehaviour
     void Update()
     {
 
+        // TODO: Support multi Bunker
         if (Input.GetKeyDown(ActiveKey) && bunkerSet.Count == 1)
         {
             simplePlayerController.LockMove = true;
@@ -57,7 +60,6 @@ public class BunkerSystem : MonoBehaviour
             }
             else if (in_bunker)
             {
-                in_bunker = false;
                 spriteRenderer.flipX = false;
                 transform.DOMove(EnterPosition, EnterTime).OnComplete(ExitBunker);
                 cm_player.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(0.5f, 0.9f, -5f), 0.75f).SetEase(Ease.Linear);
@@ -86,5 +88,6 @@ public class BunkerSystem : MonoBehaviour
     private void ExitBunker()
     {
         simplePlayerController.LockMove = false;
+        in_bunker = false;
     }
 }

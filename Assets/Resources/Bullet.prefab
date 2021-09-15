@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8309503201535454860}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveDistance: 6
   DestroyTime: 1
+  Right: 1
 --- !u!65 &8309503201535454860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -227,5 +228,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 2.0000002, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000002, y: 2.0000002, z: 6.672147}
+  m_Center: {x: 0, y: -0, z: 0.64876914}

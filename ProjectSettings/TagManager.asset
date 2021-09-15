@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bunker
   - Player_Camera
+  - Bullet
+  - SwitchArea
   layers:
   - Default
   - TransparentFX
