@@ -28,7 +28,7 @@ public class PlayerAttackBehavior : MonoBehaviour
     void Update()
     {
 
-        // 遮蔽体外にいる
+        // OutSide Bunker
         if (!bunkerSystem.in_bunker)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -38,32 +38,32 @@ public class PlayerAttackBehavior : MonoBehaviour
             }
         }
 
-        // 遮蔽体内にいる
+        // InSide Bunker
         else if (bunkerSystem.in_bunker)
         {
-            // 頭を外に
+            // HeadOut
             if (Input.GetKey(KeyCode.R) && !bunkerSystem.headout)
             {
-                // TODO: アニメーション追加
+                // TODO: Add Animation
                 bunkerSystem.headout = true;
                 spriteRenderer.flipX = false;
                 transform.DOLocalRotate(new Vector3(-25,0,0), headout_time);
                 player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.7f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
             }
-            // 頭を隠す
+            // HeadIn
             else if (Input.GetKeyUp(KeyCode.R) && bunkerSystem.headout)
             {
-                // TODO: アニメーション追加
+                // TODO: Add Animation
                 bunkerSystem.headout = false;
                 transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time).OnComplete(() => spriteRenderer.flipX = true);
                 player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
             }
-            // 頭を外にいる場合射撃可能
+
             if (bunkerSystem.headout)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // TODO: アニメーション追加
+                    // TODO: Add Animation
                     bullet_object.GetComponent<Bullet>().Right = true;
                     Instantiate(bullet_object, transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, 0, 90));
                 }

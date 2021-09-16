@@ -7,42 +7,30 @@ using DG.Tweening;
 public class EnemyBehavior : MonoBehaviour
 {
 
+    protected int hp = 3;
     private SpriteRenderer spriteRenderer;
-    private VisualEffect vfx;
-    private int hp = 3;
 
-    // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        vfx = transform.GetChild(0).GetComponent<VisualEffect>();
-        vfx.Stop();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void BeAttack()
     {
-        if (hp <= 0)
-        {
-            spriteRenderer.enabled = false;
-            vfx.Play();
-            StartCoroutine(DelayDestroy());
-        }
+        // TODO: 弾丸連続当たるとカラー戻れないバグあり
+        spriteRenderer.material.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
+        hp--;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void Dead()
     {
-        if (other.CompareTag("Bullet"))
-        {
-            // TODO: 弾丸連続当たるとカラー戻れないバグあり
-            spriteRenderer.material.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
-            hp--;
-        }
+        spriteRenderer.enabled = false;
+        StartCoroutine(DelayDestroy(1.5f));
     }
 
-    IEnumerator DelayDestroy()
+    private IEnumerator DelayDestroy(float duration)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(duration);
         Destroy(gameObject);
     }
 }

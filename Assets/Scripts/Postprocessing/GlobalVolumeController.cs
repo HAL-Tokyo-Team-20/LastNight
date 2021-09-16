@@ -18,7 +18,6 @@ public class GlobalVolumeController : UnitySingleton<GlobalVolumeController>
         volume.profile.TryGet<DepthOfField>(out dof);
     }
 
-    // ”íÊŠE[“xÅ“_‹——£•ÎˆÚ
     public void ShiftFocusDistance(float target_distance,float duration)
     {
         if (dof && dof.active)
@@ -26,8 +25,6 @@ public class GlobalVolumeController : UnitySingleton<GlobalVolumeController>
         else
             Debug.LogWarning("Depth Of Field in GlobalVolume Not be Active ! ");
     }
-
-    // ”íÊŠE[“xÅ“_”ÍˆÍ•ÎˆÚ
     public void ShiftFocalLength(float focallength,float duration)
     {
         if (dof && dof.active && (focallength >= 1 && focallength <= 300))
@@ -35,8 +32,6 @@ public class GlobalVolumeController : UnitySingleton<GlobalVolumeController>
         else
             Debug.LogWarning("Depth Of Field in GlobalVolume Problem ! ");
     }
-
-    // ”íÊŠE[“xi‚è•ÎˆÚ
     public void ShiftAperture(float aperture,float duration)
     {
         if (dof && dof.active && (aperture >= 1 && aperture <= 32))
