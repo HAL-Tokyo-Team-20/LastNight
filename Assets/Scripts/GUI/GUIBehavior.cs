@@ -8,13 +8,17 @@ public class GUIBehavior : MonoBehaviour
 {
 
     public KeyCode Active_Key = KeyCode.Z;
-    public float Slipout_duration = 0.5f;
+
+    [Header("Duration")]
+    [Range(0.1f,3.0f)] public float Slipout_duration = 0.5f;
+    [Range(0.1f,3.0f)] public float Fade_duration = 0.5f;
+
+    [Header("Object List")]
     public List<Image> Menu_ImageList;
 
     private bool slipouted = false;
     private Vector2 canvans_WH = Vector2.zero;
 
-    private Tweener slip_tweener;
 
     private void Awake()
     {
@@ -23,29 +27,33 @@ public class GUIBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(Active_Key))
-        {
-            UIImgae_Slip(canvans_WH.x,Menu_ImageList,Slipout_duration);
-        }
+        
     }
 
     protected void UIImgae_Slip(float destnation_point ,List<Image> image_list,float duration)
     {
         var slip = slipouted ? slipouted = false : slipouted = true;
 
-        float dest = 0.0f;
+        float pos_dest = 0.0f;
+        float fade_dest = 1.0f;
+
         if (slip)
         {
-            dest = destnation_point - (image_list[0].rectTransform.sizeDelta.x / 2);
+            pos_dest = destnation_point - (image_list[0].rectTransform.sizeDelta.x / 2);
+            fade_dest = 1.0f;
         }
         else if (!slip)
         {
-            dest = destnation_point + (image_list[0].rectTransform.sizeDelta.x / 2);
+            pos_dest = destnation_point + (image_list[0].rectTransform.sizeDelta.x / 2);
+            fade_dest = 0.0f;
         }
 
         foreach (Image img in image_list)
         {
-            slip_tweener = img.rectTransform.DOMoveX(dest, duration).SetEase(Ease.Linear);
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(img.rectTransform.DOMoveX(pos_dest, duration).SetEase(Ease.Linear));
+            sequence.Join(img.DOFade(fade_dest, Fade_duration));
+
         }
     }
 }
