@@ -1,3 +1,5 @@
+
+// 敌人FSM状态机枚举
 public enum EnemyFSMState
 {
     //待机
@@ -8,4 +10,12 @@ public enum EnemyFSMState
     AttackPlayer,
     //死亡
     Dead,
+}
+
+// SkyCar的移动方向枚举
+public enum MoveDirEnum
+{
+    Left,
+    Right,
+    Forward,
 }
