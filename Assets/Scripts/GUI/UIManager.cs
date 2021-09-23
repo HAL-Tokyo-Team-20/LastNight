@@ -48,12 +48,14 @@ public class UIManager : UnitySingleton<UIManager>
         Sequence sequence = DOTween.Sequence();
 
         ActiveBlackframe(true);
+
+        // Text
         sequence.Append(info_text.rectTransform.DOLocalMoveY(450.0f, 0.5f));
         sequence.Insert(1.2f,info_text.DOText("Stage Name",2.0f).SetEase(Ease.Linear).OnComplete(() => {
             StartCoroutine(MyTimer.Wait(() =>
             {
                 ActiveBlackframe(false);
-                info_text.rectTransform.DOLocalMoveY(600.0f, 2.0f);
+                info_text.rectTransform.DOLocalMoveY(600.0f, 2.0f).OnComplete(() => info_text.text = "") ;
             }, 2.0f));
         }));
 

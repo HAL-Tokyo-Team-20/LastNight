@@ -1615,18 +1615,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8097080501267911003, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: transitionTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8097080501267911003, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: DelayActiveTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8097080501267911003, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: TransitionAuto_LoadFinish
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3072869769946510450, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1669,18 +1657,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3072869769946510450, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3613817258265551579, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 3613817258265551579, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5146686086638047612, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5211609668137805430, guid: 6c4975d251936624aa1f360ef4aae9c6, type: 3}
