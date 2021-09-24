@@ -8,6 +8,7 @@ TagManager:
   - Player_Camera
   - Bullet
   - SwitchArea
+  - LevelLoader
   layers:
   - Default
   - TransparentFX
