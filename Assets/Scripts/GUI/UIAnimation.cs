@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class UIAnimation : MonoBehaviour
 {
-    // Show window
+
     protected void WindowPop(RectTransform rect,Vector2 size,float duration)
     {
         // Open
@@ -24,4 +24,6 @@ public class UIAnimation : MonoBehaviour
                 .OnComplete(() => rect.gameObject.SetActive(false));
         }
     }
+
+
 }
