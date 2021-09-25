@@ -8,7 +8,7 @@ public class TitleManager : UIAnimation
 {
 
     // UI Object Index In Canvas
-    private enum UI_Object
+    private enum UI_ObjectEnum
     {
         Img_Background,
         Img_Logo,
@@ -16,18 +16,21 @@ public class TitleManager : UIAnimation
         Img_Quit,
         Text_Start,
         Img_Window,
+        END,
     }
 
     private LevelLoader levelLoader;
-    private Text text_start;
-    private RectTransform img_window;
+    [SerializeField] private List<RectTransform> UI_Object;
 
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
+        {
+            UI_Object.Add(transform.GetChild(i).GetComponent<RectTransform>());
+        }
+
         levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
-        text_start = transform.GetChild((int)UI_Object.Text_Start).GetComponent<Text>();
-        img_window = transform.GetChild((int)UI_Object.Img_Window).GetComponent<RectTransform>();
 
         TweenEventInStart();
     }
@@ -44,12 +47,12 @@ public class TitleManager : UIAnimation
 
     private void TweenEventInStart()
     {
-        text_start.DOFade(0.0f, 2.0f).SetLoops(-1, LoopType.Yoyo);
+        UI_Object[(int)UI_ObjectEnum.Text_Start].gameObject.GetComponent<Text>().DOFade(0.0f, 2.0f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void SettingButtonEvent()
     {
-        WindowPop(img_window,new Vector2(900,600),0.25f);
+        WindowPop(UI_Object[(int)UI_ObjectEnum.Img_Window], new Vector2(900,600),0.25f);
     }
 
     public void QuitButtonEvent()
