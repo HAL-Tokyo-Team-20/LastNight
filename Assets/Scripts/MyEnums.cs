@@ -25,3 +25,10 @@ public enum EnemyType
 {
 
 }
+
+// 義肢类型枚举
+public enum ProstheticType
+{
+    One,
+    Two,
+}
