@@ -19,3 +19,9 @@ public enum MoveDirEnum
     Right,
     Forward,
 }
+
+// 敌人类型枚举
+public enum EnemyType
+{
+
+}
