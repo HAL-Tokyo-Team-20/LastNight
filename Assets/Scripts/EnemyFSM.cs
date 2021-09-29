@@ -22,7 +22,7 @@ public class EnemyFSM : MonoBehaviour
     {
         state = EnemyFSMState.Idle;
         animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObjectMgr.Instance.GetGameObject("Player");
     }
 
     void Update()

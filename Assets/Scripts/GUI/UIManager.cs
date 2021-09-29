@@ -6,26 +6,32 @@ using DG.Tweening;
 
 public class UIManager : UnitySingleton<UIManager>
 {
+    private enum UI_ObjectEnum
+    {
+        Text_Hint,
+        BlackFrame,
+        Text_Info,
+        END,
+    }
 
-    private Text hint_text;
-    private Text info_text;
+    [SerializeField] private List<RectTransform> UI_Object;
     private Animator blackframe_animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        hint_text = transform.GetChild(0).GetComponent<Text>();
-        info_text = transform.GetChild(2).GetComponent<Text>();
+        for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
+        {
+            UI_Object.Add(transform.GetChild(i).GetComponent<RectTransform>());
+        }
+
         blackframe_animator = transform.GetChild(1).GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ShowStageInfo();
-        }
+
     }
 
     public void ActiveBlackframe(bool active)
@@ -33,15 +39,16 @@ public class UIManager : UnitySingleton<UIManager>
         blackframe_animator.SetBool("Active", active);
     }
 
-    public void SetHintText(string str)
-    {
-        hint_text.text = str;
-    }
-
     public Tweener SetHintTextDotween(string str,float duration)
     {
-        return hint_text.DOText(str, duration);
+        Text text_hint = UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>();
+
+        text_hint.gameObject.SetActive(true);
+        text_hint.text = "";
+        return text_hint.DOText(str, duration);
     }
+
+    public GameObject GetHintText() { return UI_Object[(int)UI_ObjectEnum.Text_Hint].gameObject; }
 
     public void ShowStageInfo()
     {
@@ -50,12 +57,12 @@ public class UIManager : UnitySingleton<UIManager>
         ActiveBlackframe(true);
 
         // Text
-        sequence.Append(info_text.rectTransform.DOLocalMoveY(450.0f, 0.5f));
-        sequence.Insert(1.2f,info_text.DOText("Stage Name",2.0f).SetEase(Ease.Linear).OnComplete(() => {
+        sequence.Append(UI_Object[(int)UI_ObjectEnum.Text_Info].GetComponent<Text>().rectTransform.DOLocalMoveY(450.0f, 0.5f));
+        sequence.Insert(1.2f, UI_Object[(int)UI_ObjectEnum.Text_Info].GetComponent<Text>().DOText("Stage Name",2.0f).SetEase(Ease.Linear).OnComplete(() => {
             StartCoroutine(MyTimer.Wait(() =>
             {
                 ActiveBlackframe(false);
-                info_text.rectTransform.DOLocalMoveY(600.0f, 2.0f).OnComplete(() => info_text.text = "") ;
+                UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().rectTransform.DOLocalMoveY(600.0f, 2.0f).OnComplete(() => UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().text = "") ;
             }, 2.0f));
         }));
 

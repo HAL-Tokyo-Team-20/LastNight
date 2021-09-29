@@ -27,7 +27,7 @@ public class SwitchArea : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObjectMgr.Instance.GetGameObject("Player"); ;
         player_camera = GameObject.FindGameObjectWithTag("Player_Camera").GetComponent<CinemachineVirtualCamera>();
         dolly = dolly_camera.GetCinemachineComponent<CinemachineTrackedDolly>();
         uIManager = UIManager.Instance;
@@ -47,7 +47,7 @@ public class SwitchArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             uIManager.ActiveBlackframe(false);
-            uIManager.SetHintText("");
+            uIManager.GetHintText().SetActive(false);
         }
     }
 
@@ -57,7 +57,7 @@ public class SwitchArea : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.B))
             {
-                UIManager.Instance.SetHintText("");
+                uIManager.GetHintText().SetActive(false);
                 player.GetComponent<SimplePlayerController>().LockMove = true;
                 // Change To DollyCamera
                 player_camera.Priority = dolly_camera.Priority - 1;
