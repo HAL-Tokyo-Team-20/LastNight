@@ -27,6 +27,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sprite_ProstheticIcon
+  - m_GUID: 0332f939325399b4eb13d0ad15c24864
+    m_Address: Prosthetic_Icon_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprite_ProstheticIcon
+  - m_GUID: 510be54760853fb43b65cea081307b6b
+    m_Address: Prosthetic_Icon_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprite_ProstheticIcon
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5d363694936cf4696caabec83d83cf, type: 2}
   m_SchemaSet:

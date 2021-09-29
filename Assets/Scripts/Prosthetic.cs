@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prosthetic : MonoBehaviour
+public class Prosthetic
 {
 
     public ProstheticType Type = ProstheticType.One;

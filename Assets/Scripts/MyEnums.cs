@@ -31,5 +31,6 @@ public enum ProstheticType
 {
     One,
     Two,
-
+    Three,
+    Four,
 }

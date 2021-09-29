@@ -10,14 +10,22 @@ public class PlayerAttackBehavior : MonoBehaviour
     [Range(0.1f,1.5f)]
     public float headout_time = 0.5f;
 
+    public Prosthetic prosthetic;
+
     private GameObject bullet_object;
     private SpriteRenderer spriteRenderer;
     private BunkerSystem bunkerSystem;
     private CinemachineVirtualCamera player_camera;
 
+    private void Awake()
+    {
+        prosthetic = new Prosthetic();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         bunkerSystem = GetComponent<BunkerSystem>();
         bullet_object = Resources.Load("Bullet") as GameObject;

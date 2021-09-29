@@ -27,12 +27,22 @@ public class UIManager : UnitySingleton<UIManager>
     private ProstheticType prostheticType = ProstheticType.One;
     private Prosthetic player_prosthetic;
 
+
+    private void Awake()
+    {
+        // Load Asset
+        Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
+    }
+
+    void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
+    {
+        spriteloadfinish = true;
+        sprite_ProstheticIcon = asyncOperationHandle.Result;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
-        // Load Asset
-        Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
         
         for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
         {
@@ -40,14 +50,8 @@ public class UIManager : UnitySingleton<UIManager>
         }
 
         blackframe_animator = transform.GetChild(1).GetComponent<Animator>();
-        player_prosthetic = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<Prosthetic>();
+        player_prosthetic = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>().prosthetic;
 
-    }
-
-    void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
-    {
-        spriteloadfinish = true;
-        sprite_ProstheticIcon = asyncOperationHandle.Result;
     }
 
     // Update is called once per frame
@@ -63,7 +67,7 @@ public class UIManager : UnitySingleton<UIManager>
 
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
 
-        if (Input.GetKeyDown(KeyCode.E) && (int)prostheticType < (int)ProstheticType.Two) prostheticType++;
+        if (Input.GetKeyDown(KeyCode.E) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
         else if (Input.GetKeyDown(KeyCode.Q) && (int)prostheticType > 0) prostheticType--;
 
         player_prosthetic.Type = prostheticType;
