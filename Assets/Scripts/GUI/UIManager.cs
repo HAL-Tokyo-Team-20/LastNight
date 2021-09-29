@@ -1,37 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using DG.Tweening;
 
 public class UIManager : UnitySingleton<UIManager>
 {
+
     private enum UI_ObjectEnum
     {
         Text_Hint,
         BlackFrame,
         Text_Info,
+        Image_Frame,
         END,
     }
 
     [SerializeField] private List<RectTransform> UI_Object;
     private Animator blackframe_animator;
 
+    private bool spriteloadfinish = false;
+    [SerializeField] private IList<Sprite> sprite_ProstheticIcon;
+
+    private ProstheticType prostheticType = ProstheticType.One;
+    private Prosthetic player_prosthetic;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        // Load Asset
+        Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
+        
         for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
         {
             UI_Object.Add(transform.GetChild(i).GetComponent<RectTransform>());
         }
 
         blackframe_animator = transform.GetChild(1).GetComponent<Animator>();
+        player_prosthetic = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<Prosthetic>();
+
+    }
+
+    void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
+    {
+        spriteloadfinish = true;
+        sprite_ProstheticIcon = asyncOperationHandle.Result;
     }
 
     // Update is called once per frame
     void Update()
     {
+        SelectProsthetic();
+    }
 
+    private void SelectProsthetic()
+    {
+
+        if (!spriteloadfinish) return;
+
+        Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
+
+        if (Input.GetKeyDown(KeyCode.E) && (int)prostheticType < (int)ProstheticType.Two) prostheticType++;
+        else if (Input.GetKeyDown(KeyCode.Q) && (int)prostheticType > 0) prostheticType--;
+
+        player_prosthetic.Type = prostheticType;
+        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
     }
 
     public void ActiveBlackframe(bool active)
