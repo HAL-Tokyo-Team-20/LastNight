@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
 using Cinemachine.Extension;
 using DG.Tweening;
@@ -12,13 +14,22 @@ public class PlayerAttackBehavior : MonoBehaviour
 
     public Prosthetic prosthetic;
 
+
+    private bool objectloadfinish = false;
     private GameObject bullet_object;
+
     private SpriteRenderer spriteRenderer;
     private BunkerSystem bunkerSystem;
     private CinemachineVirtualCamera player_camera;
 
     private void Awake()
     {
+        // LoadAsset
+        var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
+        bullet_object = handle.WaitForCompletion();
+        Addressables.Release(handle);
+
+
         prosthetic = new Prosthetic();
     }
 
@@ -28,7 +39,6 @@ public class PlayerAttackBehavior : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         bunkerSystem = GetComponent<BunkerSystem>();
-        bullet_object = Resources.Load("Bullet") as GameObject;
         player_camera = GameObject.FindGameObjectWithTag("Player_Camera").GetComponent<CinemachineVirtualCamera>();
     }
 
