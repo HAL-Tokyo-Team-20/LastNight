@@ -38,12 +38,14 @@ public class UIManager : UnitySingleton<UIManager>
     {
         spriteloadfinish = true;
         sprite_ProstheticIcon = asyncOperationHandle.Result;
+
+        Debug.Log(sprite_ProstheticIcon.Count);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
         for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
         {
             UI_Object.Add(transform.GetChild(i).GetComponent<RectTransform>());
@@ -57,6 +59,7 @@ public class UIManager : UnitySingleton<UIManager>
     // Update is called once per frame
     void Update()
     {
+
         SelectProsthetic();
     }
 
@@ -79,7 +82,7 @@ public class UIManager : UnitySingleton<UIManager>
         blackframe_animator.SetBool("Active", active);
     }
 
-    public Tweener SetHintTextDotween(string str,float duration)
+    public Tweener SetHintTextDotween(string str, float duration)
     {
         Text text_hint = UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>();
 
@@ -98,11 +101,12 @@ public class UIManager : UnitySingleton<UIManager>
 
         // Text
         sequence.Append(UI_Object[(int)UI_ObjectEnum.Text_Info].GetComponent<Text>().rectTransform.DOLocalMoveY(450.0f, 0.5f));
-        sequence.Insert(1.2f, UI_Object[(int)UI_ObjectEnum.Text_Info].GetComponent<Text>().DOText("Stage Name",2.0f).SetEase(Ease.Linear).OnComplete(() => {
+        sequence.Insert(1.2f, UI_Object[(int)UI_ObjectEnum.Text_Info].GetComponent<Text>().DOText("Stage Name", 2.0f).SetEase(Ease.Linear).OnComplete(() =>
+        {
             StartCoroutine(MyTimer.Wait(() =>
             {
                 ActiveBlackframe(false);
-                UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().rectTransform.DOLocalMoveY(600.0f, 2.0f).OnComplete(() => UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().text = "") ;
+                UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().rectTransform.DOLocalMoveY(600.0f, 2.0f).OnComplete(() => UI_Object[(int)UI_ObjectEnum.Text_Hint].GetComponent<Text>().text = "");
             }, 2.0f));
         }));
 
