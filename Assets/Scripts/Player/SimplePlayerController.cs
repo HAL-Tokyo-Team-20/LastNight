@@ -10,6 +10,7 @@ public class SimplePlayerController : MonoBehaviour
 
     public bool LockMove = false;
 
+    public bool SelectedMode { get; set; }// 是否在物体选取模式中
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -18,6 +19,7 @@ public class SimplePlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        SelectedMode = false;
     }
 
     // Update is called once per frame
@@ -26,6 +28,8 @@ public class SimplePlayerController : MonoBehaviour
         // Move 
         Move();
 
+        // 选取模式
+        Select();
     }
 
     private void Move()
@@ -54,5 +58,34 @@ public class SimplePlayerController : MonoBehaviour
         if (x > 0) spriteRenderer.flipX = false;
         else if (x < 0) spriteRenderer.flipX = true;
         else return;
+    }
+
+    private void Select()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SelectedMode = !SelectedMode;
+        }
+        if (SelectedMode)
+        {
+            // 选取模式下
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                SelectItemMgr.Instance.SelectNextItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.J))
+            {
+                SelectItemMgr.Instance.SelectPreItem();
+            }
+            else
+            {
+                SelectItemMgr.Instance.SelectItem();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SelectItemMgr.Instance.Confirm();
+            }
+        }
     }
 }
