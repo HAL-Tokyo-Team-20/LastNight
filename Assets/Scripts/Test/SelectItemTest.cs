@@ -2,27 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectItemTest : MonoBehaviour
+public class SelectItemTest : MonoBehaviour, ISelectItem
 {
-    List<GameObject> list = new List<GameObject>();
-    GameObject player;
 
+    Vector3 playerPos;
     void Start()
     {
-
+        playerPos = GameObjectMgr.Instance.GetGameObject("Player").transform.position;
     }
 
-    void Add()
+    // 继承 ISelectItem 接口的类, 必须实现以下两个东西
+    public bool Selected { get; set; }
+    public bool ConfirmSelected { get; set; }
+    public float DistanceToPlayer()
     {
-        list.Sort(
-            (obj1, obj2) =>
-            {
-                float dist1 = Vector3.Distance(obj1.transform.position, player.transform.position);
-
-                float dist2 = Vector3.Distance(obj2.transform.position, player.transform.position);
-
-                return dist1 <= dist2 ? 1 : -1;
-            }
-        );
+        return Vector3.Distance(transform.position, playerPos);
     }
+
+
+
+    void Update()
+    {
+        if (Selected)
+        {
+            // 选取状态代码, 比如高亮显示
+        }
+        if (ConfirmSelected)
+        {
+            // 实现具体行为, 比如被拉向玩家
+
+
+            this.ConfirmSelected = false;
+        }
+    }
+
+
+
 }
