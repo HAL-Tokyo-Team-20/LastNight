@@ -9,7 +9,7 @@ using DG.Tweening;
 
 public class PlayerAttackBehavior : MonoBehaviour
 {
-    [Range(0.1f,1.5f)]
+    [Range(0.1f, 1.5f)]
     public float headout_time = 0.5f;
 
     public Prosthetic prosthetic;
@@ -39,7 +39,7 @@ public class PlayerAttackBehavior : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         bunkerSystem = GetComponent<BunkerSystem>();
-        player_camera = GameObject.FindGameObjectWithTag("Player_Camera").GetComponent<CinemachineVirtualCamera>();
+        player_camera = GameObjectMgr.Instance.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
     }
 
     // Update is called once per frame
@@ -65,7 +65,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 // TODO: Add Animation
                 bunkerSystem.headout = true;
                 spriteRenderer.flipX = false;
-                transform.DOLocalRotate(new Vector3(-25,0,0), headout_time);
+                transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
                 player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.7f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
             }
             // HeadIn
@@ -88,6 +88,6 @@ public class PlayerAttackBehavior : MonoBehaviour
             }
         }
 
-       
+
     }
 }

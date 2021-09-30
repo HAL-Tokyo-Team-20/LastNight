@@ -9,6 +9,7 @@ public class GameObjectMgr : UnitySingleton<GameObjectMgr>
     private void Awake()
     {
         Objects["Player"] = GameObject.FindGameObjectWithTag("Player");
+        Objects["Player_Camera"] = GameObject.FindGameObjectWithTag("Player_Camera");
     }
 
     public GameObject GetGameObject(string name)
