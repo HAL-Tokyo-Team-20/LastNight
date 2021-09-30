@@ -11,6 +11,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     [SerializeField]
     private VisualEffect vfx;
+
     [SerializeField]
     private VFXExposedProperty vfxProperties;
 
@@ -18,9 +19,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     protected override void Start()
     {
         base.Start();
-
-        vfxProperties = GetComponent<VFXExposedProperty>();
-
+        vfx = GetComponentInChildren<VisualEffect>();
         vfx.Stop();
         isHit = false;
     }
@@ -35,12 +34,10 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         if (isHit)
         {
-            Debug.Log("Hit");
             vfx.Play();
         }
         else
         {
-            Debug.Log("Hit End");
             vfx.Stop();
         }
 
@@ -53,9 +50,33 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             base.BeAttack();
 
-            vfx.gameObject.transform.position = other.gameObject.transform.position +  new Vector3(this.gameObject.transform.localScale.x/5, 0.0f, 0.0f);
-            
-            
+            RaycastHit hit;
+            Physics.SphereCast(other.gameObject.transform.position, 1.0f,
+                new Vector3(other.gameObject.transform.position.x, -other.gameObject.transform.position.y, other.gameObject.transform.position.z),
+                out hit, 2.0f);
+
+            var dir = (other.gameObject.transform.position - this.gameObject.transform.position).normalized;
+            Vector3 bloodVelocity = vfx.GetVector3("BloodVelocity");
+
+            if (dir.x < 0.0f)
+            {
+                if (bloodVelocity.x < 0.0f)
+                {
+                    bloodVelocity.x *= -1;
+                }
+
+                vfx.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+                vfx.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5, 0.0f, 0.0f);
+            }
+            else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
+            {
+                vfx.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+                vfx.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5 * -1, 0.0f, 0.0f);
+            }
+
+            vfx.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y*4.5f, 0.0f));
+
+            Debug.Log(hit.transform.position.y);
 
             isHit = true;
         }
