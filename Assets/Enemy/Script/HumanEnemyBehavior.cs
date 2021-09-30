@@ -12,8 +12,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     protected override void Start()
     {
         base.Start();
-        vfx = transform.GetChild(0).GetComponent<VisualEffect>();
-        vfx.Stop();
+      
     }
 
     // Update is called once per frame
@@ -22,7 +21,6 @@ public class HumanEnemyBehavior : EnemyBehavior
         if (hp <= 0)
         {
             base.Dead();
-            vfx.Play();
         }
     }
 
