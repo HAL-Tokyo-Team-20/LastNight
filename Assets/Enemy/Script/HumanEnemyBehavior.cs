@@ -51,7 +51,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (other.CompareTag("Bullet"))
         {
-            //base.BeAttack();
+            base.BeAttack();
 
             vfx.gameObject.transform.position = other.gameObject.transform.position +  new Vector3(this.gameObject.transform.localScale.x/5, 0.0f, 0.0f);
             
