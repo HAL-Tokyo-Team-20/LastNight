@@ -5,7 +5,7 @@ using UnityEngine;
 public class SimplePlayerController : MonoBehaviour
 {
 
-    [Range(0.1f,10.0f)]
+    [Range(0.1f, 10.0f)]
     public float MoveSpeed = 1.0f;
 
     public bool LockMove = false;
@@ -23,7 +23,14 @@ public class SimplePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0,0);
+        // Move 
+        Move();
+
+    }
+
+    private void Move()
+    {
+        Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
@@ -42,7 +49,7 @@ public class SimplePlayerController : MonoBehaviour
 
     }
 
-    void SetFlip(float x)
+    private void SetFlip(float x)
     {
         if (x > 0) spriteRenderer.flipX = false;
         else if (x < 0) spriteRenderer.flipX = true;
