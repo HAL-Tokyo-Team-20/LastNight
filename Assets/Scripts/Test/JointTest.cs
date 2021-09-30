@@ -6,6 +6,7 @@ public class JointTest : MonoBehaviour
 {
     //HingeJoint2D hingeJoint2D;
     SpringJoint2D springJoint2D;
+    Rigidbody2D rb;
 
     bool isStart = false;
     bool shortDist = false;
@@ -16,6 +17,7 @@ public class JointTest : MonoBehaviour
     {
         springJoint2D = GetComponent<SpringJoint2D>();
         springJoint2D.enabled = false;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class JointTest : MonoBehaviour
             if (shortDist && Input.GetKeyDown(KeyCode.Space))
             {
                 springJoint2D.enabled = false;
+                rb.AddForce(Vector2.right * 50);
             }
         }
         else

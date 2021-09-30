@@ -936,8 +936,8 @@ GameObject:
   - component: {fileID: 1413734247}
   - component: {fileID: 1413734248}
   - component: {fileID: 1413734249}
-  - component: {fileID: 1413734251}
   - component: {fileID: 1413734250}
+  - component: {fileID: 1413734253}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -1087,26 +1087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc329f85b977649835998859e621a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!231 &1413734251
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413734244}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 1172729059}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 6.282555
-  m_DampingRatio: 1
-  m_Frequency: 1
 --- !u!61 &1413734252
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1133,6 +1113,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!231 &1413734253
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413734244}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 1172729059}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 6.282555
+  m_DampingRatio: 1
+  m_Frequency: 1
 --- !u!1 &2003919559
 GameObject:
   m_ObjectHideFlags: 0
