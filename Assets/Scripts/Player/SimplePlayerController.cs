@@ -39,6 +39,7 @@ public class SimplePlayerController : MonoBehaviour
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
             animator.SetBool("Running", true);
+            SoundManager.Instance.Play("FootStep_00");
         }
         else
         {

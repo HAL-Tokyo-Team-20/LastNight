@@ -53,6 +53,7 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 bullet_object.GetComponent<Bullet>().Right = !spriteRenderer.flipX;
                 Instantiate(bullet_object, transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, 0, 90));
+                SoundManager.Instance.Play("GunShot_00",0.1f);
             }
         }
 
@@ -84,6 +85,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                     // TODO: Add Animation
                     bullet_object.GetComponent<Bullet>().Right = true;
                     Instantiate(bullet_object, transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, 0, 90));
+                    SoundManager.Instance.Play("GunShot_00", 0.1f);
                 }
             }
         }
