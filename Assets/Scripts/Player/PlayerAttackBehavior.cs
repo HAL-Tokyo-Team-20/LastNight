@@ -16,6 +16,7 @@ public class PlayerAttackBehavior : MonoBehaviour
 
 
     private bool objectloadfinish = false;
+    [SerializeField]
     private GameObject bullet_object;
 
     private SpriteRenderer spriteRenderer;
@@ -27,7 +28,6 @@ public class PlayerAttackBehavior : MonoBehaviour
         // LoadAsset
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
         bullet_object = handle.WaitForCompletion();
-        Addressables.Release(handle);
 
 
         prosthetic = new Prosthetic();
