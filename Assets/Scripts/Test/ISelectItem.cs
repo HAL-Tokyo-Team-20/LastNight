@@ -8,5 +8,5 @@ public interface ISelectItem
 {
     public bool Selected { get; set; }
     public bool ConfirmSelected { get; set; }
-    public abstract float DistanceToPlayer();
+    public float DistanceToPlayer();
 }

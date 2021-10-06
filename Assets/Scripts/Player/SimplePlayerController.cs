@@ -66,9 +66,11 @@ public class SimplePlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             SelectedMode = !SelectedMode;
+            Debug.Log(SelectedMode);
         }
         if (SelectedMode)
         {
+            SelectItemMgr.Instance.Select();
             // 选取模式下
             if (Input.GetKeyDown(KeyCode.K))
             {

@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class SelectItemMgr : UnitySingleton<SelectItemMgr>
 {
-    public float DistanceToSelect = 5.0f;
+    public float DistanceToSelect = 100.0f;
     List<ISelectItem> items = new List<ISelectItem>();
 
     int currentIndex = 0;
     List<ISelectItem> selectedItems = new List<ISelectItem>();
+
+    public void AddToList(ISelectItem item)
+    {
+        items.Add(item);
+        Debug.Log("items count = " + items.Count);
+    }
 
     public void Select()
     {
@@ -23,21 +29,23 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
                 selectedItems.Add(item);
             }
         }
-        currentIndex = 0;
     }
 
-    public void SelectItem()
+    public void SelectFirstItem()
     {
-        for (int i = 0; i < selectedItems.Count; i++)
+        if (selectedItems.Count == 0)
         {
-            selectedItems[i].Selected = false;
+            return;
         }
-        selectedItems[currentIndex].Selected = true;
+        currentIndex = 0;
     }
 
     public void SelectNextItem()
     {
-        selectedItems[currentIndex].Selected = false;
+        if (selectedItems.Count == 0)
+        {
+            return;
+        }
         // 如果到了最后一个, 则从头开始
         if (currentIndex < selectedItems.Count - 1)
         {
@@ -47,13 +55,14 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
         {
             currentIndex = 0;
         }
-
-        selectedItems[currentIndex].Selected = true;
     }
 
     public void SelectPreItem()
     {
-        selectedItems[currentIndex].Selected = false;
+        if (selectedItems.Count == 0)
+        {
+            return;
+        }
         // 如果到了第一个, 则从尾开始
         if (currentIndex > 0)
         {
@@ -63,7 +72,18 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
         {
             currentIndex = selectedItems.Count - 1;
         }
+    }
 
+    public void SelectItem()
+    {
+        if (selectedItems.Count == 0)
+        {
+            return;
+        }
+        for (int i = 0; i < selectedItems.Count; i++)
+        {
+            selectedItems[i].Selected = false;
+        }
         selectedItems[currentIndex].Selected = true;
     }
 

@@ -5,10 +5,11 @@ using UnityEngine;
 public class SelectItemTest : MonoBehaviour, ISelectItem
 {
 
-    Vector3 playerPos;
+    GameObject player;
     void Start()
     {
-        playerPos = GameObjectMgr.Instance.GetGameObject("Player").transform.position;
+        player = GameObjectMgr.Instance.GetGameObject("Player");
+        SelectItemMgr.Instance.AddToList(this);
     }
 
     // 继承 ISelectItem 接口的类, 必须实现以下两个东西
@@ -16,7 +17,7 @@ public class SelectItemTest : MonoBehaviour, ISelectItem
     public bool ConfirmSelected { get; set; }
     public float DistanceToPlayer()
     {
-        return Vector3.Distance(transform.position, playerPos);
+        return Vector3.Distance(transform.position, player.transform.position);
     }
 
 
@@ -26,12 +27,16 @@ public class SelectItemTest : MonoBehaviour, ISelectItem
         if (Selected)
         {
             // 选取状态代码, 比如高亮显示
+            Debug.Log(transform.gameObject.name);
         }
         if (ConfirmSelected)
         {
             // 实现具体行为, 比如被拉向玩家
+            // transform.localPosition = Vector3.MoveTowards(transform.localPosition, player.transform.position + Vector3.right, Time.deltaTime);
+            transform.position = player.transform.position + Vector3.right;
 
 
+            this.Selected = false;
             this.ConfirmSelected = false;
         }
     }
