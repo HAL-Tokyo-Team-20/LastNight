@@ -12,13 +12,11 @@ public class SimplePlayerController : MonoBehaviour
 
     public bool SelectedMode { get; set; }// 是否在物体选取模式中
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         SelectedMode = false;
     }
 
@@ -56,8 +54,15 @@ public class SimplePlayerController : MonoBehaviour
 
     private void SetFlip(float x)
     {
-        if (x > 0) spriteRenderer.flipX = false;
-        else if (x < 0) spriteRenderer.flipX = true;
+        if (x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+     
         else return;
     }
 

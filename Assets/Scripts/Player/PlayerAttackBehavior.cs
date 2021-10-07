@@ -20,7 +20,9 @@ public class PlayerAttackBehavior : MonoBehaviour
     private GameObject bullet_object;
 
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private BunkerSystem bunkerSystem;
+    private SimplePlayerController playerController;
     private CinemachineVirtualCamera player_camera;
 
     private void Awake()
@@ -39,6 +41,8 @@ public class PlayerAttackBehavior : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         bunkerSystem = GetComponent<BunkerSystem>();
+        playerController = GetComponent<SimplePlayerController>();
+        animator = GetComponent<Animator>();
         player_camera = GameObjectMgr.Instance.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
     }
 
@@ -51,8 +55,9 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                bullet_object.GetComponent<Bullet>().Right = !spriteRenderer.flipX;
-                Instantiate(bullet_object, transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, 0, 90));
+                animator.SetTrigger("Attacking");
+                bullet_object.GetComponent<Bullet>().Right = transform.rotation.y != -180;
+                Instantiate(bullet_object, transform.position + new Vector3(0, 0.85f, 0), Quaternion.Euler(0, 0, 90));
                 SoundManager.Instance.Play("GunShot_00",0.1f);
             }
         }
