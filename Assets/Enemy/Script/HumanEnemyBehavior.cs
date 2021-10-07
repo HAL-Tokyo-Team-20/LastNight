@@ -10,17 +10,24 @@ public class HumanEnemyBehavior : EnemyBehavior
     private bool isHit = false;
 
     [SerializeField]
-    private VisualEffect vfx;
+    private VisualEffect enemyHitVFX;
 
     [SerializeField]
-    private VFXExposedProperty vfxProperties;
+    private VisualEffect enemyDeadVFX;
+
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        vfx = GetComponentInChildren<VisualEffect>();
-        vfx.Stop();
+
+        VisualEffect[] tempVFX = GetComponentsInChildren<VisualEffect>();
+        enemyHitVFX = tempVFX[0];
+        enemyHitVFX.Stop();
+
+        enemyDeadVFX = tempVFX[1];
+        enemyDeadVFX.Stop();
+
         isHit = false;
     }
 
@@ -29,17 +36,22 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (hp <= 0)
         {
+            
+            enemyDeadVFX.Play();
+            StartCoroutine(StopDeadVFX(0.01f));
             base.Dead();
+
         }
 
         if (isHit)
         {
-            vfx.Play();
+            enemyHitVFX.Play();
         }
         else
         {
-            vfx.Stop();
+            enemyHitVFX.Stop();
         }
+
 
     }
 
@@ -56,7 +68,7 @@ public class HumanEnemyBehavior : EnemyBehavior
                 out hit, 2.0f);
 
             var dir = (other.gameObject.transform.position - this.gameObject.transform.position).normalized;
-            Vector3 bloodVelocity = vfx.GetVector3("BloodVelocity");
+            Vector3 bloodVelocity = enemyHitVFX.GetVector3("BloodVelocity");
 
             if (dir.x < 0.0f)
             {
@@ -65,23 +77,24 @@ public class HumanEnemyBehavior : EnemyBehavior
                     bloodVelocity.x *= -1;
                 }
 
-                vfx.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                vfx.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5, 0.0f, 0.0f);
+                enemyHitVFX.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5, 0.0f, 0.0f);
             }
             else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
             {
-                vfx.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                vfx.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5 * -1, 0.0f, 0.0f);
+                enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5 * -1, 0.0f, 0.0f);
             }
 
-            vfx.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y*4.5f, 0.0f));
+            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
+
 
             Debug.Log(hit.transform.position.y);
 
             isHit = true;
         }
-        
-        
+
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -90,6 +103,12 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             isHit = false;
         }
+    }
+
+    private IEnumerator StopDeadVFX(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        enemyDeadVFX.Stop();
     }
 
 }
