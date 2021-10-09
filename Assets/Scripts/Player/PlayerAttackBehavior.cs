@@ -18,8 +18,6 @@ public class PlayerAttackBehavior : MonoBehaviour
     private bool objectloadfinish = false;
     [SerializeField]
     private GameObject bullet_object;
-
-    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BunkerSystem bunkerSystem;
     private SimplePlayerController playerController;
@@ -38,8 +36,6 @@ public class PlayerAttackBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
         bunkerSystem = GetComponent<BunkerSystem>();
         playerController = GetComponent<SimplePlayerController>();
         animator = GetComponent<Animator>();
@@ -56,12 +52,10 @@ public class PlayerAttackBehavior : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 animator.SetTrigger("Attacking");
-                bullet_object.GetComponent<Bullet>().Right = transform.rotation.y != -180;
-                Instantiate(bullet_object, transform.position + new Vector3(0, 0.85f, 0), Quaternion.Euler(0, 0, 90));
-                SoundManager.Instance.Play("GunShot_00",0.1f);
+                Shooting(new Vector3(0f, 0.85f, 0f));
+                SoundManager.Instance.Play("GunShot_00", 0.1f);
             }
         }
-
         // InSide Bunker
         else if (bunkerSystem.in_bunker)
         {
@@ -70,17 +64,20 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 // TODO: Add Animation
                 bunkerSystem.headout = true;
-                spriteRenderer.flipX = false;
-                transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
-                player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.7f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                {
+                    transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
+                    player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.7f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                }
             }
             // HeadIn
             else if (Input.GetKeyUp(KeyCode.R) && bunkerSystem.headout)
             {
                 // TODO: Add Animation
                 bunkerSystem.headout = false;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time).OnComplete(() => spriteRenderer.flipX = true);
-                player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                {
+                    transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time);
+                    player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                }
             }
 
             if (bunkerSystem.headout)
@@ -88,13 +85,28 @@ public class PlayerAttackBehavior : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // TODO: Add Animation
-                    bullet_object.GetComponent<Bullet>().Right = true;
-                    Instantiate(bullet_object, transform.position + new Vector3(0, 0.5f, 0), Quaternion.Euler(0, 0, 90));
+                    Shooting(new Vector3(0f, 0.65f, 0f));
                     SoundManager.Instance.Play("GunShot_00", 0.1f);
                 }
             }
         }
 
-
     }
+
+
+
+    void Shooting(Vector3 offset)
+    {
+        if (playerController.FaceRight)
+        {
+            bullet_object.GetComponent<Bullet>().Right = true;
+            Instantiate(bullet_object, transform.position + offset, Quaternion.Euler(0, 0, 90));
+        }
+        else
+        {
+            bullet_object.GetComponent<Bullet>().Right = false;
+            Instantiate(bullet_object, transform.position + offset, Quaternion.Euler(0, 0, 90));
+        }
+    }
+
 }

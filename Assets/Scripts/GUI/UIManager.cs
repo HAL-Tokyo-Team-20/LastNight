@@ -8,16 +8,6 @@ using DG.Tweening;
 
 public class UIManager : UnitySingleton<UIManager>
 {
-
-    private enum UI_ObjectEnum
-    {
-        Text_Hint,
-        BlackFrame,
-        Text_Info,
-        Image_Frame,
-        END,
-    }
-
     [SerializeField] private List<RectTransform> UI_Object;
     private Animator blackframe_animator;
 
@@ -70,11 +60,12 @@ public class UIManager : UnitySingleton<UIManager>
 
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
 
-        if (Input.GetKeyDown(KeyCode.E) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
-        else if (Input.GetKeyDown(KeyCode.Q) && (int)prostheticType > 0) prostheticType--;
+        if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
+        else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
 
-        player_prosthetic.Type = prostheticType;
-        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        //TODO: bug
+        //player_prosthetic.Type = prostheticType;
+        //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
     }
 
     public void ActiveBlackframe(bool active)

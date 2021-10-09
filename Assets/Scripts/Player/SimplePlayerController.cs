@@ -10,6 +10,8 @@ public class SimplePlayerController : MonoBehaviour
 
     public bool LockMove = false;
 
+    public bool FaceRight = true;
+
     public bool SelectedMode { get; set; }// 是否在物体选取模式中
     private Animator animator;
 
@@ -33,6 +35,15 @@ public class SimplePlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+
+        if (moveDirection.x > 0)
+        {
+            FaceRight = true;
+        }
+        else if (moveDirection.x < 0.0f)
+        {
+            FaceRight = false;
+        }
 
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
@@ -62,7 +73,7 @@ public class SimplePlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-     
+
         else return;
     }
 

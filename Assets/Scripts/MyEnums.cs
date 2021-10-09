@@ -34,3 +34,13 @@ public enum ProstheticType
     Three,
     Four,
 }
+
+// UIType类型枚举
+public enum UI_ObjectEnum
+{
+    Text_Hint,
+    BlackFrame,
+    Text_Info,
+    Image_Frame,
+    END,
+}
