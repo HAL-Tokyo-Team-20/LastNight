@@ -15,11 +15,14 @@ public class SimplePlayerController : MonoBehaviour
     public bool SelectedMode { get; set; }// 是否在物体选取模式中
     private Animator animator;
 
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         SelectedMode = false;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -58,7 +61,11 @@ public class SimplePlayerController : MonoBehaviour
         if (!LockMove)
         {
             SetFlip(moveDirection.x);
-            transform.position += moveDirection * MoveSpeed * Time.deltaTime;
+            //transform
+            //transform.position += moveDirection * MoveSpeed * Time.deltaTime;
+
+            //rigidbody
+            rb.MovePosition(transform.position + moveDirection * MoveSpeed * Time.deltaTime);
         }
 
     }
