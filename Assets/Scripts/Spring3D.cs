@@ -8,13 +8,16 @@ public class Spring3D : MonoBehaviour
     Rigidbody rb;
     public GameObject player;
 
+    public float MaxDist = 0.6f;
+    public float MinDist = 0.2f;
+
     void Start()
     {
         spring = GetComponent<SpringJoint>();
         spring.connectedBody = player.GetComponent<Rigidbody>();
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        spring.maxDistance = dist * 0.6f;
-        spring.minDistance = dist * 0.25f;
+        spring.maxDistance = dist * MaxDist;
+        spring.minDistance = dist * MinDist;
     }
 
     // Update is called once per frame

@@ -19,5 +19,9 @@ public class LineTest : MonoBehaviour
     {
         line.SetPosition(0, start.transform.position);
         line.SetPosition(1, end.transform.position);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(line);
+        }
     }
 }

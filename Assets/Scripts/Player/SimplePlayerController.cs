@@ -113,5 +113,9 @@ public class SimplePlayerController : MonoBehaviour
                 SelectItemMgr.Instance.Confirm();
             }
         }
+        else
+        {
+            SelectItemMgr.Instance.CancelAll();
+        }
     }
 }
