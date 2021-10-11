@@ -75,6 +75,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 // TODO: Add Animation
                 bunkerSystem.headout = false;
                 {
+
                     transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time);
                     player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
                 }
@@ -85,6 +86,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // TODO: Add Animation
+                    animator.SetTrigger("Attacking");
                     Shooting(new Vector3(0f, 0.65f, 0f));
                     SoundManager.Instance.Play("GunShot_00", 0.1f);
                 }

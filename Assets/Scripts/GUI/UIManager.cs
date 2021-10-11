@@ -63,7 +63,7 @@ public class UIManager : UnitySingleton<UIManager>
         if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
         else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
 
-        //TODO: bug
+        // TODO: bug
         //player_prosthetic.Type = prostheticType;
         //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
     }
