@@ -14,8 +14,6 @@ public class PlayerAttackBehavior : MonoBehaviour
 
     public Prosthetic prosthetic;
 
-
-    private bool objectloadfinish = false;
     [SerializeField]
     private GameObject bullet_object;
     private Animator animator;
@@ -85,7 +83,6 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // TODO: Add Animation
                     animator.SetTrigger("Attacking");
                     Shooting(new Vector3(0f, 0.65f, 0f));
                     SoundManager.Instance.Play("GunShot_00", 0.1f);
