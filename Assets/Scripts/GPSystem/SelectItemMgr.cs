@@ -97,7 +97,7 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
     public void Confirm()
     {
         selectedItems[currentIndex].ConfirmSelected = true;
-        
+
     }
 
     public void CancelAll()
@@ -109,6 +109,7 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
         for (int i = 0; i < selectedItems.Count; i++)
         {
             selectedItems[i].Selected = false;
+            selectedItems[i].ConfirmSelected = false;
         }
     }
 

@@ -1,55 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 
-public class SelectItemTest : MonoBehaviour, ISelectItem
+public class SelectItemGP : MonoBehaviour, ISelectItem
 {
-
     private GameObject player;
+    private Transform player_center;
     private UIManager uIManager;
 
-    void Start()
+    private LineGP line;
+
+    private void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
-        uIManager = UIManager.Instance;
         SelectItemMgr.Instance.AddToList(this);
+        player_center = player.transform.Find("center_point");
+        line = GetComponent<LineGP>();
+        uIManager = UIManager.Instance;
     }
 
     // 继承 ISelectItem 接口的类, 必须实现以下两个东西
     public bool Selected { get; set; }
+
     public bool ConfirmSelected { get; set; }
+
     public float DistanceToPlayer()
     {
-        return Vector3.Distance(transform.position, player.transform.position);
+        return Vector3.Distance(transform.position, player_center.transform.position);
     }
 
-
-
-    void Update()
+    private void Update()
     {
         if (Selected)
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+
             uIManager.SetSelectImageActive(true);
             uIManager.MoveSelectImageToTarget(gameObject.transform);
-     
         }
         if (ConfirmSelected)
         {
-            // 实现具体行为, 比如被拉向玩家
-            // transform.localPosition = Vector3.MoveTowards(transform.localPosition, player.transform.position + Vector3.right, Time.deltaTime);
-            //transform.position = player.transform.position + Vector3.right;
-            uIManager.SetSelectImageActive(false);
-            transform.DOMove(player.transform.GetChild(1).position + Vector3.right, 1.5f);
+            // 1. 从玩家向目标点发射钩索
+            // 2. 当钩索到达目标点后, spring 组件开始生效
+            // 3. 按下断开键后, spring 组件和 line 组件失效
+
+            line.Reset();
+            line.IsShoot = true;
 
             this.Selected = false;
             this.ConfirmSelected = false;
+
+            uIManager.SetSelectImageActive(false);
+            player.GetComponent<SimplePlayerController>().SelectedMode = false;
         }
     }
-
-
-
 }

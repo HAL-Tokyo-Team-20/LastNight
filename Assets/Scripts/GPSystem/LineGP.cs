@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineTest : MonoBehaviour
+public class LineGP : MonoBehaviour
 {
     Vector3 end;
     Vector3 current;

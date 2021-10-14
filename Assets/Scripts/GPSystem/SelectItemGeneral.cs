@@ -1,24 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
-public class GrapPoint : MonoBehaviour, ISelectItem
+public class SelectItemGeneral : MonoBehaviour, ISelectItem
 {
-    GameObject player;
-    Spring3D spring;
-    LineTest line;
 
+    private GameObject player;
     private UIManager uIManager;
 
     void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
+        uIManager = UIManager.Instance;
         SelectItemMgr.Instance.AddToList(this);
-
-        spring = GetComponent<Spring3D>();
-        line = GetComponent<LineTest>();
-        spring.enabled = false;
-        line.enabled = false;
 
         uIManager = UIManager.Instance;
     }
@@ -32,25 +28,32 @@ public class GrapPoint : MonoBehaviour, ISelectItem
     }
 
 
+
     void Update()
     {
         if (Selected)
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+
+            uIManager.SetSelectImageActive(true);
             uIManager.MoveSelectImageToTarget(gameObject.transform);
         }
         if (ConfirmSelected)
         {
-            // 实现具体行为
-            // 使脚本生效
-            spring.enabled = true;
-            line.enabled = true;
-
-
+            // 实现具体行为, 比如被拉向玩家
+            // transform.localPosition = Vector3.MoveTowards(transform.localPosition, player.transform.position + Vector3.right, Time.deltaTime);
+            //transform.position = player.transform.position + Vector3.right;
+            transform.DOMove(player.transform.GetChild(1).position + Vector3.right, 1.5f);
 
             this.Selected = false;
             this.ConfirmSelected = false;
+
+            uIManager.SetSelectImageActive(false);
+            player.GetComponent<SimplePlayerController>().SelectedMode = false;
         }
     }
+
+
+
 }

@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectItemGP : MonoBehaviour, ISelectItem
+public class GrapPoint : MonoBehaviour, ISelectItem
 {
     GameObject player;
-    Transform player_center;
+    Spring3D spring;
+    LineGP line;
+
     private UIManager uIManager;
 
-    LineTest line;
     void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
         SelectItemMgr.Instance.AddToList(this);
-        player_center = player.transform.Find("center_point");
-        line = GetComponent<LineTest>();
+
+        spring = GetComponent<Spring3D>();
+        line = GetComponent<LineGP>();
+        spring.enabled = false;
+        line.enabled = false;
+
         uIManager = UIManager.Instance;
     }
 
@@ -23,8 +28,9 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
     public bool ConfirmSelected { get; set; }
     public float DistanceToPlayer()
     {
-        return Vector3.Distance(transform.position, player_center.transform.position);
+        return Vector3.Distance(transform.position, player.transform.position);
     }
+
 
     void Update()
     {
@@ -32,21 +38,24 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+
+            uIManager.SetSelectImageActive(true);
             uIManager.MoveSelectImageToTarget(gameObject.transform);
         }
         if (ConfirmSelected)
         {
-            // 1. 从玩家向目标点发射钩索
-            // 2. 当钩索到达目标点后, spring 组件开始生效
-            // 3. 按下断开键后, spring 组件和 line 组件失效
-
-            line.Reset();
-            line.IsShoot = true;
-
-
 
             this.Selected = false;
             this.ConfirmSelected = false;
+
+            Debug.Log("---------------------------");
+            uIManager.SetSelectImageActive(false);
+            player.GetComponent<SimplePlayerController>().SelectedMode = false;
+
+            // 实现具体行为
+            // 使脚本生效
+            spring.enabled = true;
+            line.enabled = true;
         }
     }
 }
