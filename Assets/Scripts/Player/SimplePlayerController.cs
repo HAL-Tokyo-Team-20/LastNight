@@ -72,11 +72,11 @@ public class SimplePlayerController : MonoBehaviour
 
     private void SetFlip(float x)
     {
-        if (x > 0)
+        if (x > 0 && transform.rotation != Quaternion.Euler(0, 0, 0))
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (x < 0)
+        else if (x < 0 && transform.rotation != Quaternion.Euler(0, 180, 0))
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
