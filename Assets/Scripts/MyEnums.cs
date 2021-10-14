@@ -43,5 +43,6 @@ public enum UI_ObjectEnum
     Text_Info,
     Image_Frame,
     Image_SelectItem,
+    Text_Debug,
     END,
 }

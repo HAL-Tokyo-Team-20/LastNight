@@ -44,6 +44,8 @@ public class PlayerAttackBehavior : MonoBehaviour
     void Update()
     {
 
+        DebugManager.Instance.UpdateData("Prosthetic Type",prosthetic.Type.ToString());
+
         // OutSide Bunker
         if (!bunkerSystem.in_bunker)
         {

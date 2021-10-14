@@ -17,12 +17,16 @@ public class SimplePlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private UIManager uIManager;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         SelectedMode = false;
         rb = GetComponent<Rigidbody>();
+
+        uIManager = UIManager.Instance;
     }
 
     // Update is called once per frame
@@ -61,10 +65,6 @@ public class SimplePlayerController : MonoBehaviour
         if (!LockMove)
         {
             SetFlip(moveDirection.x);
-            //transform
-            //transform.position += moveDirection * MoveSpeed * Time.deltaTime;
-
-            //rigidbody
             rb.MovePosition(transform.position + moveDirection * MoveSpeed * Time.deltaTime);
         }
 
@@ -86,9 +86,13 @@ public class SimplePlayerController : MonoBehaviour
 
     private void Select()
     {
+
+        DebugManager.Instance.UpdateData("Select Mode", SelectedMode.ToString());
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             SelectedMode = !SelectedMode;
+            uIManager.SetSelectImageActive(SelectedMode);
             Debug.Log(SelectedMode);
         }
         if (SelectedMode)
@@ -111,6 +115,7 @@ public class SimplePlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 SelectItemMgr.Instance.Confirm();
+                SelectedMode = !SelectedMode;
             }
         }
         else

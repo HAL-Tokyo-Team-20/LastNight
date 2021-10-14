@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SelectItemMgr : UnitySingleton<SelectItemMgr>
 {
+    [Range(1.0f,100.0f)]
     public float DistanceToSelect = 100.0f;
+
     List<ISelectItem> items = new List<ISelectItem>();
 
     int currentIndex = 0;

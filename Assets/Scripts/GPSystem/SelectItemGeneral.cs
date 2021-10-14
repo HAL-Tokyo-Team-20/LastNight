@@ -34,7 +34,7 @@ public class SelectItemGeneral : MonoBehaviour, ISelectItem
         if (Selected)
         {
             // 选取状态代码, 比如高亮显示
-            Debug.Log(transform.gameObject.name);
+            DebugManager.Instance.UpdateData("Selected Item", transform.gameObject.name);
 
             uIManager.SetSelectImageActive(true);
             uIManager.MoveSelectImageToTarget(gameObject.transform);

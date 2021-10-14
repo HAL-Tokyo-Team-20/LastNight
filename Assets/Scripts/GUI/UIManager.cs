@@ -8,6 +8,8 @@ using DG.Tweening;
 
 public class UIManager : UnitySingleton<UIManager>
 {
+    public bool DebugMode = false;
+
     [SerializeField] private List<RectTransform> UI_Object;
     private Animator blackframe_animator;
 
@@ -50,6 +52,11 @@ public class UIManager : UnitySingleton<UIManager>
     void Update()
     {
 
+        if (DebugMode)
+        {
+            UpdateDebugText();
+        }
+
         SelectProsthetic();
     }
 
@@ -66,6 +73,22 @@ public class UIManager : UnitySingleton<UIManager>
         // TODO: bug
         //player_prosthetic.Type = prostheticType;
         //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+    }
+
+    private void UpdateDebugText()
+    {
+
+        DebugManager debugManager = DebugManager.Instance;
+        Text text = UI_Object[(int)UI_ObjectEnum.Text_Debug].GetComponent<Text>();
+
+        string str = "";
+
+        for (int i = 0; i < debugManager.DebugDataDictionary.Count;i++)
+        {
+            str += debugManager.DebugDatas[i].name + " : " + debugManager.DebugDatas[i].data + System.Environment.NewLine;
+        }
+
+        text.text = str;
     }
 
     public void MoveSelectImageToTarget(Transform target)
