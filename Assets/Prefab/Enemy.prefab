@@ -54,7 +54,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 2147483647
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c5541373467c06244a6ce2cc61d20558, type: 2}
@@ -132,6 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHitVFX: {fileID: 0}
   enemyDeadVFX: {fileID: 0}
+  material: {fileID: 0}
+  dissolveAmount: 0
 --- !u!1 &7485903632987111052
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7485903632987111052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0116, y: 0.5709, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -182,13 +184,13 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1500
+      - m_Value: 150
         m_Name: Rate
         m_Overridden: 1
-      - m_Value: 0.4
+      - m_Value: 0.2
         m_Name: SizeA
         m_Overridden: 1
-      - m_Value: 0.6
+      - m_Value: 0.5
         m_Name: SizeB
         m_Overridden: 1
     m_Vector2f:
@@ -201,7 +203,7 @@ VisualEffect:
       - m_Value: {x: 2, y: 0.2, z: 0.2}
         m_Name: BloodVelocity
         m_Overridden: 1
-      - m_Value: {x: 0, y: -0.6, z: 0}
+      - m_Value: {x: 0, y: -1, z: 0}
         m_Name: GroundVector
         m_Overridden: 1
     m_Vector4f:

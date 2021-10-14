@@ -9,12 +9,18 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     private bool isHit = false;
 
+
     [SerializeField]
     private VisualEffect enemyHitVFX;
 
     [SerializeField]
     private VisualEffect enemyDeadVFX;
 
+    [SerializeField]
+    private Material material;
+
+    [SerializeField]
+    private float dissolveAmount = 0;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -28,6 +34,9 @@ public class HumanEnemyBehavior : EnemyBehavior
         enemyDeadVFX = tempVFX[1];
         enemyDeadVFX.Stop();
 
+        material = GetComponent<SpriteRenderer>().material;
+        dissolveAmount = 0;
+
         isHit = false;
     }
 
@@ -36,11 +45,14 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (hp <= 0)
         {
-            
             enemyDeadVFX.Play();
             StartCoroutine(StopDeadVFX(0.01f));
+
+            
+
             base.Dead();
 
+            
         }
 
         if (isHit)
@@ -52,6 +64,7 @@ public class HumanEnemyBehavior : EnemyBehavior
             enemyHitVFX.Stop();
         }
 
+        
 
     }
 
@@ -87,7 +100,7 @@ public class HumanEnemyBehavior : EnemyBehavior
             }
 
             enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
-
+            enemyDeadVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
 
             Debug.Log(hit.transform.position.y);
 
@@ -108,7 +121,21 @@ public class HumanEnemyBehavior : EnemyBehavior
     private IEnumerator StopDeadVFX(float duration)
     {
         yield return new WaitForSeconds(duration);
+
+        dissolveAmount += Time.deltaTime;
+
+        Debug.Log(dissolveAmount);
+
+        material.SetFloat("_DissolveAmount", dissolveAmount);
+
+        if (dissolveAmount >= 1.0f)
+        {
+            dissolveAmount = 1.0f;
+        }
+
+
         enemyDeadVFX.Stop();
     }
+
 
 }

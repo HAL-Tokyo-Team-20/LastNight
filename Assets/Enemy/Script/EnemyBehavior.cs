@@ -17,14 +17,14 @@ public class EnemyBehavior : MonoBehaviour
 
     protected virtual void BeAttack()
     {
-        // TODO: 弾丸連続当たるとカラー戻れないバグあり
+        // TODO: 弾丸連続?たるとカ?ー戻れないバグ?り
         spriteRenderer.material.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
         hp--;
     }
 
     protected virtual void Dead()
     {
-        spriteRenderer.enabled = false;
+        //spriteRenderer.enabled = false;
         StartCoroutine(DelayDestroy(1.5f));
     }
 
