@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class SelectItemTest : MonoBehaviour, ISelectItem
 {
 
-    GameObject player;
+    private GameObject player;
+    private UIManager uIManager;
+
     void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
+        uIManager = UIManager.Instance;
         SelectItemMgr.Instance.AddToList(this);
     }
 
@@ -28,13 +33,17 @@ public class SelectItemTest : MonoBehaviour, ISelectItem
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+            uIManager.SetSelectImageActive(true);
+            uIManager.MoveSelectImageToTarget(gameObject.transform);
+     
         }
         if (ConfirmSelected)
         {
             // 实现具体行为, 比如被拉向玩家
             // transform.localPosition = Vector3.MoveTowards(transform.localPosition, player.transform.position + Vector3.right, Time.deltaTime);
-            transform.position = player.transform.position + Vector3.right;
-
+            //transform.position = player.transform.position + Vector3.right;
+            uIManager.SetSelectImageActive(false);
+            transform.DOMove(player.transform.GetChild(1).position + Vector3.right, 1.5f);
 
             this.Selected = false;
             this.ConfirmSelected = false;

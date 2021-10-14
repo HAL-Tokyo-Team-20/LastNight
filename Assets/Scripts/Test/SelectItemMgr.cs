@@ -10,6 +10,13 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
     int currentIndex = 0;
     List<ISelectItem> selectedItems = new List<ISelectItem>();
 
+    private UIManager uIManager;
+
+    private void Start()
+    {
+        uIManager = UIManager.Instance;
+    }
+
     public void AddToList(ISelectItem item)
     {
         items.Add(item);
@@ -90,6 +97,7 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
     public void Confirm()
     {
         selectedItems[currentIndex].ConfirmSelected = true;
+        
     }
 
     public void CancelAll()

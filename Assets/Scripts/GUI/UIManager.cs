@@ -68,6 +68,18 @@ public class UIManager : UnitySingleton<UIManager>
         //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
     }
 
+    public void MoveSelectImageToTarget(Transform target)
+    {
+        RectTransform image = UI_Object[(int)UI_ObjectEnum.Image_SelectItem];
+        image.position = RectTransformUtility.WorldToScreenPoint(Camera.main, target.position);
+    }
+
+    public void SetSelectImageActive(bool active)
+    {
+        RectTransform image = UI_Object[(int)UI_ObjectEnum.Image_SelectItem];
+        image.gameObject.SetActive(active);
+    }
+
     public void ActiveBlackframe(bool active)
     {
         blackframe_animator.SetBool("Active", active);

@@ -6,6 +6,7 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
 {
     GameObject player;
     Transform player_center;
+    private UIManager uIManager;
 
     LineTest line;
     void Start()
@@ -14,6 +15,7 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
         SelectItemMgr.Instance.AddToList(this);
         player_center = player.transform.Find("center_point");
         line = GetComponent<LineTest>();
+        uIManager = UIManager.Instance;
     }
 
     // 继承 ISelectItem 接口的类, 必须实现以下两个东西
@@ -30,6 +32,7 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+            uIManager.MoveSelectImageToTarget(gameObject.transform);
         }
         if (ConfirmSelected)
         {

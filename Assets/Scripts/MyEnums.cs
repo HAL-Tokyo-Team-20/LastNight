@@ -42,5 +42,6 @@ public enum UI_ObjectEnum
     BlackFrame,
     Text_Info,
     Image_Frame,
+    Image_SelectItem,
     END,
 }

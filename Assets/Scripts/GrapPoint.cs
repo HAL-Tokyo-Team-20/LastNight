@@ -7,6 +7,9 @@ public class GrapPoint : MonoBehaviour, ISelectItem
     GameObject player;
     Spring3D spring;
     LineTest line;
+
+    private UIManager uIManager;
+
     void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
@@ -16,6 +19,8 @@ public class GrapPoint : MonoBehaviour, ISelectItem
         line = GetComponent<LineTest>();
         spring.enabled = false;
         line.enabled = false;
+
+        uIManager = UIManager.Instance;
     }
 
     // 继承 ISelectItem 接口的类, 必须实现以下两个东西
@@ -33,6 +38,7 @@ public class GrapPoint : MonoBehaviour, ISelectItem
         {
             // 选取状态代码, 比如高亮显示
             Debug.Log(transform.gameObject.name);
+            uIManager.MoveSelectImageToTarget(gameObject.transform);
         }
         if (ConfirmSelected)
         {
