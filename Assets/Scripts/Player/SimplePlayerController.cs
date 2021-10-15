@@ -65,7 +65,7 @@ public class SimplePlayerController : MonoBehaviour
         if (!LockMove)
         {
             SetFlip(moveDirection.x);
-            rb.MovePosition(transform.position + moveDirection * MoveSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + (moveDirection * MoveSpeed * Time.deltaTime));
         }
 
     }
