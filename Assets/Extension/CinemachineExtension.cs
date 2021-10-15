@@ -13,6 +13,11 @@ namespace Cinemachine.Extension
             return DOTween.To(() => target.m_FollowOffset, x => target.m_FollowOffset = x, endValue, duration).SetTarget(target);
         }
 
+        public static Tweener DOVector3_FollowOffsetX(this CinemachineTransposer target, float endValue, float duration)
+        {
+            return DOTween.To(() => target.m_FollowOffset.x, x => target.m_FollowOffset.x = x, endValue, duration).SetTarget(target);
+        }
+
         public static Tweener DOFloat_DollyPathPosition(this CinemachineTrackedDolly target, float endValue, float duration)
         {
             return DOTween.To(() => target.m_PathPosition, x => target.m_PathPosition = x, endValue, duration).SetTarget(target);

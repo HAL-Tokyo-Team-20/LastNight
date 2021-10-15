@@ -2,28 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SoundData
+{
+    public string name;
+    public AudioClip clip;
+    [HideInInspector]
+    public float playedTime;
+    [Range(0.0f, 1.0f)]
+    public float volume = 1.0f;
+}
+
 public class SoundManager : UnitySingleton<SoundManager>
 {
-    [System.Serializable]
-    public class SoundData
-    {
-        public string name;
-        public AudioClip clip;
-        [HideInInspector]
-        public float playedTime;
-        [Range(0.0f,1.0f)]
-        public float volume = 1.0f;
-    }
+
+    [Range(5,25)]
+    public int MaxSoundTrack = 10;
 
     [SerializeField]
     private List<SoundData> soundDatas;
 
-    private AudioSource[] audioSourceList = new AudioSource[10];
+    private AudioSource[] audioSourceList;
 
     private Dictionary<string, SoundData> soundDictionary = new Dictionary<string, SoundData>();
 
     private void Awake()
     {
+
+        audioSourceList = new AudioSource[MaxSoundTrack];
+
         for (var i = 0; i < audioSourceList.Length; ++i)
         {
             audioSourceList[i] = gameObject.AddComponent<AudioSource>();

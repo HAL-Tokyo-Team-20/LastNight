@@ -53,15 +53,14 @@ public class BunkerSystem : MonoBehaviour
                 in_bunker = true;
                 EnterPosition = transform.position;
                 transform.DOMove(bunkerPoint.transform.position, EnterTime);
-                cm_player.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), 0.75f).SetEase(Ease.Linear);
+                PlayerCameraController.Instance.Offset(new Vector3(1.2f, 1.15f, -4.35f), 0.75f);
                 animator.SetTrigger("BunkerIn");
                 animator.SetBool("InBunker", true);
             }
             else if (in_bunker)
             {
-                //spriteRenderer.flipX = false;
                 transform.DOMove(EnterPosition, EnterTime).OnComplete(ExitBunker);
-                cm_player.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(0.5f, 0.9f, -5f), 0.75f).SetEase(Ease.Linear);
+                PlayerCameraController.Instance.Offset(new Vector3(0.5f, 1.15f, -5f), 0.75f);
                 animator.SetBool("InBunker", false);
             }
 

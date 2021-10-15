@@ -66,18 +66,17 @@ public class PlayerAttackBehavior : MonoBehaviour
                 bunkerSystem.headout = true;
                 {
                     transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
-                    player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.7f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                    PlayerCameraController.Instance.Offset(new Vector3(1.7f, 1.15f, -4.35f), headout_time);
                 }
             }
             // HeadIn
             else if (Input.GetKeyUp(KeyCode.R) && bunkerSystem.headout)
             {
-                // TODO: Add Animation
+
                 bunkerSystem.headout = false;
                 {
-
                     transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time);
-                    player_camera.GetCinemachineComponent<CinemachineTransposer>().DOVector3_FollowOffset(new Vector3(1.2f, 0.9f, -5f), headout_time).SetEase(Ease.Linear);
+                    PlayerCameraController.Instance.Offset(new Vector3(1.2f, 1.15f, -4.35f), headout_time);
                 }
             }
 
