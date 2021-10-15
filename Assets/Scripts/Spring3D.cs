@@ -7,8 +7,11 @@ public class Spring3D : MonoBehaviour
     SpringJoint spring;
     Rigidbody rb;
 
-    public float MaxDist = 0.6f;
-    public float MinDist = 0.2f;
+    public float MaxDist = 1.5f;
+    public float MinDist = 1.5f;
+
+    public float SpringValue = 20;
+    public float Damper = 5;
 
     public bool IsActive { get; set; }
 
@@ -25,11 +28,13 @@ public class Spring3D : MonoBehaviour
         spring.anchor = Vector3.zero;
         spring.connectedAnchor = Vector3.zero;
         spring.autoConfigureConnectedAnchor = false;
-        spring.spring = 20;
-        spring.damper = 5;
-        float dist = Vector3.Distance(player.transform.Find("center_point").transform.position, transform.position);
-        spring.maxDistance = dist * MaxDist;
-        spring.minDistance = dist * MinDist;
+        spring.spring = SpringValue;
+        spring.damper = Damper;
+        //float dist = Vector3.Distance(player.transform.Find("center_point").transform.position, transform.position);
+        //spring.maxDistance = dist * MaxDist;
+        //spring.minDistance = dist * MinDist;
+        spring.maxDistance = MaxDist;
+        spring.minDistance = MinDist;
 
 
 
