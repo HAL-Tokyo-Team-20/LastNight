@@ -19,7 +19,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     private VisualEffect enemyDeadVFX;
 
     [SerializeField]
-    private Material material;
+    private List<Material> enemyMaterial = new List<Material>();
 
     [SerializeField]
     private float dissolveAmount = 0;
@@ -38,7 +38,15 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         animator = GetComponent<Animator>();
 
-        material = GetComponentInChildren<GameObject>().GetComponentInChildren<SpriteRenderer>().material;
+        SpriteRenderer[] childObject = GetComponentsInChildren<SpriteRenderer>();
+
+        for(int i = 0; i < childObject.Length; i++)
+        {
+            enemyMaterial.Add(childObject[i].material);
+
+            enemyMaterial[i].SetFloat("_DissolveAmount", 0.0f);
+        }
+
         dissolveAmount = 0;
 
         isHit = false;
@@ -50,7 +58,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         if (hp <= 0)
         {
             enemyDeadVFX.Play();
-            StartCoroutine(StopDeadVFX(0.01f));
+            StartCoroutine(StopDeadVFX(0.1f));
             
             Dead();
         }
@@ -58,7 +66,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         if (isHit)
         {
             enemyHitVFX.Play();
-            
+            animator.SetBool("BeAttack", true);
         }
         else
         {
@@ -124,19 +132,20 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         yield return new WaitForSeconds(duration);
 
-        dissolveAmount += Time.deltaTime * 1.5f;
+        dissolveAmount += Time.deltaTime * 2.5f;
 
         Debug.Log(dissolveAmount);
 
-    
-        material.SetFloat("_DissolveAmount", dissolveAmount);
-
-        if (dissolveAmount >= 1.0f)
+        for(int i = 0; i < enemyMaterial.Count; i++)
         {
-            dissolveAmount = 1.0f;
+            enemyMaterial[i].SetFloat("_DissolveAmount", dissolveAmount);
+
+            if (dissolveAmount >= 1.0f)
+            {
+                dissolveAmount = 1.0f;
+            }
         }
     
-
         enemyDeadVFX.Stop();
     }
 
@@ -148,7 +157,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void BeAttack()
     {
-        animator.SetBool("BeAttack", true);
+        
         hp--;
     }
 
