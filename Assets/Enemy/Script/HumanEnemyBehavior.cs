@@ -38,7 +38,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         animator = GetComponent<Animator>();
 
-        material = GetComponent<SpriteRenderer>().material;
+        material = GetComponentInChildren<GameObject>().GetComponentInChildren<SpriteRenderer>().material;
         dissolveAmount = 0;
 
         isHit = false;
@@ -58,7 +58,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         if (isHit)
         {
             enemyHitVFX.Play();
-            animator.SetBool("BeAttack", true);
+            
         }
         else
         {
@@ -75,7 +75,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (other.CompareTag("Bullet"))
         {
-            base.BeAttack();
+            BeAttack();
 
             RaycastHit hit;
             Physics.SphereCast(other.gameObject.transform.position, 1.0f,
@@ -124,17 +124,18 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         yield return new WaitForSeconds(duration);
 
-        dissolveAmount += Time.deltaTime;
+        dissolveAmount += Time.deltaTime * 1.5f;
 
         Debug.Log(dissolveAmount);
 
+    
         material.SetFloat("_DissolveAmount", dissolveAmount);
 
         if (dissolveAmount >= 1.0f)
         {
             dissolveAmount = 1.0f;
         }
-
+    
 
         enemyDeadVFX.Stop();
     }
@@ -143,6 +144,12 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         animator.SetBool("Dead", true);
         base.Dead();
+    }
+
+    protected override void BeAttack()
+    {
+        animator.SetBool("BeAttack", true);
+        hp--;
     }
 
 }
