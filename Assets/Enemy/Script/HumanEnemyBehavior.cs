@@ -9,6 +9,8 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     private bool isHit = false;
 
+    [SerializeField]
+    private Animator animator;
 
     [SerializeField]
     private VisualEffect enemyHitVFX;
@@ -34,6 +36,8 @@ public class HumanEnemyBehavior : EnemyBehavior
         enemyDeadVFX = tempVFX[1];
         enemyDeadVFX.Stop();
 
+        animator = GetComponent<Animator>();
+
         material = GetComponent<SpriteRenderer>().material;
         dissolveAmount = 0;
 
@@ -47,21 +51,19 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             enemyDeadVFX.Play();
             StartCoroutine(StopDeadVFX(0.01f));
-
             
-
-            base.Dead();
-
-            
+            Dead();
         }
 
         if (isHit)
         {
             enemyHitVFX.Play();
+            animator.SetBool("BeAttack", true);
         }
         else
         {
             enemyHitVFX.Stop();
+            animator.SetBool("BeAttack", false);
         }
 
         
@@ -137,5 +139,10 @@ public class HumanEnemyBehavior : EnemyBehavior
         enemyDeadVFX.Stop();
     }
 
+    protected override void Dead()
+    {
+        animator.SetBool("Dead", true);
+        base.Dead();
+    }
 
 }
