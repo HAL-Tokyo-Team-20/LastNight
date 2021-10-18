@@ -347,17 +347,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4738762778637799887, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799888, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_Name
       value: GrapPoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738762778637799889, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
-      propertyPath: m_Mass
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
@@ -837,6 +829,10 @@ PrefabInstance:
     - target: {fileID: 768453883, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.0003578107
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429188199, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
+      propertyPath: m_Interpolate
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1871426987, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_LocalRotation.z
