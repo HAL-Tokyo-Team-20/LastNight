@@ -93,7 +93,7 @@ public class SimplePlayerController : MonoBehaviour
         {
             SelectedMode = !SelectedMode;
             uIManager.SetSelectImageActive(SelectedMode);
-            Debug.Log(SelectedMode);
+            
         }
         if (SelectedMode)
         {
