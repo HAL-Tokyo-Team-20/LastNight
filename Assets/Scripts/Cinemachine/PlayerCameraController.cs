@@ -20,6 +20,6 @@ public class PlayerCameraController : UnitySingleton<PlayerCameraController>
 
     public void Offset(Vector3 endValue,float duration)
     {
-        transposer.DOVector3_FollowOffset(endValue,duration).SetEase(Ease.Linear);
+        transposer.DOVector3_FollowOffset(endValue,duration).SetEase(Ease.Linear).SetAutoKill();
     }
 }

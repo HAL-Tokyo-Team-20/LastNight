@@ -21,12 +21,17 @@ public class BunkerSystem : MonoBehaviour
 
     private Animator animator;
     private SimplePlayerController simplePlayerController;
+    private PlayerCameraController playerCameraController;
     private Vector3 EnterPosition;
     private CinemachineVirtualCamera cm_player;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+
+        playerCameraController = PlayerCameraController.Instance;
+
         bunkerSet = new HashSet<GameObject>();
         animator = GetComponent<Animator>();
         simplePlayerController = GetComponent<SimplePlayerController>();
@@ -53,14 +58,14 @@ public class BunkerSystem : MonoBehaviour
                 in_bunker = true;
                 EnterPosition = transform.position;
                 transform.DOMove(bunkerPoint.transform.position, EnterTime);
-                PlayerCameraController.Instance.Offset(new Vector3(1.2f, 1.15f, -4.35f), 0.75f);
+                playerCameraController.Offset(new Vector3(1.2f, 1.15f, -4.35f), 0.75f);
                 animator.SetTrigger("BunkerIn");
                 animator.SetBool("InBunker", true);
             }
             else if (in_bunker)
             {
                 transform.DOMove(EnterPosition, EnterTime).OnComplete(ExitBunker);
-                PlayerCameraController.Instance.Offset(new Vector3(0.5f, 1.15f, -5f), 0.75f);
+                playerCameraController.Offset(new Vector3(0.5f, 1.15f, -5f), 0.75f);
                 animator.SetBool("InBunker", false);
             }
 

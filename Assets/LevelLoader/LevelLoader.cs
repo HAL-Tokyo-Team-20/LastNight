@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader : UnitySingleton<LevelLoader>
 {
     [Header("Transition Animation")]
     public Animator transition;

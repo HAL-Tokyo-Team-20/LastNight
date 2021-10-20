@@ -18,15 +18,23 @@ public class SimplePlayerController : MonoBehaviour
     private Rigidbody rb;
 
     private UIManager uIManager;
+    private SoundManager soundManager;
+    private DebugManager debugManager;
+    private SelectItemMgr selectItemManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        uIManager = UIManager.Instance;
+        soundManager = SoundManager.Instance;
+        debugManager = DebugManager.Instance;
+        selectItemManager = SelectItemMgr.Instance;
+
+
         animator = GetComponent<Animator>();
         SelectedMode = false;
         rb = GetComponent<Rigidbody>();
 
-        uIManager = UIManager.Instance;
     }
 
     // Update is called once per frame
@@ -55,7 +63,7 @@ public class SimplePlayerController : MonoBehaviour
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
             animator.SetBool("Running", true);
-            SoundManager.Instance.Play("FootStep_00",0.4f);
+            soundManager.Play("FootStep_00",0.4f);
         }
         else
         {
@@ -87,7 +95,7 @@ public class SimplePlayerController : MonoBehaviour
     private void Select()
     {
 
-        DebugManager.Instance.UpdateData("Select Mode", SelectedMode.ToString());
+        debugManager.UpdateData("Select Mode", SelectedMode.ToString());
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -97,30 +105,30 @@ public class SimplePlayerController : MonoBehaviour
         }
         if (SelectedMode)
         {
-            SelectItemMgr.Instance.Select();
+            selectItemManager.Select();
             // 选取模式下
             if (Input.GetKeyDown(KeyCode.K))
             {
-                SelectItemMgr.Instance.SelectNextItem();
+                selectItemManager.SelectNextItem();
             }
             else if (Input.GetKeyDown(KeyCode.J))
             {
-                SelectItemMgr.Instance.SelectPreItem();
+                selectItemManager.SelectPreItem();
             }
             else
             {
-                SelectItemMgr.Instance.SelectItem();
+                selectItemManager.SelectItem();
             }
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                SelectItemMgr.Instance.Confirm();
+                selectItemManager.Confirm();
                 SelectedMode = !SelectedMode;
             }
         }
         else
         {
-            SelectItemMgr.Instance.CancelAll();
+            selectItemManager.CancelAll();
         }
     }
 }

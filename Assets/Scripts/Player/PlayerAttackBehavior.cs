@@ -21,6 +21,12 @@ public class PlayerAttackBehavior : MonoBehaviour
     private SimplePlayerController playerController;
     private CinemachineVirtualCamera player_camera;
 
+    private PlayerCameraController playerCameraController;
+    private DebugManager debugManager;
+    private SoundManager soundManager;
+    private GameObjectMgr gameObejectManager;
+
+
     private void Awake()
     {
         // LoadAsset
@@ -34,17 +40,22 @@ public class PlayerAttackBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        playerCameraController = PlayerCameraController.Instance;
+        debugManager = DebugManager.Instance;
+        soundManager = SoundManager.Instance;
+
         bunkerSystem = GetComponent<BunkerSystem>();
         playerController = GetComponent<SimplePlayerController>();
         animator = GetComponent<Animator>();
-        player_camera = GameObjectMgr.Instance.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
+        player_camera = gameObejectManager.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        DebugManager.Instance.UpdateData("Prosthetic Type",prosthetic.Type.ToString());
+        debugManager.UpdateData("Prosthetic Type",prosthetic.Type.ToString());
 
         // OutSide Bunker
         if (!bunkerSystem.in_bunker)
@@ -53,7 +64,7 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 animator.SetTrigger("Attacking");
                 Shooting(new Vector3(0f, 0.85f, 0f));
-                SoundManager.Instance.Play("GunShot_00", 0.1f);
+                soundManager.Play("GunShot_00", 0.1f);
             }
         }
         // InSide Bunker
@@ -66,7 +77,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 bunkerSystem.headout = true;
                 {
                     transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
-                    PlayerCameraController.Instance.Offset(new Vector3(1.7f, 1.15f, -4.35f), headout_time);
+                    playerCameraController.Offset(new Vector3(1.7f, 1.15f, -4.35f), headout_time);
                 }
             }
             // HeadIn
@@ -76,7 +87,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 bunkerSystem.headout = false;
                 {
                     transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time);
-                    PlayerCameraController.Instance.Offset(new Vector3(1.2f, 1.15f, -4.35f), headout_time);
+                    playerCameraController.Offset(new Vector3(1.2f, 1.15f, -4.35f), headout_time);
                 }
             }
 
@@ -86,7 +97,7 @@ public class PlayerAttackBehavior : MonoBehaviour
                 {
                     animator.SetTrigger("Attacking");
                     Shooting(new Vector3(0f, 0.65f, 0f));
-                    SoundManager.Instance.Play("GunShot_00", 0.1f);
+                    soundManager.Play("GunShot_00", 0.1f);
                 }
             }
         }
