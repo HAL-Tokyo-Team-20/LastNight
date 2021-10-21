@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Spring3D : MonoBehaviour
 {
+    [Range(1.0f, 3.0f)]
+    public float PushPlayerForce;
     SpringJoint spring;
     Rigidbody rb;
+
+    GameObject player;
 
     public float MaxDist = 1.5f;
     public float MinDist = 1.5f;
@@ -17,12 +21,12 @@ public class Spring3D : MonoBehaviour
 
     void Start()
     {
-
+        player = GameObjectMgr.Instance.GetGameObject("Player");
     }
 
     public void Reset()
     {
-        GameObject player = GameObjectMgr.Instance.GetGameObject("Player");
+        player = GameObjectMgr.Instance.GetGameObject("Player");
         spring = gameObject.AddComponent<SpringJoint>();
         spring.connectedBody = player.GetComponent<Rigidbody>();
         spring.anchor = Vector3.zero;
@@ -53,6 +57,10 @@ public class Spring3D : MonoBehaviour
         {
             IsActive = false;
             Destroy(spring);
+
+            // 给player添加一个推力
+            Rigidbody playerRb = player.GetComponent<Rigidbody>();
+            playerRb.AddForce(Vector3.Normalize(playerRb.velocity) * PushPlayerForce, ForceMode.Impulse);
         }
     }
 }
