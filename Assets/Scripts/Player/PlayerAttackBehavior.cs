@@ -44,6 +44,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         playerCameraController = PlayerCameraController.Instance;
         debugManager = DebugManager.Instance;
         soundManager = SoundManager.Instance;
+        gameObejectManager = GameObjectMgr.Instance;
 
         bunkerSystem = GetComponent<BunkerSystem>();
         playerController = GetComponent<SimplePlayerController>();
