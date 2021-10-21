@@ -303,6 +303,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: Damper
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: SpringValue
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799885, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_RootOrder
       value: 11
