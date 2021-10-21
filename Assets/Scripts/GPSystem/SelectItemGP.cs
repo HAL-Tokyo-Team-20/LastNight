@@ -10,6 +10,8 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
 
     private LineGP line;
 
+    public bool PlayerIsEnter { get; set; }
+
     private void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
@@ -17,6 +19,8 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
         player_center = player.transform.Find("center_point");
         line = GetComponent<LineGP>();
         uIManager = UIManager.Instance;
+
+        PlayerIsEnter = false;
     }
 
     // 继承 ISelectItem 接口的类, 必须实现以下两个东西
@@ -53,6 +57,22 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
 
             uIManager.SetSelectImageActive(false);
             player.GetComponent<SimplePlayerController>().SelectedMode = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = false;
         }
     }
 }

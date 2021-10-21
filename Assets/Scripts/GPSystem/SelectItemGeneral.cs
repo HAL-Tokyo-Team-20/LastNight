@@ -10,6 +10,8 @@ public class SelectItemGeneral : MonoBehaviour, ISelectItem
     private GameObject player;
     private UIManager uIManager;
 
+    public bool PlayerIsEnter { get; set; }
+
     void Start()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
@@ -54,6 +56,20 @@ public class SelectItemGeneral : MonoBehaviour, ISelectItem
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = true;
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = false;
+        }
+    }
 
 }

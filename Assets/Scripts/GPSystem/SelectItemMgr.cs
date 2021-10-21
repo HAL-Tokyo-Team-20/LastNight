@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectItemMgr : UnitySingleton<SelectItemMgr>
 {
-    [Range(1.0f,100.0f)]
+    [Range(1.0f, 100.0f)]
     public float DistanceToSelect = 100.0f;
 
     List<ISelectItem> items = new List<ISelectItem>();
@@ -28,12 +28,18 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
     public void Select()
     {
         // 当玩家处于选取物体状态, 比如当玩家按下 LT 时候进入此状态
+        selectedItems.Clear();
 
-        // 可选: 按到玩家距离排序?
-        // 显示在范围内, 可选取的物体
         foreach (ISelectItem item in items)
         {
-            if (item.DistanceToPlayer() <= DistanceToSelect)
+            // 使用距离判断
+            // if (item.DistanceToPlayer() <= DistanceToSelect)
+            // {
+            //     selectedItems.Add(item);
+            // }
+
+            // 使用collider判定
+            if (item.PlayerIsEnter)
             {
                 selectedItems.Add(item);
             }

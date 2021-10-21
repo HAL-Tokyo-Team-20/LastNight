@@ -9,6 +9,7 @@ public class GrapPoint : MonoBehaviour, ISelectItem
     LineGP line;
 
     private UIManager uIManager;
+    public bool PlayerIsEnter { get; set; }
 
     void Start()
     {
@@ -56,6 +57,22 @@ public class GrapPoint : MonoBehaviour, ISelectItem
             // 使脚本生效
             spring.enabled = true;
             line.enabled = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerIsEnter = false;
         }
     }
 }
