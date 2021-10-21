@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - SwitchArea
   - LevelLoader
+  - Enemy
   layers:
   - Default
   - TransparentFX

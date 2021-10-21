@@ -19,6 +19,7 @@ public class UIManager : UnitySingleton<UIManager>
     private ProstheticType prostheticType = ProstheticType.One;
     private Prosthetic player_prosthetic;
 
+    private PlayerSpriteController playerSpriteController;
 
     private void Awake()
     {
@@ -37,6 +38,8 @@ public class UIManager : UnitySingleton<UIManager>
     // Start is called before the first frame update
     void Start()
     {
+
+        playerSpriteController = PlayerSpriteController.Instance;
 
         for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
         {
@@ -70,9 +73,9 @@ public class UIManager : UnitySingleton<UIManager>
         if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
         else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
 
-        // TODO: bug
-        //player_prosthetic.Type = prostheticType;
-        //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        player_prosthetic.Type = prostheticType;
+        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        playerSpriteController.SetRightHandLabel(player_prosthetic.ProstheticTypeName[(int)prostheticType]);
     }
 
     private void UpdateDebugText()

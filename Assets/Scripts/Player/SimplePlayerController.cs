@@ -100,7 +100,7 @@ public class SimplePlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             SelectedMode = !SelectedMode;
-            uIManager.SetSelectImageActive(SelectedMode);
+            if (selectItemManager.GetSelecteditemsLength() > 0) uIManager.SetSelectImageActive(SelectedMode);
             
         }
         if (SelectedMode)

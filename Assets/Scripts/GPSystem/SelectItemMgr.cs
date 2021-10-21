@@ -121,4 +121,6 @@ public class SelectItemMgr : UnitySingleton<SelectItemMgr>
         }
     }
 
+    public int GetSelecteditemsLength() { return selectedItems.Count; }
+
 }

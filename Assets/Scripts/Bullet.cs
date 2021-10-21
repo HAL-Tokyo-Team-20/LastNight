@@ -5,8 +5,6 @@ using DG.Tweening;
 
 public class Bullet : MonoBehaviour
 {
-    //[Range(1.0f,10.0f)]
-    //public float moveSpeed = 10f;
     [Range(1.0f, 20.0f)]
     public float MoveDistance = 6.0f;
     [Range(0.1f, 10.0f)]
@@ -14,14 +12,25 @@ public class Bullet : MonoBehaviour
 
     public bool Right = true;
 
+    private Tweener move_tweener;
+
     public void Start()
     {
         if (!Right) MoveDistance *= -1;
-        transform.DOMoveX(transform.position.x + MoveDistance, DestroyTime).SetEase(Ease.Linear).OnComplete(() => Destroy(gameObject));
+        move_tweener = transform.DOMoveX(transform.position.x + MoveDistance, DestroyTime).SetEase(Ease.Linear).OnComplete(() => Destroy(gameObject));
     }
 
     private void Update()
     {
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            move_tweener.Kill();
+            Destroy(gameObject);
+        }
     }
 }
