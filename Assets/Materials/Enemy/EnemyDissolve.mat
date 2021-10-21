@@ -121,6 +121,8 @@ Material:
     - _DissolveScale: 100
     - _DissolveWidth: 0.01
     - _DstBlend: 0
+    - _ElectricityAmount: 0
+    - _EletricityWidth: 0.5
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 1
     - _Fade: 0
@@ -149,6 +151,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 1, g: 0.8087203, b: 0.2028302, a: 0}
+    - _EletricityColor: {r: 1, g: 0.916613, b: 0.2122642, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

@@ -15,14 +15,17 @@ public class HumanEnemyBehavior : EnemyBehavior
     [SerializeField]
     private VisualEffect enemyHitVFX;
 
-    [SerializeField]
-    private VisualEffect enemyDeadVFX;
+    //[SerializeField]
+    //private VisualEffect enemyDeadVFX;
 
     [SerializeField]
     private List<Material> enemyMaterial = new List<Material>();
 
     [SerializeField]
-    private float dissolveAmount = 0;
+    private float dissolveAmount = 0.0f;
+
+    [SerializeField]
+    private float electricityAmount = 0.0f;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -33,8 +36,8 @@ public class HumanEnemyBehavior : EnemyBehavior
         enemyHitVFX = tempVFX[0];
         enemyHitVFX.Stop();
 
-        enemyDeadVFX = tempVFX[1];
-        enemyDeadVFX.Stop();
+        //enemyDeadVFX = tempVFX[1];
+        //enemyDeadVFX.Stop();
 
         animator = GetComponent<Animator>();
 
@@ -45,6 +48,7 @@ public class HumanEnemyBehavior : EnemyBehavior
             enemyMaterial.Add(childObject[i].material);
 
             enemyMaterial[i].SetFloat("_DissolveAmount", 0.0f);
+            enemyMaterial[i].SetFloat("_ElectricityAmount", 0.0f);
         }
 
         dissolveAmount = 0;
@@ -57,16 +61,12 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (hp <= 0)
         {
-            enemyDeadVFX.Play();
-            StartCoroutine(StopDeadVFX(0.1f));
-            
             Dead();
         }
 
         if (isHit)
         {
             enemyHitVFX.Play();
-            animator.SetBool("BeAttack", true);
         }
         else
         {
@@ -109,8 +109,10 @@ public class HumanEnemyBehavior : EnemyBehavior
                 enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5 * -1, 0.0f, 0.0f);
             }
 
+            //enemyDeadVFX.gameObject.transform.position = other.gameObject.transform.position;
+
             enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
-            enemyDeadVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
+            //enemyDeadVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
 
             Debug.Log(hit.transform.position.y);
 
@@ -128,16 +130,30 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
-    private IEnumerator StopDeadVFX(float duration)
+    private IEnumerator Blast(float duration)
     {
+        
+
         yield return new WaitForSeconds(duration);
 
-        dissolveAmount += Time.deltaTime * 2.5f;
+        //enemyDeadVFX.Stop();
+    }
 
+    private IEnumerator Dissolve(float duration)
+    {
+        for (int i = 0; i < enemyMaterial.Count; i++)
+        {
+            enemyMaterial[i].SetFloat("_ElectricityAmount", 1.0f);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        dissolveAmount += Time.deltaTime;
         Debug.Log(dissolveAmount);
 
-        for(int i = 0; i < enemyMaterial.Count; i++)
+        for (int i = 0; i < enemyMaterial.Count; i++)
         {
+            enemyMaterial[i].SetFloat("_ElectricityAmount", 1.0f);
             enemyMaterial[i].SetFloat("_DissolveAmount", dissolveAmount);
 
             if (dissolveAmount >= 1.0f)
@@ -145,19 +161,27 @@ public class HumanEnemyBehavior : EnemyBehavior
                 dissolveAmount = 1.0f;
             }
         }
-    
-        enemyDeadVFX.Stop();
+
     }
+
+    private IEnumerator DelayDead()
+    {
+        yield return new WaitUntil(() => dissolveAmount >= 1.0f);
+        Destroy(gameObject);
+    }
+
 
     protected override void Dead()
     {
         animator.SetBool("Dead", true);
-        base.Dead();
+        StartCoroutine(Dissolve(2.3f));
+        StartCoroutine(DelayDead());
     }
 
     protected override void BeAttack()
     {
-        
+
+        animator.SetBool("BeAttack", true);
         hp--;
     }
 
