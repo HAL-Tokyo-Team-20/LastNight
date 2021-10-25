@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
+
 
 public class LineGP : MonoBehaviour
 {
@@ -19,6 +23,14 @@ public class LineGP : MonoBehaviour
 
     Spring3D spring;
 
+    Material line_material = null;
+
+    private void Awake()
+    {
+        var handle = Addressables.LoadAssetAsync<Material>("Line_Material");
+        line_material = handle.WaitForCompletion();
+    }
+
     void Start()
     {
     }
@@ -28,10 +40,10 @@ public class LineGP : MonoBehaviour
         // line
         lineRender = gameObject.AddComponent<LineRenderer>();
         lineRender.positionCount = 2;
-        lineRender.startWidth = 0.1f;
-        lineRender.endWidth = 0.1f;
+        lineRender.startWidth = 0.05f;
+        lineRender.endWidth = 0.05f;
         // TODO: set material
-
+        if (line_material) lineRender.material = line_material;
         center_pos = GameObjectMgr.Instance.GetGameObject("Player").transform.Find("center_point");
         current = center_pos.position;
         end = transform.position;

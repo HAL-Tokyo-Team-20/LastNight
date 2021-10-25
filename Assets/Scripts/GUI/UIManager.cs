@@ -25,10 +25,9 @@ public class UIManager : UnitySingleton<UIManager>
 
     private void Awake()
     {
-        // Load Asset
         Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
 
-        playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
+       //playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
     }
 
     void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
@@ -75,12 +74,12 @@ public class UIManager : UnitySingleton<UIManager>
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
 
         //TODO: 不用按键, 改成参考PlayerAttackBehavior
-        if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.MiniGun) prostheticType++;
-        else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
+        //if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.MiniGun) prostheticType++;
+        //else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
 
-        player_prosthetic.Type = prostheticType;
-        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
-        playerSpriteController.SetRightHandLabel(player_prosthetic.ProstheticTypeName[(int)prostheticType]);
+        //player_prosthetic.Type = prostheticType;
+        //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        //playerSpriteController.SetRightHandLabel(player_prosthetic.ProstheticTypeName[(int)prostheticType]);
     }
 
     private void UpdateDebugText()
