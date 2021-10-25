@@ -115,8 +115,6 @@ public class HumanEnemyBehavior : EnemyBehavior
             enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
             //enemyDeadVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
 
-            Debug.Log(hit.transform.position.y);
-
             isHit = true;
         }
         
@@ -150,7 +148,6 @@ public class HumanEnemyBehavior : EnemyBehavior
         yield return new WaitForSeconds(duration);
 
         dissolveAmount += Time.deltaTime;
-        Debug.Log(dissolveAmount);
 
         for (int i = 0; i < enemyMaterial.Count; i++)
         {
