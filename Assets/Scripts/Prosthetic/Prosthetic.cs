@@ -11,7 +11,7 @@ public class Prosthetic
         "Entry_2",
     };
 
-    public ProstheticType Type = ProstheticType.One;
+    public ProstheticType Type;
 
-    public virtual void SkillActive() { }
+    public virtual void SkillActive(Vector3 offset) { }
 }

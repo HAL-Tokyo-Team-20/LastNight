@@ -29,10 +29,9 @@ public enum EnemyType
 // 義肢类型枚举
 public enum ProstheticType
 {
-    One,
-    Two,
-    Three,
-    Four,
+    Gun, //手枪, 默认
+    ShotGun, //霰弹枪
+    MiniGun, //加特林
 }
 
 // UIType类型枚举

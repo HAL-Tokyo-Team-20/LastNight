@@ -16,15 +16,19 @@ public class UIManager : UnitySingleton<UIManager>
     private bool spriteloadfinish = false;
     [SerializeField] private IList<Sprite> sprite_ProstheticIcon;
 
-    private ProstheticType prostheticType = ProstheticType.One;
+    private ProstheticType prostheticType = ProstheticType.Gun;
     private Prosthetic player_prosthetic;
 
     private PlayerSpriteController playerSpriteController;
+
+    private PlayerAttackBehavior playerAttackBehavior;
 
     private void Awake()
     {
         // Load Asset
         Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
+
+        playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
     }
 
     void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
@@ -70,7 +74,8 @@ public class UIManager : UnitySingleton<UIManager>
 
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
 
-        if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.Four) prostheticType++;
+        //TODO: 不用按键, 改成参考PlayerAttackBehavior
+        if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.MiniGun) prostheticType++;
         else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
 
         player_prosthetic.Type = prostheticType;
@@ -86,7 +91,7 @@ public class UIManager : UnitySingleton<UIManager>
 
         string str = "";
 
-        for (int i = 0; i < debugManager.DebugDataDictionary.Count;i++)
+        for (int i = 0; i < debugManager.DebugDataDictionary.Count; i++)
         {
             str += debugManager.DebugDatas[i].name + " : " + debugManager.DebugDatas[i].data + System.Environment.NewLine;
         }

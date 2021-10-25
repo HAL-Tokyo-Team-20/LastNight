@@ -32,9 +32,6 @@ public class PlayerAttackBehavior : MonoBehaviour
         // LoadAsset
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
         bullet_object = handle.WaitForCompletion();
-
-
-        prosthetic = new Prosthetic();
     }
 
     // Start is called before the first frame update
@@ -50,13 +47,53 @@ public class PlayerAttackBehavior : MonoBehaviour
         playerController = GetComponent<SimplePlayerController>();
         animator = GetComponent<Animator>();
         player_camera = gameObejectManager.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
+
+        prosthetic = new Gun();
+        Debug.Log(prosthetic.Type.ToString());
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Change Prosthetic
+        if (Input.GetKeyDown(KeyCode.I))//next
+        {
+            switch (prosthetic.Type)
+            {
+                case ProstheticType.Gun:
+                    prosthetic = new ShotGun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+                case ProstheticType.MiniGun:
+                    prosthetic = new Gun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+                case ProstheticType.ShotGun:
+                    prosthetic = new MiniGun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.U))//prev
+        {
+            switch (prosthetic.Type)
+            {
+                case ProstheticType.Gun:
+                    prosthetic = new MiniGun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+                case ProstheticType.MiniGun:
+                    prosthetic = new ShotGun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+                case ProstheticType.ShotGun:
+                    prosthetic = new Gun();
+                    Debug.Log(prosthetic.Type.ToString());
+                    break;
+            }
+        }
 
-        debugManager.UpdateData("Prosthetic Type",prosthetic.Type.ToString());
+        debugManager.UpdateData("Prosthetic Type", prosthetic.Type.ToString());
 
         // OutSide Bunker
         if (!bunkerSystem.in_bunker)
@@ -64,7 +101,9 @@ public class PlayerAttackBehavior : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 animator.SetTrigger("Attacking");
-                Shooting(new Vector3(0f, 0.85f, 0f));
+
+                prosthetic.SkillActive(transform.position + new Vector3(0f, 0.85f, 0f));
+
                 soundManager.Play("GunShot_00", 0.1f);
             }
         }
@@ -97,28 +136,14 @@ public class PlayerAttackBehavior : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     animator.SetTrigger("Attacking");
-                    Shooting(new Vector3(0f, 0.65f, 0f));
+
+                    prosthetic.SkillActive(transform.position + new Vector3(0f, 0.65f, 0f));
+
                     soundManager.Play("GunShot_00", 0.1f);
                 }
             }
         }
 
-    }
-
-
-
-    void Shooting(Vector3 offset)
-    {
-        if (playerController.FaceRight)
-        {
-            bullet_object.GetComponent<Bullet>().Right = true;
-            Instantiate(bullet_object, transform.position + offset, Quaternion.Euler(0, 0, 90));
-        }
-        else
-        {
-            bullet_object.GetComponent<Bullet>().Right = false;
-            Instantiate(bullet_object, transform.position + offset, Quaternion.Euler(0, 0, 90));
-        }
     }
 
 }
