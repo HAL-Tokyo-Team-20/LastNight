@@ -62,15 +62,12 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 case ProstheticType.Gun:
                     prosthetic = new ShotGun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
                 case ProstheticType.MiniGun:
                     prosthetic = new Gun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
                 case ProstheticType.ShotGun:
                     prosthetic = new MiniGun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
             }
         }
@@ -80,15 +77,12 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 case ProstheticType.Gun:
                     prosthetic = new MiniGun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
                 case ProstheticType.MiniGun:
                     prosthetic = new ShotGun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
                 case ProstheticType.ShotGun:
                     prosthetic = new Gun();
-                    Debug.Log(prosthetic.Type.ToString());
                     break;
             }
         }
