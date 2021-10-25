@@ -54,6 +54,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         dissolveAmount = 0;
 
         isHit = false;
+
     }
 
     // Update is called once per frame
@@ -66,7 +67,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         if (isHit)
         {
-            enemyHitVFX.Play();
+            isHit = false;
         }
         else
         {
@@ -118,7 +119,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
             isHit = true;
         }
-
+        
 
     }
 
@@ -180,7 +181,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void BeAttack()
     {
-
+        enemyHitVFX.Play();
         animator.SetBool("BeAttack", true);
         hp--;
     }
