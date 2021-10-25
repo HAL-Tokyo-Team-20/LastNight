@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameObjectMgr : UnitySingleton<GameObjectMgr>
 {
+    [SerializeField]
     private Dictionary<string, GameObject> Objects = new Dictionary<string, GameObject>();
 
     private void Awake()
@@ -15,13 +16,7 @@ public class GameObjectMgr : UnitySingleton<GameObjectMgr>
     public GameObject GetGameObject(string name)
     {
         GameObject obj;
-        if (Objects.TryGetValue(name, out obj))
-        {
-            return obj;
-        }
-        else
-        {
-            return null;
-        }
+        var result = Objects.TryGetValue(name, out obj)? obj : null;
+        return result;
     }
 }
