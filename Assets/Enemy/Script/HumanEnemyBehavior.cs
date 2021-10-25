@@ -21,8 +21,8 @@ public class HumanEnemyBehavior : EnemyBehavior
     [SerializeField]
     private float dissolveAmount = 0.0f;
 
-    [SerializeField]
-    private BoxCollider enemyCollider;
+    //[SerializeField]
+    //private BoxCollider enemyCollider;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -50,8 +50,8 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         dissolveAmount = 0;
 
-        enemyCollider = GetComponent<BoxCollider>();
-        enemyCollider.enabled = true;
+        //enemyCollider = GetComponent<BoxCollider>();
+        //enemyCollider.enabled = true;
         isHit = false;
 
     }
@@ -170,7 +170,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void Dead()
     {
-        enemyCollider.enabled = false;
+        //enemyCollider.enabled = false;
         animator.SetBool("Dead", true);
         StartCoroutine(Dissolve(2.3f));
         StartCoroutine(DelayDead());
