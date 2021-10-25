@@ -15,9 +15,6 @@ public class HumanEnemyBehavior : EnemyBehavior
     [SerializeField]
     private VisualEffect enemyHitVFX;
 
-    //[SerializeField]
-    //private VisualEffect enemyDeadVFX;
-
     [SerializeField]
     private List<Material> enemyMaterial = new List<Material>();
 
@@ -25,7 +22,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     private float dissolveAmount = 0.0f;
 
     [SerializeField]
-    private float electricityAmount = 0.0f;
+    private BoxCollider enemyCollider;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -53,6 +50,8 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         dissolveAmount = 0;
 
+        enemyCollider = GetComponent<BoxCollider>();
+        enemyCollider.enabled = true;
         isHit = false;
 
     }
@@ -67,9 +66,9 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         if (isHit)
         {
-            isHit = false;
+            StartCoroutine(BloodSpread(0.05f));
         }
-        else
+        else if (!isHit && animator.GetBool("BeAttack"))
         {
             enemyHitVFX.Stop();
             animator.SetBool("BeAttack", false);
@@ -87,9 +86,9 @@ public class HumanEnemyBehavior : EnemyBehavior
             BeAttack();
 
             RaycastHit hit;
-            Physics.SphereCast(other.gameObject.transform.position, 1.0f,
+            Physics.SphereCast(other.gameObject.transform.position, 4.2f,
                 new Vector3(other.gameObject.transform.position.x, -other.gameObject.transform.position.y, other.gameObject.transform.position.z),
-                out hit, 2.0f);
+                out hit, 3.0f);
 
             var dir = (other.gameObject.transform.position - this.gameObject.transform.position).normalized;
             Vector3 bloodVelocity = enemyHitVFX.GetVector3("BloodVelocity");
@@ -102,18 +101,16 @@ public class HumanEnemyBehavior : EnemyBehavior
                 }
 
                 enemyHitVFX.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5, 0.0f, 0.0f);
+                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x/* / 6*/, 0.0f, 0.0f);
             }
             else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
             {
                 enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x / 5 * -1, 0.0f, 0.0f);
+                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x/* / 6 */* -1, 0.0f, 0.0f);
             }
 
-            //enemyDeadVFX.gameObject.transform.position = other.gameObject.transform.position;
 
-            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
-            //enemyDeadVFX.SetVector3("GroundVector", new Vector3(0.0f, -hit.transform.position.y * 4.5f, 0.0f));
+            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, /*-*/hit.transform.position.y*1.5f, 0.0f));
 
             isHit = true;
         }
@@ -129,13 +126,15 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
-    private IEnumerator Blast(float duration)
+    
+    private IEnumerator BloodSpread(float duration)
     {
-        
+
 
         yield return new WaitForSeconds(duration);
 
-        //enemyDeadVFX.Stop();
+        isHit = false;
+
     }
 
     private IEnumerator Dissolve(float duration)
@@ -171,6 +170,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void Dead()
     {
+        enemyCollider.enabled = false;
         animator.SetBool("Dead", true);
         StartCoroutine(Dissolve(2.3f));
         StartCoroutine(DelayDead());
@@ -178,9 +178,11 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void BeAttack()
     {
+        
         enemyHitVFX.Play();
         animator.SetBool("BeAttack", true);
         hp--;
+        
     }
 
 }
