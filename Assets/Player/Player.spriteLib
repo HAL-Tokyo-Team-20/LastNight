@@ -38,18 +38,18 @@ MonoBehaviour:
       m_Sprite: {fileID: -8972752937341758836, guid: 08ab3e027f30a16419c4604cfe47b05a, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -8972752937341758836, guid: 08ab3e027f30a16419c4604cfe47b05a, type: 3}
-    - m_Name: Entry_0
-      m_Hash: 874506106
+    - m_Name: Gun
+      m_Hash: 1926661051
       m_Sprite: {fileID: -7405559428643703759, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7405559428643703759, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}
-    - m_Name: Entry_1
-      m_Hash: 1125701612
+    - m_Name: ShotGun
+      m_Hash: 425602205
       m_Sprite: {fileID: 5661098740054602890, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5661098740054602890, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}
-    - m_Name: Entry_2
-      m_Hash: -636385706
+    - m_Name: MiniGun
+      m_Hash: 2062597721
       m_Sprite: {fileID: -8174992226779562197, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -8174992226779562197, guid: aa965a48c1ad2484da3a4e9aa6ff01c7, type: 3}

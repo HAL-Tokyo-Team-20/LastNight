@@ -16,26 +16,18 @@ public class UIManager : UnitySingleton<UIManager>
     private bool spriteloadfinish = false;
     [SerializeField] private IList<Sprite> sprite_ProstheticIcon;
 
-    private ProstheticType prostheticType = ProstheticType.Gun;
-    private Prosthetic player_prosthetic;
-
     private PlayerSpriteController playerSpriteController;
-
     private PlayerAttackBehavior playerAttackBehavior;
 
     private void Awake()
     {
         Addressables.LoadAssetsAsync<Sprite>("Sprite_ProstheticIcon", null).Completed += OnAssetSpriteLoaded;
-
-       //playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
     }
 
     void OnAssetSpriteLoaded(AsyncOperationHandle<IList<Sprite>> asyncOperationHandle)
     {
         spriteloadfinish = true;
         sprite_ProstheticIcon = asyncOperationHandle.Result;
-
-        Debug.Log(sprite_ProstheticIcon.Count);
     }
 
     // Start is called before the first frame update
@@ -43,6 +35,7 @@ public class UIManager : UnitySingleton<UIManager>
     {
 
         playerSpriteController = PlayerSpriteController.Instance;
+        playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
 
         for (int i = 0; i < (int)UI_ObjectEnum.END; i++)
         {
@@ -50,8 +43,6 @@ public class UIManager : UnitySingleton<UIManager>
         }
 
         blackframe_animator = transform.GetChild(1).GetComponent<Animator>();
-        player_prosthetic = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>().prosthetic;
-
     }
 
     // Update is called once per frame
@@ -70,16 +61,14 @@ public class UIManager : UnitySingleton<UIManager>
     {
 
         if (!spriteloadfinish) return;
-
+        
+        // UI
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
-
-        //TODO: 不用按键, 改成参考PlayerAttackBehavior
-        //if (Input.GetKeyDown(KeyCode.I) && (int)prostheticType < (int)ProstheticType.MiniGun) prostheticType++;
-        //else if (Input.GetKeyDown(KeyCode.U) && (int)prostheticType > 0) prostheticType--;
-
-        //player_prosthetic.Type = prostheticType;
-        //prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
-        //playerSpriteController.SetRightHandLabel(player_prosthetic.ProstheticTypeName[(int)prostheticType]);
+        var prostheticType = playerAttackBehavior.prosthetic.Type;
+        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        // Player Sprite
+        playerSpriteController.SetRightHandLabel(prostheticType.ToString());
+       
     }
 
     private void UpdateDebugText()

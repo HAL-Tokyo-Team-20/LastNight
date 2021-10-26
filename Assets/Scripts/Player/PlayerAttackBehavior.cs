@@ -49,7 +49,6 @@ public class PlayerAttackBehavior : MonoBehaviour
         player_camera = gameObejectManager.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
 
         prosthetic = new Gun();
-        Debug.Log(prosthetic.Type.ToString());
     }
 
     // Update is called once per frame
