@@ -1592,6 +1592,10 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7145036496259115443, guid: c74256b01de828f48bcf713cd56fc611, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 7145036496749626960, guid: c74256b01de828f48bcf713cd56fc611, type: 3}
       propertyPath: m_Name
       value: Area_2
@@ -2061,8 +2065,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8979380885362129330, guid: 615d3e5323d2e03428e7b1d70e1e899e, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979380885362129330, guid: 615d3e5323d2e03428e7b1d70e1e899e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979380885362129330, guid: 615d3e5323d2e03428e7b1d70e1e899e, type: 3}
       propertyPath: m_CookingOptions
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979380885362129333, guid: 615d3e5323d2e03428e7b1d70e1e899e, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 8979380886072570984, guid: 615d3e5323d2e03428e7b1d70e1e899e, type: 3}
       propertyPath: m_Materials.Array.size
