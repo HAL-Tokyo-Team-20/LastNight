@@ -13,6 +13,8 @@ public class SimplePlayerController : MonoBehaviour
     public bool FaceRight = true;
 
     public bool SelectedMode { get; set; }// 是否在物体选取模式中
+
+    public bool OnGround { get; set; }// 是否在地面上
     private Animator animator;
 
     private Rigidbody rb;
@@ -35,6 +37,7 @@ public class SimplePlayerController : MonoBehaviour
         SelectedMode = false;
         rb = GetComponent<Rigidbody>();
 
+        OnGround = true;
     }
 
     // Update is called once per frame
@@ -46,6 +49,25 @@ public class SimplePlayerController : MonoBehaviour
         // 选取模式
         Select();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            OnGround = true;
+            Debug.Log("OnGround");
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            OnGround = false;
+            Debug.Log("Not OnGround");
+        }
+    }
+
 
     private void Move()
     {
@@ -63,7 +85,7 @@ public class SimplePlayerController : MonoBehaviour
         if (!(moveDirection.x == 0 && moveDirection.y == 0))
         {
             animator.SetBool("Running", true);
-            soundManager.Play("FootStep_00",0.4f);
+            soundManager.Play("FootStep_00", 0.4f);
         }
         else
         {
@@ -94,6 +116,11 @@ public class SimplePlayerController : MonoBehaviour
 
     private void Select()
     {
+        // 如果在空中, 直接return, 不做处理
+        if (!OnGround)
+        {
+            return;
+        }
 
         debugManager.UpdateData("Select Mode", SelectedMode.ToString());
 
@@ -101,7 +128,7 @@ public class SimplePlayerController : MonoBehaviour
         {
             SelectedMode = !SelectedMode;
             if (selectItemManager.GetSelecteditemsLength() > 0) uIManager.SetSelectImageActive(SelectedMode);
-            
+
         }
         if (SelectedMode)
         {
