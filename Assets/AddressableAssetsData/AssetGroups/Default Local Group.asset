@@ -47,6 +47,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
+  - m_GUID: 61b7aa72859156d4a95bfeccce6d016f
+    m_Address: Enemy_Bullet
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  - m_GUID: 65fa570c295ed79409490d7aa4dc12db
+    m_Address: Human
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5d363694936cf4696caabec83d83cf, type: 2}
   m_SchemaSet:

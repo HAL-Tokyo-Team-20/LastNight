@@ -18,13 +18,12 @@ public class SimplePlayerController : MonoBehaviour
     private Animator animator;
 
     private Rigidbody rb;
+    [SerializeField] private List<Material> materials;
 
     private UIManager uIManager;
     private SoundManager soundManager;
     private DebugManager debugManager;
     private SelectItemMgr selectItemManager;
-
-    private bool isAttacked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +38,12 @@ public class SimplePlayerController : MonoBehaviour
         SelectedMode = false;
         rb = GetComponent<Rigidbody>();
 
+        var spriteRenderers = transform.GetChild(0).GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer s in spriteRenderers)
+        {
+            materials.Add(s.material);
+        }
+
         OnGround = true;
     }
 
@@ -50,6 +55,23 @@ public class SimplePlayerController : MonoBehaviour
 
         // 选取模式
         Select();
+
+        if (transform.rotation == Quaternion.Euler(0, 0, 0))
+        {
+            foreach (Material m in materials)
+            {
+                m.SetFloat("_Normal_Z", 1.0f);
+            }
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 180, 0))
+        {
+            foreach (Material m in materials)
+            {
+                m.SetFloat("_Normal_Z", -1.0f);
+            }
+        }
+
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,15 +89,6 @@ public class SimplePlayerController : MonoBehaviour
             OnGround = false;
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("EnemyBullet"))
-        {
-            isAttacked = true;
-        }
-    }
-
 
     private void Move()
     {
