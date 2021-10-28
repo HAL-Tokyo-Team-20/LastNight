@@ -630,6 +630,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5028047438944877066, guid: e500db59347efeb499799913b557de3f, type: 3}
+      propertyPath: EnemyBullet
+      value: 
+      objectReference: {fileID: 8309503201535454896, guid: 61b7aa72859156d4a95bfeccce6d016f, type: 3}
     - target: {fileID: 5028047438944877069, guid: e500db59347efeb499799913b557de3f, type: 3}
       propertyPath: m_RootOrder
       value: 7

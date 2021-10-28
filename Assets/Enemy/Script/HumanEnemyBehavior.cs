@@ -21,6 +21,10 @@ public class HumanEnemyBehavior : EnemyBehavior
     [SerializeField]
     private float dissolveAmount = 0.0f;
 
+    // 敌人子弹
+    private int cnt = 0;
+    public GameObject EnemyBullet;
+
     //[SerializeField]
     //private BoxCollider enemyCollider;
 
@@ -40,7 +44,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         SpriteRenderer[] childObject = GetComponentsInChildren<SpriteRenderer>();
 
-        for(int i = 0; i < childObject.Length; i++)
+        for (int i = 0; i < childObject.Length; i++)
         {
             enemyMaterial.Add(childObject[i].material);
 
@@ -74,8 +78,14 @@ public class HumanEnemyBehavior : EnemyBehavior
             animator.SetBool("BeAttack", false);
         }
 
-        
-
+        // 暂时测试: 定时发射子弹
+        cnt++;
+        if (cnt == 60)
+        {
+            cnt = 0;
+            EnemyBullet.GetComponent<EnemyBullet>().Right = false;
+            GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+        }
     }
 
 
@@ -110,11 +120,11 @@ public class HumanEnemyBehavior : EnemyBehavior
             }
 
 
-            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, /*-*/hit.transform.position.y*1.5f, 0.0f));
+            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, /*-*/hit.transform.position.y * 1.5f, 0.0f));
 
             isHit = true;
         }
-        
+
 
     }
 
@@ -126,7 +136,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
-    
+
     private IEnumerator BloodSpread(float duration)
     {
 
@@ -178,11 +188,11 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void BeAttack()
     {
-        
+
         enemyHitVFX.Play();
         animator.SetBool("BeAttack", true);
         hp--;
-        
+
     }
 
 }

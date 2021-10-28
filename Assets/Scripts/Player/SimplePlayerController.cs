@@ -24,6 +24,8 @@ public class SimplePlayerController : MonoBehaviour
     private DebugManager debugManager;
     private SelectItemMgr selectItemManager;
 
+    private bool isAttacked = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,6 @@ public class SimplePlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             OnGround = true;
-            Debug.Log("OnGround");
         }
     }
 
@@ -64,7 +65,14 @@ public class SimplePlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             OnGround = false;
-            Debug.Log("Not OnGround");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyBullet"))
+        {
+            isAttacked = true;
         }
     }
 
