@@ -7,25 +7,24 @@ public class SkyCarGen : MonoBehaviour
     [Tooltip("SkyCar预制体")]
     public GameObject SkyCar;
     [Tooltip("生成的时间")]
+
     public float GenTime;
 
-    private Vector3 StartPosition;
-    private float timer;
+    public MoveDirEnum MoveDir;
 
-    void Start()
+    private Vector3 StartPosition;
+
+
+    private void Start()
     {
-        timer = 0f;
-        StartPosition = transform.parent.Find("StartPos").transform.position;
+        StartPosition = transform.Find("StartPos").transform.position;
+
+        InvokeRepeating("Gen", GenTime, GenTime);
     }
 
-
-    void Update()
+    private void Gen()
     {
-        timer += 1f;
-        if (timer >= GenTime)
-        {
-            timer = 0f;
-            GameObject.Instantiate(SkyCar, StartPosition, new Quaternion());
-        }
+        var car = GameObject.Instantiate(SkyCar, StartPosition, new Quaternion(0, 0, 0, 0));
+        car.GetComponent<SkyCar>().MoveDir = MoveDir;
     }
 }
