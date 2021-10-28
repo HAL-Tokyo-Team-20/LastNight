@@ -25,6 +25,8 @@ public class SimplePlayerController : MonoBehaviour
     private DebugManager debugManager;
     private SelectItemMgr selectItemManager;
 
+    private Quaternion preQua;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,22 +58,12 @@ public class SimplePlayerController : MonoBehaviour
         // 选取模式
         Select();
 
-        if (transform.rotation == Quaternion.Euler(0, 0, 0))
+        // 设置normal
+        if (preQua != transform.rotation)
         {
-            foreach (Material m in materials)
-            {
-                m.SetFloat("_Normal_Z", 1.0f);
-            }
+            Debug.Log("------change normal");
+            SetNormal();
         }
-        else if (transform.rotation == Quaternion.Euler(0, 180, 0))
-        {
-            foreach (Material m in materials)
-            {
-                m.SetFloat("_Normal_Z", -1.0f);
-            }
-        }
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -90,8 +82,28 @@ public class SimplePlayerController : MonoBehaviour
         }
     }
 
+    private void SetNormal()
+    {
+        if (transform.rotation == Quaternion.Euler(0, 0, 0))
+        {
+            foreach (Material m in materials)
+            {
+                m.SetFloat("_Normal_Z", 1.0f);
+            }
+        }
+        else if (transform.rotation == Quaternion.Euler(0, 180, 0))
+        {
+            foreach (Material m in materials)
+            {
+                m.SetFloat("_Normal_Z", -1.0f);
+            }
+        }
+    }
     private void Move()
     {
+
+        preQua = transform.rotation;
+
         Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
         if (moveDirection.x > 0)

@@ -6,8 +6,7 @@ public class SkyCarGen : MonoBehaviour
 {
     [Tooltip("SkyCar预制体")]
     public GameObject SkyCar;
-    [Tooltip("生成的时间")]
-
+    [Tooltip("生成的时间间隔")]
     public float GenTime;
 
     public MoveDirEnum MoveDir;

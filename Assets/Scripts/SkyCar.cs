@@ -8,7 +8,6 @@ public class SkyCar : MonoBehaviour
 {
     public MoveDirEnum MoveDir { get; set; }
     public float MoveSpeed;
-    [Tooltip("SkyCar销毁时间")]
     public float DeadEnd;
 
     void Start()
