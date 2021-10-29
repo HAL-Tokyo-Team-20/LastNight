@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class StrangerBehavior : MonoBehaviour
 {
-
-    public Vector3 MoveDirection = new Vector3(-1, 0, 0);
+    public MoveDirEnum MoveDir { get; set; }
 
     public float MoveSpeed = 3.0f;
 
     private Rigidbody rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // TODO:随机生成服饰等
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rb.MovePosition(transform.position + (MoveDirection * MoveSpeed * Time.deltaTime));
+        if (MoveDir == MoveDirEnum.Left)
+        {
+            rb.MovePosition(transform.position + (Vector3.left * MoveSpeed * Time.deltaTime));
+        }
+        else if (MoveDir == MoveDirEnum.Right)
+        {
+            rb.MovePosition(transform.position + (Vector3.right * MoveSpeed * Time.deltaTime));
+        }
     }
 
     private void OnTriggerEnter(Collider other)
