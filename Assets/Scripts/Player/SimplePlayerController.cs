@@ -61,7 +61,6 @@ public class SimplePlayerController : MonoBehaviour
         // 设置normal
         if (preQua != transform.rotation)
         {
-            Debug.Log("------change normal");
             SetNormal();
         }
     }
