@@ -18,7 +18,7 @@ public class SkyCarGen : MonoBehaviour
     {
         StartPosition = transform.Find("StartPos").transform.position;
 
-        InvokeRepeating("Gen", GenTime, GenTime);
+        InvokeRepeating("Gen", 0.1f, GenTime);
     }
 
     private void Gen()
