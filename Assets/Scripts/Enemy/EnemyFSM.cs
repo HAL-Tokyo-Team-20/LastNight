@@ -32,6 +32,7 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
+        humanEnemyBehavior.BloodSpread();
         switch (state)
         {
             case EnemyFSMState.Idle:
@@ -67,7 +68,6 @@ public class EnemyFSM : MonoBehaviour
     {
         // 播放移动动画,并向玩家移动
 
-
         //TODO 更顺滑的移动
         transform.Translate(Vector3.left * MoveSpeed * Time.deltaTime, Space.World);
         // 检测与玩家的距离
@@ -82,7 +82,8 @@ public class EnemyFSM : MonoBehaviour
     private void AttackPlayer()
     {
         // 播放攻击动画,并向玩家攻击
-        // 暂时测试: 定时发射子弹
+        humanEnemyBehavior.Attack();
+
         cnt++;
         if (cnt == 60)
         {
@@ -90,7 +91,6 @@ public class EnemyFSM : MonoBehaviour
             EnemyBullet.GetComponent<EnemyBullet>().Right = false;
             GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
         }
-        // 如果受到攻击, hp减少
 
         // 如果hp<=0, 则切换到下一个模式
         if (HP <= 0)

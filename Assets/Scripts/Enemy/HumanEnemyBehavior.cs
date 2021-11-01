@@ -52,19 +52,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (hp <= 0)
-        {
-            Dead();
-        }
-
-        BloodSpread();
-
-
-    }
-
+    // 流血动画
     public void BloodSpread()
     {
         if (isHit)
@@ -78,11 +66,31 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
+    // 死亡动画
     public override void Dead()
     {
         animator.SetBool("Dead", true);
         StartCoroutine(Dissolve(2.3f));
         StartCoroutine(DelayDead());
+    }
+
+    // 走路动画
+    public void Walk()
+    {
+        //animator.SetBool("Attack", false);
+        //animator.SetBool("Walk", true);
+    }
+
+    // 攻击动画
+    public void Attack()
+    {
+        animator.SetBool("Attack", true);
+    }
+
+    protected override void BeAttack()
+    {
+        enemyHitVFX.Play();
+        animator.SetBool("BeAttack", true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -158,20 +166,9 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
-
     private IEnumerator DelayDead()
     {
         yield return new WaitUntil(() => dissolveAmount >= 1.0f);
         Destroy(gameObject);
     }
-
-
-
-
-    protected override void BeAttack()
-    {
-        enemyHitVFX.Play();
-        animator.SetBool("BeAttack", true);
-    }
-
 }
