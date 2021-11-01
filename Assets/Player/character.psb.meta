@@ -6501,4 +6501,4 @@ ScriptedImporter:
   skeletonAssetName: 
   secondarySpriteTextures:
   - name: _NormalMap
-    texture: {fileID: 2800000, guid: cd7b1ca98cae54deeb6cf7901a45888c, type: 3}
+    texture: {fileID: -8328923581568760697, guid: 6dbf4529d4c6fe04bbe58d0fa2c84949, type: 3}
