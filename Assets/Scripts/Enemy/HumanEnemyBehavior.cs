@@ -13,10 +13,10 @@ public class HumanEnemyBehavior : EnemyBehavior
     private Animator animator;
 
     [SerializeField]
-    private VisualEffect enemyHitVFX;
+    public VisualEffect enemyHitVFX;
 
     [SerializeField]
-    private List<Material> enemyMaterial = new List<Material>();
+    public List<Material> enemyMaterial = new List<Material>();
 
     [SerializeField]
     private float dissolveAmount = 0.0f;
@@ -25,8 +25,6 @@ public class HumanEnemyBehavior : EnemyBehavior
     private int cnt = 0;
     public GameObject EnemyBullet;
 
-    //[SerializeField]
-    //private BoxCollider enemyCollider;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -37,14 +35,12 @@ public class HumanEnemyBehavior : EnemyBehavior
         enemyHitVFX = tempVFX[0];
         enemyHitVFX.Stop();
 
-        //enemyDeadVFX = tempVFX[1];
-        //enemyDeadVFX.Stop();
 
         animator = GetComponent<Animator>();
 
         SpriteRenderer[] childObject = GetComponentsInChildren<SpriteRenderer>();
 
-        for (int i = 0; i < childObject.Length; i++)
+        for(int i = 0; i < childObject.Length; i++)
         {
             enemyMaterial.Add(childObject[i].material);
 
@@ -52,10 +48,9 @@ public class HumanEnemyBehavior : EnemyBehavior
             enemyMaterial[i].SetFloat("_ElectricityAmount", 0.0f);
         }
 
+
         dissolveAmount = 0;
 
-        //enemyCollider = GetComponent<BoxCollider>();
-        //enemyCollider.enabled = true;
         isHit = false;
 
     }
@@ -68,15 +63,7 @@ public class HumanEnemyBehavior : EnemyBehavior
             Dead();
         }
 
-        if (isHit)
-        {
-            StartCoroutine(BloodSpread(0.05f));
-        }
-        else if (!isHit && animator.GetBool("BeAttack"))
-        {
-            enemyHitVFX.Stop();
-            animator.SetBool("BeAttack", false);
-        }
+        BloodSpread();
 
         // 暂时测试: 定时发射子弹
         cnt++;
@@ -137,31 +124,32 @@ public class HumanEnemyBehavior : EnemyBehavior
     }
 
 
-    private IEnumerator BloodSpread(float duration)
+    //VFX Effects handling
+    private IEnumerator DelayBloodSpread(float duration)
     {
-
 
         yield return new WaitForSeconds(duration);
 
         isHit = false;
-
     }
 
-    private IEnumerator Dissolve(float duration)
+    private IEnumerator Dissolve(float duration=0.0f)
     {
-        for (int i = 0; i < enemyMaterial.Count; i++)
+
+        foreach(var material in enemyMaterial)
         {
-            enemyMaterial[i].SetFloat("_ElectricityAmount", 1.0f);
+            material.SetFloat("_ElectricityAmount", 1.0f);
         }
+
 
         yield return new WaitForSeconds(duration);
 
         dissolveAmount += Time.deltaTime;
 
-        for (int i = 0; i < enemyMaterial.Count; i++)
+        foreach(var material in enemyMaterial)
         {
-            enemyMaterial[i].SetFloat("_ElectricityAmount", 1.0f);
-            enemyMaterial[i].SetFloat("_DissolveAmount", dissolveAmount);
+            material.SetFloat("_ElectricityAmount", 1.0f);
+            material.SetFloat("_DissolveAmount", dissolveAmount);
 
             if (dissolveAmount >= 1.0f)
             {
@@ -169,7 +157,9 @@ public class HumanEnemyBehavior : EnemyBehavior
             }
         }
 
+
     }
+
 
     private IEnumerator DelayDead()
     {
@@ -178,7 +168,20 @@ public class HumanEnemyBehavior : EnemyBehavior
     }
 
 
-    protected override void Dead()
+    public void BloodSpread()
+    {
+        if (isHit)
+        {
+            StartCoroutine(DelayBloodSpread(0.05f));
+        }
+        else if (!isHit && animator.GetBool("BeAttack"))
+        {
+            enemyHitVFX.Stop();
+            animator.SetBool("BeAttack", false);
+        }
+    }
+
+    public override void Dead()
     {
         //enemyCollider.enabled = false;
         animator.SetBool("Dead", true);

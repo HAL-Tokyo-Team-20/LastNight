@@ -22,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour
         hp--;
     }
 
-    protected virtual void Dead()
+    public virtual void Dead()
     {
         //spriteRenderer.enabled = false;
         StartCoroutine(DelayDestroy(1.5f));
