@@ -77,7 +77,6 @@ public class EnemyFSM : MonoBehaviour
         {
             this.state = EnemyFSMState.AttackPlayer;
         }
-        Debug.Log(dist);
     }
 
     private void AttackPlayer()
