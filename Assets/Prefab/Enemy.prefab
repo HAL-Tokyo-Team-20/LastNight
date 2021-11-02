@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5028047438944877069}
   - component: {fileID: 5028047438944877068}
   - component: {fileID: 5028047438944877067}
-  - component: {fileID: 5028047438944877066}
   - component: {fileID: 1170148277}
+  - component: {fileID: 5028047438944877066}
+  - component: {fileID: 2759271306049087073}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -66,23 +67,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5028047438944877066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5028047438944877071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0cc0424b1232f46a8bd4b058b79375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  enemyHitVFX: {fileID: 0}
-  enemyMaterial: []
-  dissolveAmount: 0
-  enemyCollider: {fileID: 0}
 --- !u!95 &1170148277
 Animator:
   serializedVersion: 4
@@ -103,6 +87,39 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5028047438944877066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5028047438944877071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0cc0424b1232f46a8bd4b058b79375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  enemyHitVFX: {fileID: 0}
+  enemyMaterial: []
+  dissolveAmount: 0
+--- !u!114 &2759271306049087073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5028047438944877071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac0e15d6c74070419321e9c0bca6839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SeePlayerDistance: 10
+  AttackPlayerDistance: 3
+  MoveSpeed: 0.3
+  HP: 3
+  EnemyBullet: {fileID: 8309503201535454896, guid: 61b7aa72859156d4a95bfeccce6d016f, type: 3}
 --- !u!1 &8478663629127080835
 GameObject:
   m_ObjectHideFlags: 0

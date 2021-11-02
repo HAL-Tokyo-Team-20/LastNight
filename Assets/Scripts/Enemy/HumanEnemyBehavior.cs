@@ -21,9 +21,6 @@ public class HumanEnemyBehavior : EnemyBehavior
     [SerializeField]
     private float dissolveAmount = 0.0f;
 
-    // 敌人子弹
-    private int cnt = 0;
-    public GameObject EnemyBullet;
 
 
     // Start is called before the first frame update
@@ -40,7 +37,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
         SpriteRenderer[] childObject = GetComponentsInChildren<SpriteRenderer>();
 
-        for(int i = 0; i < childObject.Length; i++)
+        for (int i = 0; i < childObject.Length; i++)
         {
             enemyMaterial.Add(childObject[i].material);
 
@@ -55,26 +52,46 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     }
 
-    // Update is called once per frame
-    void Update()
+    // 流血动画
+    public void BloodSpread()
     {
-        if (hp <= 0)
+        if (isHit)
         {
-            Dead();
+            StartCoroutine(DelayBloodSpread(0.05f));
         }
-
-        BloodSpread();
-
-        // 暂时测试: 定时发射子弹
-        cnt++;
-        if (cnt == 60)
+        else if (!isHit && animator.GetBool("BeAttack"))
         {
-            cnt = 0;
-            EnemyBullet.GetComponent<EnemyBullet>().Right = false;
-            GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+            enemyHitVFX.Stop();
+            animator.SetBool("BeAttack", false);
         }
     }
 
+    // 死亡动画
+    public override void Dead()
+    {
+        animator.SetBool("Dead", true);
+        StartCoroutine(Dissolve(2.3f));
+        StartCoroutine(DelayDead());
+    }
+
+    // 走路动画
+    public void Walk()
+    {
+        //animator.SetBool("Attack", false);
+        //animator.SetBool("Walk", true);
+    }
+
+    // 攻击动画
+    public void Attack()
+    {
+        animator.SetBool("Attack", true);
+    }
+
+    protected override void BeAttack()
+    {
+        enemyHitVFX.Play();
+        animator.SetBool("BeAttack", true);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -105,14 +122,9 @@ public class HumanEnemyBehavior : EnemyBehavior
                 enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
                 enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x/* / 6 */* -1, 0.0f, 0.0f);
             }
-
-
             enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, /*-*/hit.transform.position.y * 1.5f, 0.0f));
-
             isHit = true;
         }
-
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -127,26 +139,22 @@ public class HumanEnemyBehavior : EnemyBehavior
     //VFX Effects handling
     private IEnumerator DelayBloodSpread(float duration)
     {
-
         yield return new WaitForSeconds(duration);
-
         isHit = false;
     }
 
-    private IEnumerator Dissolve(float duration=0.0f)
+    private IEnumerator Dissolve(float duration = 0.0f)
     {
-
-        foreach(var material in enemyMaterial)
+        foreach (var material in enemyMaterial)
         {
             material.SetFloat("_ElectricityAmount", 1.0f);
         }
-
 
         yield return new WaitForSeconds(duration);
 
         dissolveAmount += Time.deltaTime;
 
-        foreach(var material in enemyMaterial)
+        foreach (var material in enemyMaterial)
         {
             material.SetFloat("_ElectricityAmount", 1.0f);
             material.SetFloat("_DissolveAmount", dissolveAmount);
@@ -156,46 +164,11 @@ public class HumanEnemyBehavior : EnemyBehavior
                 dissolveAmount = 1.0f;
             }
         }
-
-
     }
-
 
     private IEnumerator DelayDead()
     {
         yield return new WaitUntil(() => dissolveAmount >= 1.0f);
         Destroy(gameObject);
     }
-
-
-    public void BloodSpread()
-    {
-        if (isHit)
-        {
-            StartCoroutine(DelayBloodSpread(0.05f));
-        }
-        else if (!isHit && animator.GetBool("BeAttack"))
-        {
-            enemyHitVFX.Stop();
-            animator.SetBool("BeAttack", false);
-        }
-    }
-
-    public override void Dead()
-    {
-        //enemyCollider.enabled = false;
-        animator.SetBool("Dead", true);
-        StartCoroutine(Dissolve(2.3f));
-        StartCoroutine(DelayDead());
-    }
-
-    protected override void BeAttack()
-    {
-
-        enemyHitVFX.Play();
-        animator.SetBool("BeAttack", true);
-        hp--;
-
-    }
-
 }
