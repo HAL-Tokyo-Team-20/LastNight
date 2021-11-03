@@ -85,7 +85,7 @@ public class EnemyFSM : MonoBehaviour
         humanEnemyBehavior.Attack();
 
         cnt++;
-        if (cnt == 60)
+        if (cnt == 360)
         {
             cnt = 0;
             EnemyBullet.GetComponent<EnemyBullet>().Right = false;

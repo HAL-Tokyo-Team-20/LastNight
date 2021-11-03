@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -33,10 +33,10 @@ MonoBehaviour:
     m_Value: 5
   aperture:
     m_OverrideState: 1
-    m_Value: 9.33
+    m_Value: 2.8
   focalLength:
     m_OverrideState: 1
-    m_Value: 105
+    m_Value: 50
   bladeCount:
     m_OverrideState: 1
     m_Value: 6
@@ -61,10 +61,10 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 0.4
   intensity:
     m_OverrideState: 1
-    m_Value: 1.6
+    m_Value: 1.5
   scatter:
     m_OverrideState: 1
     m_Value: 0.813
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   skipIterations:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   dirtTexture:
     m_OverrideState: 0

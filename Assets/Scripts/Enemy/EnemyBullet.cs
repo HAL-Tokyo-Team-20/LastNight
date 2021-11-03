@@ -18,6 +18,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (!Right) MoveDistance *= -1;
         move_tweener = transform.DOMoveX(transform.position.x + MoveDistance, DestroyTime).SetEase(Ease.Linear).OnComplete(() => Destroy(gameObject));
+        move_tweener.SetAutoKill();
     }
 
     private void Update()

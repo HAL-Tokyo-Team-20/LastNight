@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
-using DG.Tweening;
 
 public class HumanEnemyBehavior : EnemyBehavior
 {
@@ -84,7 +83,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     // 攻击动画
     public void Attack()
     {
-        animator.SetBool("Attack", true);
+        animator.SetTrigger("Attack");
     }
 
     protected override void BeAttack()
