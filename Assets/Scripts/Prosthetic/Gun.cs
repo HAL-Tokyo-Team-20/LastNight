@@ -21,13 +21,12 @@ public class Gun : Prosthetic
     {
         if (playerController.FaceRight)
         {
-            bullet_object.GetComponent<Bullet>().Right = true;
-
+            bullet_object.GetComponent<Bullet>().Angle = 0.0f;
             GameObject.Instantiate(bullet_object, offset, Quaternion.Euler(0, 0, 90));
         }
         else
         {
-            bullet_object.GetComponent<Bullet>().Right = false;
+            bullet_object.GetComponent<Bullet>().Angle = 180.0f;
             GameObject.Instantiate(bullet_object, offset, Quaternion.Euler(0, 0, 90));
         }
     }
