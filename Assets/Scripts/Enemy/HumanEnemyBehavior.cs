@@ -64,8 +64,10 @@ public class HumanEnemyBehavior : EnemyBehavior
             StartCoroutine(DelayBloodSpread(0.05f));
         }
         // TODO:Fixed Bug
-        else if (!isHit && animator.GetBool("BeAttack"))
+        else if (!isHit && !animator.GetBool("BeAttack"))
         {
+            
+
             enemyHitVFX.Stop();
         }
     }
