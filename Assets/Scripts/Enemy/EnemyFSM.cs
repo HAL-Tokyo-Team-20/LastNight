@@ -21,6 +21,8 @@ public class EnemyFSM : MonoBehaviour
 
     private bool CanAttack = true;
 
+    private bool firstTimeAttack = true;
+
     void Start()
     {
         state = EnemyFSMState.Idle;
@@ -83,6 +85,17 @@ public class EnemyFSM : MonoBehaviour
         if (HP <= 0)
         {
             this.state = EnemyFSMState.Dead;
+        }
+
+        // 仅第一次攻击时生效
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            // 播放攻击动画,并向玩家攻击
+            humanEnemyBehavior.Attack();
+            EnemyBullet.GetComponent<EnemyBullet>().Right = false;
+            GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+            return;
         }
 
         if (CanAttack)
