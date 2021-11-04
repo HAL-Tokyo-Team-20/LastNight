@@ -32,16 +32,18 @@ public class EnemyFSM : MonoBehaviour
 
     void Update()
     {
-        humanEnemyBehavior.BloodSpread();
         switch (state)
         {
             case EnemyFSMState.Idle:
+                humanEnemyBehavior.BloodSpread();
                 Idle();
                 break;
             case EnemyFSMState.SeePlayer:
+                humanEnemyBehavior.BloodSpread();
                 SeePlayer();
                 break;
             case EnemyFSMState.AttackPlayer:
+                humanEnemyBehavior.BloodSpread();
                 AttackPlayer();
                 break;
             case EnemyFSMState.Dead:
@@ -122,7 +124,7 @@ public class EnemyFSM : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 如果受到子弹攻击, hp--
-        if (other.CompareTag("Bullet"))
+        if (other.CompareTag("Bullet") && HP > 0)
         {
             HP--;
         }
