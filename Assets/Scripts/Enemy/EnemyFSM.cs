@@ -68,9 +68,9 @@ public class EnemyFSM : MonoBehaviour
 
     private void SeePlayer()
     {
-        // 播放移动动画,并向玩家移动
+        //TODO: 播放移动动画
 
-        //TODO 更顺滑的移动
+        //向玩家移动
         transform.Translate(Vector3.left * MoveSpeed * Time.deltaTime, Space.World);
         // 检测与玩家的距离
         float dist = Vector3.Distance(transform.position, player.transform.position);
@@ -107,10 +107,13 @@ public class EnemyFSM : MonoBehaviour
                 {
                     CanAttack = true;
 
-                    // 播放攻击动画,并向玩家攻击
-                    humanEnemyBehavior.Attack();
-                    EnemyBullet.GetComponent<EnemyBullet>().Right = false;
-                    GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+                    if (HP > 0)
+                    {
+                        // 播放攻击动画,并向玩家攻击
+                        humanEnemyBehavior.Attack();
+                        EnemyBullet.GetComponent<EnemyBullet>().Right = false;
+                        GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+                    }
 
                 }, AttackTime));
         }
@@ -127,6 +130,7 @@ public class EnemyFSM : MonoBehaviour
         if (other.CompareTag("Bullet") && HP > 0)
         {
             HP--;
+            //TODO: 调用BeAttack动作
         }
     }
 }
