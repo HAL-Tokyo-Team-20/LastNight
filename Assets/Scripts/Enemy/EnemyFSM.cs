@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 可能的问题: 1.状态机切换相关
-
 // EnemyFSM: Idle --> SeePlayer --> AttackPlayer --> Dead
 public class EnemyFSM : MonoBehaviour
 {
