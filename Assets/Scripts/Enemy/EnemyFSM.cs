@@ -13,15 +13,13 @@ public class EnemyFSM : MonoBehaviour
     public float AttackPlayerDistance;
     public float MoveSpeed;
     public int HP = 3;
+    public float AttackTime = 3f;
     private EnemyFSMState state;
     private GameObject player;
-    private int deathTime;// 死亡动画的总帧数
-
     private HumanEnemyBehavior humanEnemyBehavior; // 敌人特效脚本
+    public GameObject EnemyBullet;// 敌人子弹
 
-    // 敌人子弹
-    private int cnt = 0;
-    public GameObject EnemyBullet;
+    private bool CanAttack = true;
 
     void Start()
     {
@@ -81,23 +79,25 @@ public class EnemyFSM : MonoBehaviour
 
     private void AttackPlayer()
     {
-
-        cnt++;
-        if (cnt == 360)
-        {
-            cnt = 0;
-
-            // 播放攻击动画,并向玩家攻击
-            humanEnemyBehavior.Attack();
-
-            EnemyBullet.GetComponent<EnemyBullet>().Right = false;
-            GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
-        }
-
         // 如果hp<=0, 则切换到下一个模式
         if (HP <= 0)
         {
             this.state = EnemyFSMState.Dead;
+        }
+
+        if (CanAttack)
+        {
+            CanAttack = false;
+            StartCoroutine(MyTimer.Wait(() =>
+                {
+                    CanAttack = true;
+
+                    // 播放攻击动画,并向玩家攻击
+                    humanEnemyBehavior.Attack();
+                    EnemyBullet.GetComponent<EnemyBullet>().Right = false;
+                    GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
+
+                }, AttackTime));
         }
     }
 
