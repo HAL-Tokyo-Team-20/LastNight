@@ -53,7 +53,7 @@ public class EnemyFSM : MonoBehaviour
     private void Idle()
     {
         // 播放待机动画
-
+        humanEnemyBehavior.Idle();
 
         // 检测与玩家的距离
         float dist = Vector3.Distance(transform.position, player.transform.position);
@@ -81,13 +81,15 @@ public class EnemyFSM : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // 播放攻击动画,并向玩家攻击
-        humanEnemyBehavior.Attack();
 
         cnt++;
         if (cnt == 360)
         {
             cnt = 0;
+
+            // 播放攻击动画,并向玩家攻击
+            humanEnemyBehavior.Attack();
+
             EnemyBullet.GetComponent<EnemyBullet>().Right = false;
             GameObject.Instantiate(EnemyBullet, transform.position + Vector3.up * 0.7f, Quaternion.Euler(0, 0, 90));
         }

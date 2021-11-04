@@ -51,6 +51,11 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     }
 
+    public void Idle()
+    {
+        animator.SetBool("Idle", true);
+    }
+
     // 流血动画
     public void BloodSpread()
     {
@@ -68,7 +73,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     // 死亡动画
     public override void Dead()
     {
-        animator.SetBool("Dead", true);
+        animator.SetTrigger("Dead");
         StartCoroutine(Dissolve(2.3f));
         StartCoroutine(DelayDead());
     }
