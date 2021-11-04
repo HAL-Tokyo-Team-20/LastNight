@@ -63,10 +63,10 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             StartCoroutine(DelayBloodSpread(0.05f));
         }
+        // TODO:Fixed Bug
         else if (!isHit && animator.GetBool("BeAttack"))
         {
             enemyHitVFX.Stop();
-            animator.SetBool("BeAttack", false);
         }
     }
 
@@ -93,8 +93,8 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     protected override void BeAttack()
     {
+        animator.SetTrigger("BeAttack");
         enemyHitVFX.Play();
-        animator.SetBool("BeAttack", true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,6 +103,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             BeAttack();
 
+            // TODO:Fixed Bug
             RaycastHit hit;
             Physics.SphereCast(other.gameObject.transform.position, 4.2f,
                 new Vector3(other.gameObject.transform.position.x, -other.gameObject.transform.position.y, other.gameObject.transform.position.z),
