@@ -33,6 +33,7 @@ public class EnemyFSM : MonoBehaviour
         switch (state)
         {
             case EnemyFSMState.Idle:
+                //TODO: 在特效脚本种完成
                 humanEnemyBehavior.BloodSpread();
                 Idle();
                 break;

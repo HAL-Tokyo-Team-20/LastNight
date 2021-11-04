@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private Tweener move_tweener;
 
-    public void Start()
+    private void Start()
     {
         // 转成弧度
         Angle *= Mathf.Deg2Rad;
@@ -24,11 +24,6 @@ public class Bullet : MonoBehaviour
         Vector3 dest = transform.position + new Vector3(x, y, 0.0f);
 
         move_tweener = transform.DOMove(dest, DestroyTime).SetEase(Ease.Linear).OnComplete(() => Destroy(gameObject));
-    }
-
-    private void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)

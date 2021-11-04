@@ -5,8 +5,8 @@ using UnityEngine.AddressableAssets;
 
 public class ShotGun : Prosthetic
 {
-    public GameObject bullet_object;
-    public float CoolTime = 3.0f;
+    private GameObject bullet_object;
+    private float coolTime = 3.0f;
     SimplePlayerController playerController;
     PlayerAttackBehavior playerAttackBehavior;
     public ShotGun()
@@ -43,6 +43,6 @@ public class ShotGun : Prosthetic
         CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
             {
                 playerAttackBehavior.CanAttack = true;
-            }, CoolTime));
+            }, coolTime));
     }
 }
