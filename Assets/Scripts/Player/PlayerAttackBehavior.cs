@@ -11,8 +11,8 @@ public class PlayerAttackBehavior : MonoBehaviour
 {
     [Range(0.1f, 1.5f)]
     public float headout_time = 0.5f;
-
     public Prosthetic prosthetic;
+    public bool CanAttack = true;
 
     [SerializeField]
     private GameObject bullet_object;
@@ -25,6 +25,8 @@ public class PlayerAttackBehavior : MonoBehaviour
     private DebugManager debugManager;
     private SoundManager soundManager;
     private GameObjectMgr gameObejectManager;
+
+
 
 
     private void Awake()
@@ -93,11 +95,14 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (!CanAttack)
+                {
+                    return;
+                }
                 animator.SetTrigger("Attacking");
-
                 prosthetic.SkillActive(transform.position + new Vector3(0f, 0.85f, 0f));
-
                 soundManager.Play("GunShot_00", 0.1f);
+                CanAttack = false;
             }
         }
         // InSide Bunker
@@ -128,11 +133,14 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    if (!CanAttack)
+                    {
+                        return;
+                    }
                     animator.SetTrigger("Attacking");
-
                     prosthetic.SkillActive(transform.position + new Vector3(0f, 0.65f, 0f));
-
                     soundManager.Play("GunShot_00", 0.1f);
+                    CanAttack = false;
                 }
             }
         }

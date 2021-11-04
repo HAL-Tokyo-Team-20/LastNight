@@ -6,13 +6,16 @@ using UnityEngine.AddressableAssets;
 public class MiniGun : Prosthetic
 {
     public GameObject bullet_object;
+    public float CoolTime = 6.0f;
     SimplePlayerController playerController;
+    PlayerAttackBehavior playerAttackBehavior;
 
-    private const int ShotTimes = 6;
+    private const int ShotTimes = 6; //射击段数
     public MiniGun()
     {
         this.Type = ProstheticType.MiniGun;
         playerController = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<SimplePlayerController>();
+        playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
 
         // TODO: 加特林子弹的预制体
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
@@ -47,5 +50,11 @@ public class MiniGun : Prosthetic
 
             }
         }
+
+        // 设置冷却时间
+        CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
+            {
+                playerAttackBehavior.CanAttack = true;
+            }, CoolTime));
     }
 }

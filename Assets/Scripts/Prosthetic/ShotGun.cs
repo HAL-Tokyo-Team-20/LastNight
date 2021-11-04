@@ -6,11 +6,14 @@ using UnityEngine.AddressableAssets;
 public class ShotGun : Prosthetic
 {
     public GameObject bullet_object;
+    public float CoolTime = 3.0f;
     SimplePlayerController playerController;
+    PlayerAttackBehavior playerAttackBehavior;
     public ShotGun()
     {
         this.Type = ProstheticType.ShotGun;
         playerController = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<SimplePlayerController>();
+        playerAttackBehavior = GameObjectMgr.Instance.GetGameObject("Player").GetComponent<PlayerAttackBehavior>();
 
         // TODO: 霰弹枪子弹的预制体
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
@@ -35,5 +38,11 @@ public class ShotGun : Prosthetic
                 GameObject.Instantiate(bullet_object, offset, Quaternion.Euler(0, 0, 90));
             }
         }
+
+        // 设置冷却时间
+        CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
+            {
+                playerAttackBehavior.CanAttack = true;
+            }, CoolTime));
     }
 }
