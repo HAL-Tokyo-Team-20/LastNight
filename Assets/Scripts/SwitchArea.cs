@@ -14,6 +14,7 @@ public class SwitchArea : MonoBehaviour
     [Header("Destination Information")]
     public string destination_name;
     public Vector3 player_destination;
+    public BoxCollider camerabox_destination;
 
     [Header("Etc")]
     [Range(1.0f,20.0f)]
@@ -72,10 +73,12 @@ public class SwitchArea : MonoBehaviour
 
         float dolly_destination = dolly.m_Path.MaxPos;
         if (!to_maxpoint) dolly_destination = 0.0f;
-        dolly.DOFloat_DollyPathPosition(dolly_destination, transition_time).SetEase(Ease.Linear).OnComplete(()=> { 
+        dolly.DOFloat_DollyPathPosition(dolly_destination, transition_time).SetEase(Ease.Linear).OnComplete(()=> {
+            if (camerabox_destination) player_camera.GetComponent<CinemachineConfiner>().m_BoundingVolume = camerabox_destination;
             player.transform.position = player_destination;
             dolly_camera.Priority = player_camera.Priority - 1;
             player.GetComponent<SimplePlayerController>().LockMove = false;
+
         });
     }
 }
