@@ -45,9 +45,9 @@ public class EnemyFSM : MonoBehaviour
                 humanEnemyBehavior.BloodSpread();
                 AttackPlayer();
                 break;
-            case EnemyFSMState.Dead:
-                Dead();
-                break;
+            //case EnemyFSMState.Dead:
+            //    Dead();
+            //    break;
         }
     }
 
@@ -126,10 +126,18 @@ public class EnemyFSM : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 如果受到子弹攻击, hp--
-        if (other.CompareTag("Bullet") && HP > 0)
+        if (other.CompareTag("Bullet"))
         {
-            HP--;
-            //TODO: 调用BeAttack动作
+            if (HP > 1)
+            {
+                HP--;
+                humanEnemyBehavior.BeAttack();
+            }
+            else if (HP == 1)
+            {
+                HP--;
+                humanEnemyBehavior.Dead();
+            }
         }
     }
 }

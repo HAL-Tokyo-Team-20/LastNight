@@ -49,15 +49,36 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
             // 2. 当钩索到达目标点后, spring 组件开始生效
             // 3. 按下断开键后, spring 组件和 line 组件失效
 
-            line.Reset();
-            line.IsShoot = true;
+            //uIManager.SetSelectImageActive(false);
 
-            this.Selected = false;
-            this.ConfirmSelected = false;
+            //line.Reset();
+            //line.IsShoot = true;
 
+            //this.Selected = false;
+            //this.ConfirmSelected = false;
+
+            //player.GetComponent<SimplePlayerController>().SelectedMode = false;
             uIManager.SetSelectImageActive(false);
-            player.GetComponent<SimplePlayerController>().SelectedMode = false;
+            StartCoroutine(Grap());
         }
+    }
+
+    private IEnumerator Grap()
+    {
+        Animator animator = player.GetComponent<Animator>();
+        animator.SetBool("Graped",true);
+        animator.SetTrigger("Grap");
+
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.75);
+
+        line.Reset();
+        line.IsShoot = true;
+
+        this.Selected = false;
+        this.ConfirmSelected = false;
+
+        player.GetComponent<SimplePlayerController>().SelectedMode = false;
+
     }
 
     private void OnTriggerEnter(Collider other)
