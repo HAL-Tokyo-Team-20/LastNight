@@ -63,11 +63,8 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             StartCoroutine(DelayBloodSpread(0.05f));
         }
-        // TODO:Fixed Bug
         else if (!isHit && !animator.GetBool("BeAttack"))
         {
-            
-
             enemyHitVFX.Stop();
         }
     }
@@ -76,15 +73,14 @@ public class HumanEnemyBehavior : EnemyBehavior
     public override void Dead()
     {
         animator.SetTrigger("Dead");
-        StartCoroutine(Dissolve(2.3f));
-        StartCoroutine(DelayDead());
+        //StartCoroutine(Dissolve(1.0f));
+        //StartCoroutine(DelayDead());
     }
 
     // 走路动画
     public void Walk()
     {
-        //animator.SetBool("Attack", false);
-        //animator.SetBool("Walk", true);
+
     }
 
     // 攻击动画
@@ -93,7 +89,7 @@ public class HumanEnemyBehavior : EnemyBehavior
         animator.SetTrigger("Attack");
     }
 
-    protected override void BeAttack()
+    public override void BeAttack()
     {
         animator.SetTrigger("BeAttack");
         enemyHitVFX.Play();
@@ -103,9 +99,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (other.CompareTag("Bullet"))
         {
-            BeAttack();
-
-            // TODO:Fixed Bug
+            
             RaycastHit hit;
             Physics.SphereCast(other.gameObject.transform.position, 4.2f,
                 new Vector3(other.gameObject.transform.position.x, -other.gameObject.transform.position.y, other.gameObject.transform.position.z),
@@ -175,7 +169,7 @@ public class HumanEnemyBehavior : EnemyBehavior
 
     private IEnumerator DelayDead()
     {
-        yield return new WaitUntil(() => dissolveAmount >= 1.0f);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
         Destroy(gameObject);
     }
 }

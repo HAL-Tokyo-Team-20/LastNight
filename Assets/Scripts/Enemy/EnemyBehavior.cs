@@ -15,9 +15,9 @@ public class EnemyBehavior : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected virtual void BeAttack()
+    public virtual void BeAttack()
     {
-        // TODO: 弾丸連続?たるとカ?ー戻れないバグ?り
+        // TODO: ?e???A??????????J??[?????????o?O???
         spriteRenderer.material.DOColor(Color.red, 0.1f).SetLoops(2, LoopType.Yoyo);
         hp--;
     }

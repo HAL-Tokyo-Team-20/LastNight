@@ -44,7 +44,7 @@ public class LineGP : MonoBehaviour
         lineRender.endWidth = 0.05f;
         // TODO: set material
         if (line_material) lineRender.material = line_material;
-        center_pos = GameObjectMgr.Instance.GetGameObject("Player").transform.Find("center_point");
+        center_pos = GameObjectMgr.Instance.GetGameObject("Player").transform.Find("grap_point");
         current = center_pos.position;
         end = transform.position;
         IsShoot = false;
@@ -67,6 +67,7 @@ public class LineGP : MonoBehaviour
         lineRender.SetPosition(1, current);
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            GameObjectMgr.Instance.GetGameObject("Player").GetComponent<Animator>().SetBool("Graped", false);
             IsShoot = false;
             Destroy(lineRender);
         }

@@ -93,7 +93,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         // OutSide Bunker
         if (!bunkerSystem.in_bunker)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (!CanAttack)
                 {
@@ -131,7 +131,7 @@ public class PlayerAttackBehavior : MonoBehaviour
 
             if (bunkerSystem.headout)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
                     if (!CanAttack)
                     {
