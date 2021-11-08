@@ -17,26 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e46501b9441d48f4f9c63da85b1f2a7a
   m_SerializeEntries:
-  - m_GUID: b642daf29f61b00419c3396351551e92
-    m_Address: Prosthetic_Icon_00.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Sprite_ProstheticIcon
-  - m_GUID: fe1eddc88d4ed2744b70f10db0a115f9
-    m_Address: Prosthetic_Icon_01.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Sprite_ProstheticIcon
-  - m_GUID: 0332f939325399b4eb13d0ad15c24864
-    m_Address: Prosthetic_Icon_02.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Sprite_ProstheticIcon
-  - m_GUID: 510be54760853fb43b65cea081307b6b
-    m_Address: Prosthetic_Icon_03.png
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Sprite_ProstheticIcon
   - m_GUID: 77367b6adbd717346a77aafe1882fc15
     m_Address: Player_Bullet
     m_ReadOnly: 0
@@ -57,6 +37,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
+  - m_GUID: fa549dc9005db914e8f28a2e2d022e18
+    m_Address: Prosthetic_Icon_00.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprite_ProstheticIcon
+  - m_GUID: 83396fea72e10424db2045c28afcad37
+    m_Address: Prosthetic_Icon_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprite_ProstheticIcon
+  - m_GUID: b93af8f9b6d38314e9357966f2a2ad8a
+    m_Address: Prosthetic_Icon_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sprite_ProstheticIcon
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5d363694936cf4696caabec83d83cf, type: 2}
   m_SchemaSet:

@@ -14,6 +14,8 @@ public class PlayerAttackBehavior : MonoBehaviour
     public Prosthetic prosthetic;
     public bool CanAttack = true;
 
+   
+
     [SerializeField]
     private GameObject bullet_object;
     private Animator animator;
@@ -25,6 +27,7 @@ public class PlayerAttackBehavior : MonoBehaviour
     private DebugManager debugManager;
     private SoundManager soundManager;
     private GameObjectMgr gameObejectManager;
+    private Animator effect_animator;
 
 
 
@@ -50,6 +53,8 @@ public class PlayerAttackBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         player_camera = gameObejectManager.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
 
+        effect_animator = transform.GetChild(3).GetComponent<Animator>();
+
         prosthetic = new Gun();
     }
 
@@ -59,6 +64,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         // Change Prosthetic
         if (Input.GetKeyDown(KeyCode.I))//next
         {
+            effect_animator.SetTrigger("Effect00");
             switch (prosthetic.Type)
             {
                 case ProstheticType.Gun:
@@ -74,6 +80,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))//prev
         {
+            effect_animator.SetTrigger("Effect00");
             switch (prosthetic.Type)
             {
                 case ProstheticType.Gun:
