@@ -6,5 +6,7 @@ public class Prosthetic
 {
     public ProstheticType Type;
 
-    public virtual void SkillActive(Vector3 offset) { }
+    public virtual void SkillActive(Vector3 offset)
+    {
+    }
 }

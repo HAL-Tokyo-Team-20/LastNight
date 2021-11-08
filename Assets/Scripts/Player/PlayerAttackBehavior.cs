@@ -11,13 +11,16 @@ public class PlayerAttackBehavior : MonoBehaviour
 {
     [Range(0.1f, 1.5f)]
     public float headout_time = 0.5f;
-    public Prosthetic prosthetic;
-    public bool CanAttack = true;
 
-   
+    public Prosthetic prosthetic;
+
+    public bool GunCanAttack { get; set; }
+    public bool ShotGunCanAttack { get; set; }
+    public bool MiniGunCanAttack { get; set; }
 
     [SerializeField]
     private GameObject bullet_object;
+
     private Animator animator;
     private BunkerSystem bunkerSystem;
     private SimplePlayerController playerController;
@@ -29,9 +32,6 @@ public class PlayerAttackBehavior : MonoBehaviour
     private GameObjectMgr gameObejectManager;
     private Animator effect_animator;
 
-
-
-
     private void Awake()
     {
         // LoadAsset
@@ -40,9 +40,8 @@ public class PlayerAttackBehavior : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
         playerCameraController = PlayerCameraController.Instance;
         debugManager = DebugManager.Instance;
         soundManager = SoundManager.Instance;
@@ -56,10 +55,14 @@ public class PlayerAttackBehavior : MonoBehaviour
         effect_animator = transform.GetChild(3).GetComponent<Animator>();
 
         prosthetic = new Gun();
+
+        GunCanAttack = true;
+        ShotGunCanAttack = true;
+        MiniGunCanAttack = true;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Change Prosthetic
         if (Input.GetKeyDown(KeyCode.I))//next
@@ -70,9 +73,11 @@ public class PlayerAttackBehavior : MonoBehaviour
                 case ProstheticType.Gun:
                     prosthetic = new ShotGun();
                     break;
+
                 case ProstheticType.MiniGun:
                     prosthetic = new Gun();
                     break;
+
                 case ProstheticType.ShotGun:
                     prosthetic = new MiniGun();
                     break;
@@ -86,9 +91,11 @@ public class PlayerAttackBehavior : MonoBehaviour
                 case ProstheticType.Gun:
                     prosthetic = new MiniGun();
                     break;
+
                 case ProstheticType.MiniGun:
                     prosthetic = new ShotGun();
                     break;
+
                 case ProstheticType.ShotGun:
                     prosthetic = new Gun();
                     break;
@@ -102,14 +109,24 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (!CanAttack)
+                if (prosthetic.Type == ProstheticType.Gun)
                 {
-                    return;
+                    if (!GunCanAttack) return;
+                    GunCanAttack = false;
+                }
+                else if (prosthetic.Type == ProstheticType.MiniGun)
+                {
+                    if (!MiniGunCanAttack) return;
+                    MiniGunCanAttack = false;
+                }
+                else if (prosthetic.Type == ProstheticType.ShotGun)
+                {
+                    if (!ShotGunCanAttack) return;
+                    ShotGunCanAttack = false;
                 }
                 animator.SetTrigger("Attacking");
                 prosthetic.SkillActive(transform.position + new Vector3(0f, 0.85f, 0f));
                 soundManager.Play("GunShot_00", 0.1f);
-                CanAttack = false;
             }
         }
         // InSide Bunker
@@ -128,7 +145,6 @@ public class PlayerAttackBehavior : MonoBehaviour
             // HeadIn
             else if (Input.GetKeyUp(KeyCode.R) && bunkerSystem.headout)
             {
-
                 bunkerSystem.headout = false;
                 {
                     transform.DOLocalRotate(new Vector3(0, 0, 0), headout_time);
@@ -140,18 +156,27 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    if (!CanAttack)
+                    if (prosthetic.Type == ProstheticType.Gun)
                     {
-                        return;
+                        if (!GunCanAttack) return;
+                        GunCanAttack = false;
+                    }
+                    else if (prosthetic.Type == ProstheticType.MiniGun)
+                    {
+                        if (!MiniGunCanAttack) return;
+                        MiniGunCanAttack = false;
+                    }
+                    else if (prosthetic.Type == ProstheticType.ShotGun)
+                    {
+                        if (!ShotGunCanAttack) return;
+                        ShotGunCanAttack = false;
                     }
                     animator.SetTrigger("Attacking");
                     prosthetic.SkillActive(transform.position + new Vector3(0f, 0.65f, 0f));
                     soundManager.Play("GunShot_00", 0.1f);
-                    CanAttack = false;
                 }
             }
         }
-
     }
 
     private void OnTriggerEnter(Collider other)

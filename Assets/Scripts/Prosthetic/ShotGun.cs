@@ -7,8 +7,9 @@ public class ShotGun : Prosthetic
 {
     private GameObject bullet_object;
     private float coolTime = 3.0f;
-    SimplePlayerController playerController;
-    PlayerAttackBehavior playerAttackBehavior;
+    private SimplePlayerController playerController;
+    private PlayerAttackBehavior playerAttackBehavior;
+
     public ShotGun()
     {
         this.Type = ProstheticType.ShotGun;
@@ -19,6 +20,7 @@ public class ShotGun : Prosthetic
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
         bullet_object = handle.WaitForCompletion();
     }
+
     public override void SkillActive(Vector3 offset)
     {
         //霰弹枪攻击行为
@@ -42,7 +44,7 @@ public class ShotGun : Prosthetic
         // 设置冷却时间
         CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
             {
-                playerAttackBehavior.CanAttack = true;
+                playerAttackBehavior.ShotGunCanAttack = true;
             }, coolTime));
     }
 }

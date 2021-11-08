@@ -7,10 +7,11 @@ public class MiniGun : Prosthetic
 {
     private GameObject bullet_object;
     private float coolTime = 6.0f;
-    SimplePlayerController playerController;
-    PlayerAttackBehavior playerAttackBehavior;
+    private SimplePlayerController playerController;
+    private PlayerAttackBehavior playerAttackBehavior;
 
     private const int ShotTimes = 6; //射击段数
+
     public MiniGun()
     {
         this.Type = ProstheticType.MiniGun;
@@ -21,6 +22,7 @@ public class MiniGun : Prosthetic
         var handle = Addressables.LoadAssetAsync<GameObject>("Player_Bullet");
         bullet_object = handle.WaitForCompletion();
     }
+
     public override void SkillActive(Vector3 offset)
     {
         //加特林攻击行为
@@ -34,7 +36,6 @@ public class MiniGun : Prosthetic
                         bullet_object.GetComponent<Bullet>().Angle = y;
                         GameObject.Instantiate(bullet_object, offset, Quaternion.Euler(0, 0, 90));
                     }, i * 0.1f));
-
             }
         }
         else
@@ -47,14 +48,13 @@ public class MiniGun : Prosthetic
                        bullet_object.GetComponent<Bullet>().Angle = y + 180.0f;
                        GameObject.Instantiate(bullet_object, offset, Quaternion.Euler(0, 0, 90));
                    }, i * 0.1f));
-
             }
         }
 
         // 设置冷却时间
         CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
             {
-                playerAttackBehavior.CanAttack = true;
+                playerAttackBehavior.MiniGunCanAttack = true;
             }, coolTime));
     }
 }

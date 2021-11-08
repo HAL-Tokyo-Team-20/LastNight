@@ -7,8 +7,9 @@ public class Gun : Prosthetic
 {
     private GameObject bullet_object;
     private float coolTime = 0.5f;
-    SimplePlayerController playerController;
-    PlayerAttackBehavior playerAttackBehavior;
+    private SimplePlayerController playerController;
+    private PlayerAttackBehavior playerAttackBehavior;
+
     public Gun()
     {
         this.Type = ProstheticType.Gun;
@@ -36,7 +37,7 @@ public class Gun : Prosthetic
         // 设置冷却时间
         CoroutineHandler.Instance.StartMyCoroutine(MyTimer.Wait(() =>
             {
-                playerAttackBehavior.CanAttack = true;
+                playerAttackBehavior.GunCanAttack = true;
             }, coolTime));
     }
 }
