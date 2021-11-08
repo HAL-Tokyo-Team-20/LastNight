@@ -99,32 +99,7 @@ public class HumanEnemyBehavior : EnemyBehavior
     {
         if (other.CompareTag("Bullet"))
         {
-            
-            RaycastHit hit;
-            Physics.SphereCast(other.gameObject.transform.position, 4.2f,
-                new Vector3(other.gameObject.transform.position.x, -other.gameObject.transform.position.y, other.gameObject.transform.position.z),
-                out hit, 3.0f);
-
-            var dir = (other.gameObject.transform.position - this.gameObject.transform.position).normalized;
-            Vector3 bloodVelocity = enemyHitVFX.GetVector3("BloodVelocity");
-
-            if (dir.x < 0.0f)
-            {
-                if (bloodVelocity.x < 0.0f)
-                {
-                    bloodVelocity.x *= -1;
-                }
-
-                enemyHitVFX.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x/* / 6*/, 0.0f, 0.0f);
-            }
-            else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
-            {
-                enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-                enemyHitVFX.gameObject.transform.position = other.gameObject.transform.position + new Vector3(this.gameObject.transform.localScale.x/* / 6 */* -1, 0.0f, 0.0f);
-            }
-            enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, /*-*/hit.transform.position.y * 1.5f, 0.0f));
-            isHit = true;
+            EnemyHit(other.gameObject.transform.position);
         }
     }
 
@@ -136,6 +111,32 @@ public class HumanEnemyBehavior : EnemyBehavior
         }
     }
 
+    //
+    private void EnemyHit(Vector3 otherPosition)
+    {
+        var dir = (otherPosition - this.gameObject.transform.position).normalized;
+        Vector3 bloodVelocity = enemyHitVFX.GetVector3("BloodVelocity");
+
+        if (dir.x < 0.0f)
+        {
+            if (bloodVelocity.x < 0.0f)
+            {
+                bloodVelocity.x *= -1;
+            }
+
+            enemyHitVFX.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x/* / 6*/, 0.0f, 0.0f);
+        }
+        else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
+        {
+            enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
+            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x/* / 6 */* -1, 0.0f, 0.0f);
+        }
+
+        enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -1.7f, 0.0f));
+        isHit = true;
+
+    }
 
     //VFX Effects handling
     private IEnumerator DelayBloodSpread(float duration)
