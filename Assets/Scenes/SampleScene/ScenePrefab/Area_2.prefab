@@ -2771,6 +2771,7 @@ MonoBehaviour:
   dolly_camera: {fileID: 0}
   destination_name: Station
   player_destination: {x: 30.8, y: -0.89, z: 6.5}
+  camerabox_destination: {fileID: 0}
   transition_time: 3.5
   to_maxpoint: 1
 --- !u!1 &2284854986719406661
@@ -5862,7 +5863,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2284854987433587248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.89, y: 0, z: 7.21}
+  m_LocalPosition: {x: 15.89, y: 0, z: 5.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5881,7 +5882,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.5921569, g: 0.69803923, b: 0.74509805, a: 1}
-  m_Intensity: 3
+  m_Intensity: 1.5
   m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5926,7 +5927,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5905e-41, y: 0, z: 0, w: 2.2227777e-38}
+  m_BoundingSphereOverride: {x: 1e-45, y: NaN, z: 1e-45, w: 3.4e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

@@ -32,6 +32,7 @@ public class Bullet : MonoBehaviour
         {
             move_tweener.Kill();
             Destroy(gameObject);
+            
         }
     }
 }

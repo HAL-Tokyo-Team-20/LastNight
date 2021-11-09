@@ -45,9 +45,8 @@ public class EnemyFSM : MonoBehaviour
                 humanEnemyBehavior.BloodSpread();
                 AttackPlayer();
                 break;
-            //case EnemyFSMState.Dead:
-            //    Dead();
-            //    break;
+            case EnemyFSMState.Dead:
+                break;
         }
     }
 
@@ -118,10 +117,6 @@ public class EnemyFSM : MonoBehaviour
         }
     }
 
-    private void Dead()
-    {
-        humanEnemyBehavior.Dead();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -137,6 +132,7 @@ public class EnemyFSM : MonoBehaviour
             {
                 HP--;
                 humanEnemyBehavior.Dead();
+                state = EnemyFSMState.Dead;
             }
         }
     }

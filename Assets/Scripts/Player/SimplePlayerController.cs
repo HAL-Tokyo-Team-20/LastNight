@@ -149,22 +149,22 @@ public class SimplePlayerController : MonoBehaviour
     private void Select()
     {
         // 如果在空中, 直接return, 不做处理
-        if (!OnGround)
-        {
-            return;
-        }
+        if (!OnGround) return;
 
         debugManager.UpdateData("Select Mode", SelectedMode.ToString());
+        debugManager.UpdateData("Select Item Length", selectItemManager.GetSelecteditemsLength().ToString());
 
-        if (Input.GetKeyDown(KeyCode.F))
+        selectItemManager.Select();
+
+        if (Input.GetKeyDown(KeyCode.F) && selectItemManager.GetSelecteditemsLength() > 0)
         {
             SelectedMode = !SelectedMode;
-            if (selectItemManager.GetSelecteditemsLength() > 0) uIManager.SetSelectImageActive(SelectedMode);
-
+            uIManager.SetSelectImageActive(SelectedMode);
         }
+
         if (SelectedMode)
         {
-            selectItemManager.Select();
+            
             // 选取模式下
             if (Input.GetKeyDown(KeyCode.K))
             {
