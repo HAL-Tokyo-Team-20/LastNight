@@ -52,6 +52,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Sprite_ProstheticIcon
+  - m_GUID: 178a299661e22ae4d9f4109858adb2f8
+    m_Address: Player_FallVFX
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5d363694936cf4696caabec83d83cf, type: 2}
   m_SchemaSet:

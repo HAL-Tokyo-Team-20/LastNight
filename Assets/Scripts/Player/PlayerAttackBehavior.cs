@@ -88,7 +88,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))//prev
         {
-
+            effect_animator.SetTrigger("Effect00");
 
             switch (prosthetic.Type)
             {
