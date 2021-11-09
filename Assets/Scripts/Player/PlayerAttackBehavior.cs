@@ -6,6 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
 using Cinemachine.Extension;
 using DG.Tweening;
+using UnityEngine.VFX;
 
 public class PlayerAttackBehavior : MonoBehaviour
 {
@@ -68,6 +69,8 @@ public class PlayerAttackBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))//next
         {
             effect_animator.SetTrigger("Effect00");
+            
+
             switch (prosthetic.Type)
             {
                 case ProstheticType.Gun:
@@ -85,7 +88,8 @@ public class PlayerAttackBehavior : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))//prev
         {
-            effect_animator.SetTrigger("Effect00");
+
+
             switch (prosthetic.Type)
             {
                 case ProstheticType.Gun:
@@ -185,5 +189,11 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             animator.SetTrigger("BeAttack");
         }
+    }
+
+    private IEnumerator StopEffect()
+    {
+        yield return new WaitForSeconds(0.25f);
+        transform.Find("Player_SwitchVFX").GetComponent<VisualEffect>().Stop();
     }
 }

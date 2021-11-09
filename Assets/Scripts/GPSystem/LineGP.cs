@@ -83,7 +83,8 @@ public class LineGP : MonoBehaviour
     private IEnumerator StopEffect()
     {
         yield return new WaitForSeconds(0.25f);
-        GameObjectMgr.Instance.GetGameObject("Player").transform.GetChild(4).GetComponent<VisualEffect>().Stop();
+        GameObjectMgr.Instance.GetGameObject("Player").transform.Find("Player_FallVFX").GetComponent<VisualEffect>().Stop();
+        GameObjectMgr.Instance.GetGameObject("Player").transform.Find("Player_FallVFX").GetComponent<VisualEffect>().SendEvent("Onstop");
     }
 
     void Shoot()
