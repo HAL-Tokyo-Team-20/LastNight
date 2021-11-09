@@ -73,8 +73,8 @@ public class HumanEnemyBehavior : EnemyBehavior
     public override void Dead()
     {
         animator.SetTrigger("Dead");
-        //StartCoroutine(Dissolve(1.0f));
-        //StartCoroutine(DelayDead());
+        enemyHitVFX.Play();
+        StartCoroutine(StopEffect());
     }
 
     // 走路动画
@@ -109,6 +109,12 @@ public class HumanEnemyBehavior : EnemyBehavior
         {
             isHit = false;
         }
+    }
+
+    private IEnumerator StopEffect()
+    {
+        yield return new WaitForSeconds(0.35f);
+        enemyHitVFX.Stop();
     }
 
     //

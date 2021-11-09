@@ -49,15 +49,6 @@ public class SelectItemGP : MonoBehaviour, ISelectItem
             // 2. 当钩索到达目标点后, spring 组件开始生效
             // 3. 按下断开键后, spring 组件和 line 组件失效
 
-            //uIManager.SetSelectImageActive(false);
-
-            //line.Reset();
-            //line.IsShoot = true;
-
-            //this.Selected = false;
-            //this.ConfirmSelected = false;
-
-            //player.GetComponent<SimplePlayerController>().SelectedMode = false;
             uIManager.SetSelectImageActive(false);
             StartCoroutine(Grap());
         }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-
-
+using UnityEngine.VFX;
 
 public class LineGP : MonoBehaviour
 {
@@ -70,7 +69,21 @@ public class LineGP : MonoBehaviour
             GameObjectMgr.Instance.GetGameObject("Player").GetComponent<Animator>().SetBool("Graped", false);
             IsShoot = false;
             Destroy(lineRender);
+            StartCoroutine(ActiveEffect());
         }
+    }
+
+    private IEnumerator ActiveEffect()
+    {
+        yield return new WaitUntil(()=> GameObjectMgr.Instance.GetGameObject("Player").GetComponent<SimplePlayerController>().OnGround);
+        GameObjectMgr.Instance.GetGameObject("Player").transform.Find("Player_FallVFX").GetComponent<VisualEffect>().Play();
+        StartCoroutine(StopEffect());
+    }
+
+    private IEnumerator StopEffect()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameObjectMgr.Instance.GetGameObject("Player").transform.GetChild(4).GetComponent<VisualEffect>().Stop();
     }
 
     void Shoot()
