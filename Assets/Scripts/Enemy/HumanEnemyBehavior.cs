@@ -131,12 +131,12 @@ public class HumanEnemyBehavior : EnemyBehavior
             }
 
             enemyHitVFX.SetVector3("BloodVelocity", new Vector3(bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x/* / 6*/, 0.0f, 0.0f);
+            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x / 6, 0.0f, 0.0f);
         }
         else if (dir.x > 0.0f && bloodVelocity.x > 0.0f)
         {
             enemyHitVFX.SetVector3("BloodVelocity", new Vector3(-bloodVelocity.x, bloodVelocity.y, bloodVelocity.z));
-            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x/* / 6 */* -1, 0.0f, 0.0f);
+            enemyHitVFX.gameObject.transform.position = otherPosition + new Vector3(this.gameObject.transform.localScale.x / 6 * -1, 0.0f, 0.0f);
         }
 
         enemyHitVFX.SetVector3("GroundVector", new Vector3(0.0f, -1.7f, 0.0f));
