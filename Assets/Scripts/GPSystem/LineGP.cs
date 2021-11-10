@@ -78,6 +78,7 @@ public class LineGP : MonoBehaviour
         yield return new WaitUntil(()=> GameObjectMgr.Instance.GetGameObject("Player").GetComponent<SimplePlayerController>().OnGround);
         GameObjectMgr.Instance.GetGameObject("Player").transform.Find("Player_FallVFX").GetComponent<VisualEffect>().Play();
         StartCoroutine(StopEffect());
+        //StartCoroutine(HitStop(0.8f,0.15f));
     }
 
     private IEnumerator StopEffect()
@@ -103,5 +104,13 @@ public class LineGP : MonoBehaviour
 
             }
         }
+    }
+
+    private IEnumerator HitStop(float firstwait, float secondwait)
+    {
+        yield return new WaitForSeconds(firstwait);
+        GameObjectMgr.Instance.GetGameObject("Player").transform.GetComponent<Animator>().speed = 0.0f;
+        yield return new WaitForSeconds(secondwait);
+        GameObjectMgr.Instance.GetGameObject("Player").transform.GetComponent<Animator>().speed = 1.0f;
     }
 }

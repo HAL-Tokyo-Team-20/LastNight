@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
-using Cinemachine.Extension;
 using DG.Tweening;
 using UnityEngine.VFX;
 
@@ -32,6 +30,7 @@ public class PlayerAttackBehavior : MonoBehaviour
     private SoundManager soundManager;
     private GameObjectMgr gameObejectManager;
     private Animator effect_animator;
+    private CinemachineImpulseSource Inpulse;
 
     private void Awake()
     {
@@ -52,8 +51,8 @@ public class PlayerAttackBehavior : MonoBehaviour
         playerController = GetComponent<SimplePlayerController>();
         animator = GetComponent<Animator>();
         player_camera = gameObejectManager.GetGameObject("Player_Camera").GetComponent<CinemachineVirtualCamera>();
-
         effect_animator = transform.GetChild(3).GetComponent<Animator>();
+        Inpulse = GetComponent<CinemachineImpulseSource>();
 
         prosthetic = new Gun();
 
@@ -139,7 +138,7 @@ public class PlayerAttackBehavior : MonoBehaviour
             // HeadOut
             if (Input.GetKey(KeyCode.R) && !bunkerSystem.headout)
             {
-                // TODO: Add Animation
+                
                 bunkerSystem.headout = true;
                 {
                     transform.DOLocalRotate(new Vector3(-25, 0, 0), headout_time);
@@ -160,6 +159,7 @@ public class PlayerAttackBehavior : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
+                    
                     if (prosthetic.Type == ProstheticType.Gun)
                     {
                         if (!GunCanAttack) return;
@@ -188,6 +188,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         if (other.CompareTag("EnemyBullet"))
         {
             animator.SetTrigger("BeAttack");
+            Inpulse.GenerateImpulse();
         }
     }
 

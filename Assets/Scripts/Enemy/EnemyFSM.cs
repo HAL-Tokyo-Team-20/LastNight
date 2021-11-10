@@ -127,13 +127,23 @@ public class EnemyFSM : MonoBehaviour
             {
                 HP--;
                 humanEnemyBehavior.BeAttack();
+                StartCoroutine(HitStop(0.1f,0.075f));
             }
             else if (HP == 1)
             {
                 HP--;
                 humanEnemyBehavior.Dead();
                 state = EnemyFSMState.Dead;
+                StartCoroutine(HitStop(0.45f, 0.075f));
             }
         }
+    }
+
+    private IEnumerator HitStop(float firstwait,float secondwait)
+    {
+        yield return new WaitForSeconds(firstwait);
+        GetComponent<Animator>().speed = 0.0f;
+        yield return new WaitForSeconds(secondwait);
+        GetComponent<Animator>().speed = 1.0f;
     }
 }
