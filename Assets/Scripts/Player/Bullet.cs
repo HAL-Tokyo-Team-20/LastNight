@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.VFX;
 
 public class Bullet : MonoBehaviour
 {
@@ -13,6 +14,18 @@ public class Bullet : MonoBehaviour
     public float Angle = 0.0f;
 
     private Tweener move_tweener;
+
+
+    private void Awake()
+    {
+        if (Angle > 1)
+        {
+            transform.Find("BulletEffect").GetComponent<VisualEffect>().SetVector3("VelocityA", new Vector3(-2, -5, 0));
+            transform.Find("BulletEffect").GetComponent<VisualEffect>().SetVector3("VelocityB", new Vector3(2, -5, 0));
+        }
+        transform.Find("BulletEffect").GetComponent<VisualEffect>().playRate = 7.0f;
+        transform.Find("BulletEffect").GetComponent<VisualEffect>().Play();
+    }
 
     private void Start()
     {
