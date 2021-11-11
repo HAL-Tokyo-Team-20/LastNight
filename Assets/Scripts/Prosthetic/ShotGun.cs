@@ -10,6 +10,8 @@ public class ShotGun : Prosthetic
     private SimplePlayerController playerController;
     private PlayerAttackBehavior playerAttackBehavior;
 
+    private float coolFinTime = 0f;
+
     public ShotGun()
     {
         this.Type = ProstheticType.ShotGun;
@@ -46,5 +48,14 @@ public class ShotGun : Prosthetic
             {
                 playerAttackBehavior.ShotGunCanAttack = true;
             }, coolTime));
+
+        coolFinTime = Time.realtimeSinceStartup + coolTime;
+    }
+
+    public override float GetCoolTime()
+    {
+        float now = Time.realtimeSinceStartup;
+        float result = (coolFinTime - now) / coolTime;
+        return result > 0.0f ? result : 0.0f;
     }
 }
