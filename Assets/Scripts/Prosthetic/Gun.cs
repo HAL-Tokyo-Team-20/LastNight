@@ -10,7 +10,7 @@ public class Gun : Prosthetic
     private SimplePlayerController playerController;
     private PlayerAttackBehavior playerAttackBehavior;
 
-    private float coolFinTime = 0f;
+    static private float coolFinTime = 0f;
 
     public Gun()
     {

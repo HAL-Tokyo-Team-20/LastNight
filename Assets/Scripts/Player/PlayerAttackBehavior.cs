@@ -33,6 +33,7 @@ public class PlayerAttackBehavior : MonoBehaviour
     private DebugManager debugManager;
     private SoundManager soundManager;
     private GameObjectMgr gameObejectManager;
+    private UIManager uIManager;
     private Animator effect_animator;
     private CinemachineImpulseSource Inpulse;
 
@@ -50,6 +51,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         debugManager = DebugManager.Instance;
         soundManager = SoundManager.Instance;
         gameObejectManager = GameObjectMgr.Instance;
+        uIManager = UIManager.Instance;
 
         bunkerSystem = GetComponent<BunkerSystem>();
         playerController = GetComponent<SimplePlayerController>();
@@ -76,7 +78,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))//next
         {
             effect_animator.SetTrigger("Effect00");
-            
+            uIManager.RotateSprite();
 
             switch (prosthetic.Type)
             {
@@ -96,6 +98,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))//prev
         {
             effect_animator.SetTrigger("Effect00");
+            uIManager.RotateSprite();
 
             switch (prosthetic.Type)
             {

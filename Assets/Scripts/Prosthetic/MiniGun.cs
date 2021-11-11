@@ -12,7 +12,7 @@ public class MiniGun : Prosthetic
 
     private const int ShotTimes = 6; //射击段数
 
-    private float coolFinTime = 0f;
+    static private float coolFinTime = 0f;
 
     public MiniGun()
     {

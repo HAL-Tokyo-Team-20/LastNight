@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 // EnemyFSM: Idle --> SeePlayer --> AttackPlayer --> Dead
 public class EnemyFSM : MonoBehaviour
@@ -134,13 +135,15 @@ public class EnemyFSM : MonoBehaviour
                 HP--;
                 humanEnemyBehavior.Dead();
                 state = EnemyFSMState.Dead;
-                StartCoroutine(HitStop(0.45f, 0.075f));
+                StartCoroutine(HitStop(0.35f, 0.075f));
             }
         }
     }
 
+    // 打擊感
     private IEnumerator HitStop(float firstwait,float secondwait)
     {
+        transform.DOPunchPosition(new Vector3(0.025f,0, 0), 0.35f);
         yield return new WaitForSeconds(firstwait);
         GetComponent<Animator>().speed = 0.0f;
         yield return new WaitForSeconds(secondwait);

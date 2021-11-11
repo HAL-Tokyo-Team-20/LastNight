@@ -43,11 +43,22 @@ public class UIManager : UnitySingleton<UIManager>
         }
 
         blackframe_animator = transform.GetChild(1).GetComponent<Animator>();
+
     }
+
+    bool ok = false;
 
     // Update is called once per frame
     void Update()
     {
+
+        if (spriteloadfinish && !ok)
+        {
+            ok = true;
+            Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
+            var prostheticType = playerAttackBehavior.prosthetic.Type;
+            prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        }
 
         if (DebugMode)
         {
@@ -64,11 +75,25 @@ public class UIManager : UnitySingleton<UIManager>
         
         // UI
         Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
+        Image prosthetic_mask = prosthetic_image.gameObject.transform.GetChild(0).GetComponent<Image>();
+
+
         var prostheticType = playerAttackBehavior.prosthetic.Type;
-        prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
         // Player Sprite
         playerSpriteController.SetRightHandLabel(prostheticType.ToString());
-       
+
+        switch (prostheticType)
+        {
+            case ProstheticType.Gun:
+                prosthetic_mask.fillAmount = playerAttackBehavior.GetGunCoolTime();
+                break;
+            case ProstheticType.MiniGun:
+                prosthetic_mask.fillAmount = playerAttackBehavior.GetMiniGunCoolTime();
+                break;
+            case ProstheticType.ShotGun:
+                prosthetic_mask.fillAmount = playerAttackBehavior.GetShotGunCoolTime();
+                break;
+        }
     }
 
     private void UpdateDebugText()
@@ -132,6 +157,25 @@ public class UIManager : UnitySingleton<UIManager>
             }, 2.0f));
         }));
 
-
     }
+
+    public void RotateSprite()
+    {
+        Image prosthetic_image = UI_Object[(int)UI_ObjectEnum.Image_Frame].GetComponent<Image>();
+        Vector3 current_rotationY = prosthetic_image.transform.rotation.eulerAngles;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Join(prosthetic_image.transform.DORotate(current_rotationY + new Vector3(0, 180, 0), 0.5f).SetEase(Ease.Linear));
+        sequence.Join(prosthetic_image.transform.DOPunchScale(new Vector3(1.25f, 1.25f, 1.25f),0.5f));
+
+
+        StartCoroutine(MyTimer.Wait(() =>
+        {
+            var prostheticType = playerAttackBehavior.prosthetic.Type;
+            prosthetic_image.sprite = sprite_ProstheticIcon[(int)prostheticType];
+        }, 0.4f));
+    }
+
+    
 }
