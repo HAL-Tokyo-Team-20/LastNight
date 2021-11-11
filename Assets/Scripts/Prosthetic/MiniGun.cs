@@ -12,6 +12,8 @@ public class MiniGun : Prosthetic
 
     private const int ShotTimes = 6; //射击段数
 
+    private float coolFinTime = 0f;
+
     public MiniGun()
     {
         this.Type = ProstheticType.MiniGun;
@@ -56,5 +58,14 @@ public class MiniGun : Prosthetic
             {
                 playerAttackBehavior.MiniGunCanAttack = true;
             }, coolTime));
+
+        coolFinTime = Time.realtimeSinceStartup + coolTime;
+    }
+
+    public override float GetCoolTime()
+    {
+        float now = Time.realtimeSinceStartup;
+        float result = (coolFinTime - now) / coolTime;
+        return result > 0.0f ? result : 0.0f;
     }
 }

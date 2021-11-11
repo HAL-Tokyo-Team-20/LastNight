@@ -17,6 +17,10 @@ public class PlayerAttackBehavior : MonoBehaviour
     public bool ShotGunCanAttack { get; set; }
     public bool MiniGunCanAttack { get; set; }
 
+    public float GunCoolTime { get; set; }
+    public float ShotGunCoolTime { get; set; }
+    public float MiniGunCoolTime { get; set; }
+
     [SerializeField]
     private GameObject bullet_object;
 
@@ -59,6 +63,10 @@ public class PlayerAttackBehavior : MonoBehaviour
         GunCanAttack = true;
         ShotGunCanAttack = true;
         MiniGunCanAttack = true;
+
+        GunCoolTime = 0f;
+        ShotGunCoolTime = 0f;
+        MiniGunCoolTime = 0f;
     }
 
     // Update is called once per frame
@@ -182,6 +190,42 @@ public class PlayerAttackBehavior : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 获取 Gun 冷却时间
+    /// </summary>
+    /// <returns></returns>
+    public float GetGunCoolTime()
+    {
+        if(prosthetic.Type == ProstheticType.Gun)
+            return prosthetic.GetCoolTime();
+        else
+            return 0.0f;
+    }
+    /// <summary>
+    /// 获取 ShotGun 冷却时间
+    /// </summary>
+    /// <returns></returns>
+    public float GetShotGunCoolTime()
+    {
+        if (prosthetic.Type == ProstheticType.ShotGun)
+            return prosthetic.GetCoolTime();
+        else
+            return 0.0f;
+    }
+    /// <summary>
+    /// 获取 MiniGun 冷却时间
+    /// </summary>
+    /// <returns></returns>
+    public float GetMiniGunCoolTime()
+    {
+        if (prosthetic.Type == ProstheticType.MiniGun)
+            return prosthetic.GetCoolTime();
+        else
+            return 0.0f;
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
