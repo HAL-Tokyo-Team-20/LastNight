@@ -5667,6 +5667,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5811189556391142831, guid: 41e3fd16921b91d4bac618067fdf366d, type: 3}
   m_PrefabInstance: {fileID: 450418564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &458213489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4738762778637799888, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+  m_PrefabInstance: {fileID: 1614058153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!145 &458213497
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458213489}
+  m_ConnectedBody: {fileID: 0}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0.5, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Spring: 10
+  m_Damper: 0.2
+  m_MinDistance: 0
+  m_MaxDistance: 0
+  m_Tolerance: 0.025
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &458214221
 GameObject:
   m_ObjectHideFlags: 0
@@ -14103,11 +14132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1429188199, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_Interpolate
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1429188199, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_CollisionDetection
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1871426987, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14186,8 +14215,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6618605057525837514, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
-      propertyPath: m_ApplyRootMotion
+      propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618605057525837514, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8008905100018714564, guid: d26d4763a34cfac4caf710b6caea184d, type: 3}
       propertyPath: m_RootOrder
@@ -15121,12 +15154,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1881855585}
     m_Modifications:
     - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: Damper
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: MaxDist
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: MinDist
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: SpringValue
-      value: 900
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799883, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: PushPlayerForce
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799885, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_RootOrder
@@ -15154,7 +15199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799885, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4738762778637799885, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15187,6 +15232,18 @@ PrefabInstance:
     - target: {fileID: 4738762778637799888, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
       propertyPath: m_Name
       value: GrapPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799889, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799889, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738762778637799889, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
+      propertyPath: m_Interpolate
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb7b8c481313c40893dff6e29a03ce, type: 3}
