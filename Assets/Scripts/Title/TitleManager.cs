@@ -47,7 +47,7 @@ public class TitleManager : UIAnimation
 
     private void TweenEventInStart()
     {
-        UI_Object[(int)UI_ObjectEnum.Text_Start].GetComponent<Text>().DOFade(0.0f, 2.0f).SetLoops(-1, LoopType.Yoyo);
+        UI_Object[(int)UI_ObjectEnum.Text_Start].GetComponent<Text>().DOFade(0.0f, 1.0f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void SettingButtonEvent()

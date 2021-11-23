@@ -26,6 +26,7 @@ public class TrainMovement : MonoBehaviour
             isDone = false;
             transform.DOMove(endPos, Duration)
                 .SetEase(Ease.Linear)
+                .SetAutoKill()
                 .OnComplete(() =>
                 {
                     transform.position = startPos;

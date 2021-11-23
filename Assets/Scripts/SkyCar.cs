@@ -15,21 +15,21 @@ public class SkyCar : MonoBehaviour
         // 指定时间后销毁自身 
         if (MoveDir == MoveDirEnum.Left)
         {
-            transform.DOMoveX(transform.position.x - DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).OnComplete(() =>
+            transform.DOMoveX(transform.position.x - DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).SetAutoKill().OnComplete(() =>
                {
                    GameObject.Destroy(this.gameObject);
                });
         }
         else if (MoveDir == MoveDirEnum.Right)
         {
-            transform.DOMoveX(transform.position.x + DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).OnComplete(() =>
+            transform.DOMoveX(transform.position.x + DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).SetAutoKill().OnComplete(() =>
                {
                    GameObject.Destroy(this.gameObject);
                });
         }
         else if (MoveDir == MoveDirEnum.Forward)
         {
-            transform.DOMoveZ(transform.position.z - DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).OnComplete(() =>
+            transform.DOMoveZ(transform.position.z - DeadEnd, DeadEnd / MoveSpeed).SetEase(Ease.OutQuad).SetAutoKill().OnComplete(() =>
                {
                    GameObject.Destroy(this.gameObject);
                });

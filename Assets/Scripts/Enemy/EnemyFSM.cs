@@ -143,6 +143,7 @@ public class EnemyFSM : MonoBehaviour
     // 打擊感
     private IEnumerator HitStop(float firstwait,float secondwait)
     {
+        SoundManager.Instance.Play("Punch_00", 0.3f);
         transform.DOPunchPosition(new Vector3(0.025f,0, 0), 0.35f);
         yield return new WaitForSeconds(firstwait);
         GetComponent<Animator>().speed = 0.0f;

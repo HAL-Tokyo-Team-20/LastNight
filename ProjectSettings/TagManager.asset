@@ -62,3 +62,6 @@ TagManager:
   - name: Front
     uniqueID: 912577629
     locked: 0
+  - name: Seatman
+    uniqueID: 838029741
+    locked: 0

@@ -79,6 +79,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             effect_animator.SetTrigger("Effect00");
             uIManager.RotateSprite();
+            soundManager.Play("WeaponChange_00", 0.6f);
 
             switch (prosthetic.Type)
             {
@@ -99,6 +100,7 @@ public class PlayerAttackBehavior : MonoBehaviour
         {
             effect_animator.SetTrigger("Effect00");
             uIManager.RotateSprite();
+            soundManager.Play("WeaponChange_00", 0.6f);
 
             switch (prosthetic.Type)
             {
