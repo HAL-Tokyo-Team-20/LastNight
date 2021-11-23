@@ -22,8 +22,9 @@ public class SpringMgr : MonoBehaviour
     public float f1 = 0.6f;
     [Tooltip("玩家拉向GP点的时间")]
     public float f2 = 2f;
+    [Tooltip("施加的推力")]
+    public float PushPlayerForce = 2f;
 
-    
     private Vector3 m_rotateAxis;    //旋转轴
     private float w = 0;             //角速度
     GameObject player;
@@ -31,6 +32,7 @@ public class SpringMgr : MonoBehaviour
     SimplePlayerController playerController;
 
     Vector3 targetPos;
+    float preX = 0f;
 
     public bool IsActive { get; set; }
     bool startPhysics;
@@ -53,6 +55,7 @@ public class SpringMgr : MonoBehaviour
 
     private void Update()
     {
+        preX = player.transform.position.x;
         if(IsActive)
         {
             IsActive = false;
@@ -68,14 +71,30 @@ public class SpringMgr : MonoBehaviour
         if(startPhysics)
         {
             DoPhysics();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                startPhysics = false;
+                IsActive = false;
+                //恢复重力
+                player.GetComponent<Rigidbody>().useGravity = true;
+
+                //施加一个推力
+                if (player.transform.position.x < preX)
+                {
+                    Rigidbody playerRb = player.GetComponent<Rigidbody>();
+                    playerRb.AddForce(Vector3.left * PushPlayerForce, ForceMode.Impulse);
+                }
+                else
+                {
+                    Rigidbody playerRb = player.GetComponent<Rigidbody>();
+                    playerRb.AddForce(Vector3.right * PushPlayerForce, ForceMode.Impulse);
+                }
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            startPhysics = false;
-            IsActive = false;
-            //恢复重力
-            player.GetComponent<Rigidbody>().useGravity = true;
-        }
+
+
+
     }
 
     void DoPhysics()
