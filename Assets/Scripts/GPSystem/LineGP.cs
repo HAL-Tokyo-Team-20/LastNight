@@ -20,7 +20,8 @@ public class LineGP : MonoBehaviour
 
     LineRenderer lineRender;
 
-    Spring3D spring;
+    //Spring3D spring;
+    SpringMgr spring;
 
     Material line_material = null;
 
@@ -49,7 +50,8 @@ public class LineGP : MonoBehaviour
         IsShoot = false;
         arrive = false;
 
-        spring = GetComponent<Spring3D>();
+        //spring = GetComponent<Spring3D>();
+        spring = GetComponent<SpringMgr>();
     }
 
     // Update is called once per frame
@@ -101,7 +103,6 @@ public class LineGP : MonoBehaviour
                 // 设置spring有效
                 spring.Reset();
                 spring.IsActive = true;
-
             }
         }
     }
