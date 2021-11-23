@@ -28,6 +28,7 @@ public class SpringMgr : MonoBehaviour
     private float w = 0;             //角速度
     GameObject player;
     Transform center_pos;
+    SimplePlayerController playerController;
 
     Vector3 targetPos;
 
@@ -41,6 +42,7 @@ public class SpringMgr : MonoBehaviour
     public void Reset()
     {
         player = GameObjectMgr.Instance.GetGameObject("Player");
+        playerController = player.GetComponent<SimplePlayerController>();
         //center_pos = player.transform.Find("center_point");
         center_pos = player.transform;
         targetPos = transform.position - f1 * (transform.position - center_pos.position);
@@ -57,7 +59,7 @@ public class SpringMgr : MonoBehaviour
             // 取消重力
             player.GetComponent<Rigidbody>().useGravity = false;
 
-            player.transform.DOMove(targetPos, 2f)
+            player.transform.DOMove(targetPos, f2)
                 .OnComplete(() =>
                 {
                     startPhysics = true;
@@ -98,6 +100,16 @@ public class SpringMgr : MonoBehaviour
         player.transform.RotateAround(Anchor.position, m_rotateAxis, thelta);
 
         // 使玩家一直朝上
-        player.transform.up = Vector3.up;
+        if(playerController.FaceRight)
+        {
+            player.transform.up = Vector3.up;
+            player.transform.right = Vector3.right;
+        }
+        else
+        {
+            player.transform.up = Vector3.up;
+            player.transform.right = Vector3.left;
+        }
+        
     }
 }
