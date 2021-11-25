@@ -157,5 +157,5 @@ MonoBehaviour:
   Anchor: {fileID: 4738762778637799885}
   Gravity: 9.8
   f1: 0.6
-  f2: 2
-  PushPlayerForce: 10
+  f2: 0.35
+  PushPlayerForce: 3

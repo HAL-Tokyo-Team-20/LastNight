@@ -36,6 +36,9 @@ public class SpringMgr : MonoBehaviour
 
     public bool IsActive { get; set; }
     bool startPhysics;
+
+    private float player_z;
+
     private void Start()
     {
         Reset();
@@ -59,6 +62,9 @@ public class SpringMgr : MonoBehaviour
         if(IsActive)
         {
             IsActive = false;
+
+            player_z = player.transform.position.z;
+
             // 取消重力
             player.GetComponent<Rigidbody>().useGravity = false;
 
@@ -90,6 +96,7 @@ public class SpringMgr : MonoBehaviour
                     Rigidbody playerRb = player.GetComponent<Rigidbody>();
                     playerRb.AddForce(Vector3.right * PushPlayerForce, ForceMode.Impulse);
                 }
+                player.transform.DOLocalMoveZ(player_z, 0.1f).SetAutoKill();
             }
         }
 
