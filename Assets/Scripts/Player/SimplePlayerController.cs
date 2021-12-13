@@ -156,7 +156,8 @@ public class SimplePlayerController : MonoBehaviour
 
         selectItemManager.Select();
 
-        if (Input.GetKeyDown(KeyCode.F) && selectItemManager.GetSelecteditemsLength() > 0)
+        //if (Input.GetKeyDown(KeyCode.F) && selectItemManager.GetSelecteditemsLength() > 0)
+        if (Input.GetButtonDown("F") && selectItemManager.GetSelecteditemsLength() > 0)
         {
             SelectedMode = !SelectedMode;
             uIManager.SetSelectImageActive(SelectedMode);
@@ -166,11 +167,13 @@ public class SimplePlayerController : MonoBehaviour
         {
             
             // 选取模式下
-            if (Input.GetKeyDown(KeyCode.K))
+            //if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetButtonDown("Next"))
             {
                 selectItemManager.SelectNextItem();
             }
-            else if (Input.GetKeyDown(KeyCode.J))
+            //else if (Input.GetKeyDown(KeyCode.J))
+            else if (Input.GetButtonDown("Pre"))
             {
                 selectItemManager.SelectPreItem();
             }
@@ -179,7 +182,8 @@ public class SimplePlayerController : MonoBehaviour
                 selectItemManager.SelectItem();
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            //if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetButtonDown("Confirm"))
             {
                 selectItemManager.Confirm();
                 SelectedMode = !SelectedMode;

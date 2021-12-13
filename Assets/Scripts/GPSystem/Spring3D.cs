@@ -53,7 +53,8 @@ public class Spring3D : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Confirm"))
         {
             IsActive = false;
             Destroy(spring);

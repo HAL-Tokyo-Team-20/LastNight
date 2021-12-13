@@ -56,7 +56,7 @@ public class SwitchArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("Confirm"))
             {
                 uIManager.GetHintText().SetActive(false);
                 player.GetComponent<SimplePlayerController>().LockMove = true;

@@ -75,7 +75,8 @@ public class PlayerAttackBehavior : MonoBehaviour
     private void Update()
     {
         // Change Prosthetic
-        if (Input.GetKeyDown(KeyCode.I))//next
+        //if (Input.GetKeyDown(KeyCode.I))//next
+        if (Input.GetButtonDown("Next"))//next
         {
             effect_animator.SetTrigger("Effect00");
             uIManager.RotateSprite();
@@ -96,7 +97,8 @@ public class PlayerAttackBehavior : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetKeyDown(KeyCode.U))//prev
+        //if (Input.GetKeyDown(KeyCode.U))//prev
+        if (Input.GetButtonDown("Pre"))//prev
         {
             effect_animator.SetTrigger("Effect00");
             uIManager.RotateSprite();
@@ -123,7 +125,8 @@ public class PlayerAttackBehavior : MonoBehaviour
         // OutSide Bunker
         if (!bunkerSystem.in_bunker)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            //if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetButtonDown("Shoot"))
             {
                 if (prosthetic.Type == ProstheticType.Gun)
                 {
@@ -170,7 +173,8 @@ public class PlayerAttackBehavior : MonoBehaviour
 
             if (bunkerSystem.headout)
             {
-                if (Input.GetKeyDown(KeyCode.Q))
+                //if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetButtonDown("Shoot"))
                 {
                     
                     if (prosthetic.Type == ProstheticType.Gun)
