@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1904208487307661393}
   - component: {fileID: 3285796287875415463}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8913084174108461216}
   - component: {fileID: 5175454819935632318}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_AD_GunShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5821242842601899561}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6484408861520357962}
   - component: {fileID: 2473875811421841153}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_Light_Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7026290208413841202}
   - component: {fileID: 1555559852382829760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 6996803471538178975}
   - component: {fileID: 3529813061742337255}
   - component: {fileID: 614537968514853306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7183295016536818643}
   - component: {fileID: 2310727660630608873}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_Light_Line_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 9011453050837872219}
   - component: {fileID: 512719549116932391}
   - component: {fileID: 2877783486069751173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4461241794801330581}
   - component: {fileID: 354339037956059016}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_Light_Line_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728922804592795380}
   - component: {fileID: 6149442950956254773}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_Light_Line_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4998973075280250831}
   - component: {fileID: 3168305329281199022}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponShop_NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
