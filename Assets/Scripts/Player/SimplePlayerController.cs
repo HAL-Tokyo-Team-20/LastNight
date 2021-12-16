@@ -157,10 +157,13 @@ public class SimplePlayerController : MonoBehaviour
         selectItemManager.Select();
 
         //if (Input.GetKeyDown(KeyCode.F) && selectItemManager.GetSelecteditemsLength() > 0)
-        if (Input.GetButtonDown("F") && selectItemManager.GetSelecteditemsLength() > 0)
+        if ((Input.GetButtonDown("F") || Input.GetKeyDown(KeyCode.F)))
         {
-            SelectedMode = !SelectedMode;
-            uIManager.SetSelectImageActive(SelectedMode);
+            if (selectItemManager.GetSelecteditemsLength() > 0)
+            {
+                SelectedMode = !SelectedMode;
+                uIManager.SetSelectImageActive(SelectedMode);
+            }
         }
 
         if (SelectedMode)
@@ -183,7 +186,7 @@ public class SimplePlayerController : MonoBehaviour
             }
 
             //if (Input.GetKeyDown(KeyCode.Return))
-            if (Input.GetButtonDown("Confirm"))
+            if (Input.GetButtonDown("Confirm") || Input.GetKeyDown(KeyCode.Return))
             {
                 selectItemManager.Confirm();
                 SelectedMode = !SelectedMode;

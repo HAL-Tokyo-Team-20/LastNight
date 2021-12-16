@@ -79,7 +79,7 @@ public class SpringMgr : MonoBehaviour
             DoPhysics();
 
             //if (Input.GetKeyDown(KeyCode.Space))
-            if (Input.GetButtonDown("Confirm"))
+            if (Input.GetButtonDown("Confirm") || Input.GetKeyDown(KeyCode.Space))
             {
                 startPhysics = false;
                 IsActive = false;

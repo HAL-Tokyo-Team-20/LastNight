@@ -67,7 +67,7 @@ public class LineGP : MonoBehaviour
         lineRender.SetPosition(0, center_pos.position);
         lineRender.SetPosition(1, current);
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Confirm"))
+        if (Input.GetButtonDown("Confirm") || Input.GetKeyDown(KeyCode.Space))
         {
             GameObjectMgr.Instance.GetGameObject("Player").GetComponent<Animator>().SetBool("Graped", false);
             IsShoot = false;
